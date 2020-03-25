@@ -11,3 +11,7 @@ html, body, app-root, .site {
   display: flex;
   flex-direction: column;
 }
+
+main {
+  flex: 1;
+}
