@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'monitor_groups', redirectTo: '/monitor_groups', pathMatch: 'full'}
+  {path: '', redirectTo: '/monitor_groups', pathMatch: 'full'}
 ];
 
 @NgModule({
