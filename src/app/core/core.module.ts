@@ -1,5 +1,4 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -12,7 +11,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
   imports: [
-    HttpClientModule,
     BrowserAnimationsModule,
     SharedModule
   ],
