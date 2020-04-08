@@ -1,1 +1,10 @@
-<p>step-grid-list works!</p>
+<mat-grid-list cols="3" rowHeight="100px">
+  <mat-grid-tile *ngFor="let tile of tiles"
+                 [colspan]="tile.cols"
+                 [rowspan]="tile.rows"
+                 [style.background]="tile.color">
+    {{tile.hearText}}
+    <mat-icon svgIcon="add" fontIcon="60px"></mat-icon>
+    <mat-grid-tile-footer class="footer">{{tile.footerText}}</mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>

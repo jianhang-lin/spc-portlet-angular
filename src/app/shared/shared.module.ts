@@ -9,12 +9,14 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     HttpClientModule,
+    MatGridListModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
@@ -22,11 +24,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatListModule,
     MatTableModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   exports: [
     CommonModule,
     HttpClientModule,
+    MatGridListModule,
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
