@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StepItemComponent } from './step-item.component';
+import { StepGridListComponent } from './step-grid-list.component';
 
-describe('StepItemComponent', () => {
-  let component: StepItemComponent;
-  let fixture: ComponentFixture<StepItemComponent>;
+describe('StepGridListComponent', () => {
+  let component: StepGridListComponent;
+  let fixture: ComponentFixture<StepGridListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StepItemComponent ]
+      declarations: [ StepGridListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StepItemComponent);
+    fixture = TestBed.createComponent(StepGridListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

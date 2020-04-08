@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { HomeListComponent } from './home-list/home-list.component';
 import { HomeRoutingModule } from './home-routing.module';
-import { StepItemComponent } from './step-item/step-item.component';
+import { StepGridListComponent } from './step-grid-list/step-grid-list.component';
 
 
 
 @NgModule({
-  declarations: [HomeListComponent, StepItemComponent],
+  declarations: [HomeListComponent, StepGridListComponent],
   imports: [
     SharedModule,
     HomeRoutingModule
