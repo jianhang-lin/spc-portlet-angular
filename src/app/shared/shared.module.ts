@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [],
@@ -25,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatTableModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatCardModule
   ],
   exports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatListModule,
     MatTableModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatCardModule
   ]
 })
 export class SharedModule { }

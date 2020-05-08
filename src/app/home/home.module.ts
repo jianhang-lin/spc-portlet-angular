@@ -5,9 +5,11 @@ import { HomeRoutingModule } from './home-routing.module';
 import { StepGridListComponent } from './step-grid-list/step-grid-list.component';
 
 
-
 @NgModule({
-  declarations: [HomeListComponent, StepGridListComponent],
+  declarations: [
+    HomeListComponent,
+    StepGridListComponent
+  ],
   imports: [
     SharedModule,
     HomeRoutingModule
