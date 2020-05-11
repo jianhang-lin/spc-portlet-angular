@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { PeriodicElementModel } from '../../domain/periodic-element.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MonitorGroupModel } from '../../domain/monitor-group.model';
 
 @Component({
   selector: 'app-monitor-group-list',
@@ -11,9 +11,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class MonitorGroupListComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElementModel>(ELEMNT_DATA);
-  selection = new SelectionModel<PeriodicElementModel>(true, []);
+  displayedColumns: string[] = ['Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID', 'MDS URL/SFDC Web Service URL'];
+  dataSource = new MatTableDataSource<MonitorGroupModel>(MONITORGROUP_DATA);
+  selection = new SelectionModel<MonitorGroupModel>(true, []);
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
@@ -39,7 +39,7 @@ export class MonitorGroupListComponent implements OnInit {
   /**
    * The label for the checkbox on the passed row
    */
-  checkboxLable(row?: PeriodicElementModel): string {
+  checkboxLable(row?: MonitorGroupModel): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -115,29 +115,33 @@ const LOADENGINE_DATA: any[] = [
   }
 ];
 
-const tempData: any = [
-
-];
-
-const ELEMNT_DATA: PeriodicElementModel[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 7, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 8, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 9, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 10, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 11, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 12, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 13, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 14, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 15, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 16, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 17, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 18, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 19, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 20, name: 'Boron', weight: 10.811, symbol: 'B'},
+const MONITORGROUP_DATA: MonitorGroupModel[] = [
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55939,
+    mdsUrl: '', name: 'fdjsrfewkr', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
+    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 1},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55941,
+    mdsUrl: '', name: 'dfjs', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
+    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 2},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55943,
+    mdsUrl: '', name: 'djf9', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
+    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 3},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55945,
+    mdsUrl: '', name: 'good', netUserId: 'cdcspctest01', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
+    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 4},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55947,
+    mdsUrl: '', name: 'yyyy', netUserId: 'cdcspctest01', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
+    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 5},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'DotLine Source', description: '777', engineServer: '127.0.0.1',
+    engineServerPort: '8090', id: 59899, mdsUrl: '', name: 'abcd', netUserId: 'cdcspctest01', offset: -400, plant: '', sendMds: false,
+    sendMfg: false, sendSfdc: false, sfdcIp: '', sfdcTimezone: 'America\/Puerto_Rico', sfdcWebService: '', position: 6},
+  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
+    configSchema: 'config schema', datasourceType: 'MDS', description: '333', engineServer: '127.0.0.1', engineServerPort: '8090',
+    id: 60737, mdsUrl: 'p88mdb1.sanmina.com\/p88mdb1\/dev2', name: 'BA_Sunny_Test', netUserId: 'sfdctraining', offset: 800, plant: '',
+    sendMds: true, sendMfg: true, sendSfdc: false, sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 7}
 ];
