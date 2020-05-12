@@ -1,5 +1,7 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { ServicesModule } from '../services/services.module';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedModule } from '../shared/shared.module';
@@ -11,13 +13,23 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 @NgModule({
   declarations: [HeaderComponent, FooterComponent, SidebarComponent],
   imports: [
+    HttpClientModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    ServicesModule.forRoot(),
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     SidebarComponent
+  ],
+  providers: [
+    {
+      provide: 'BASE_CONFIG',
+      useValue: {
+        uri: 'http://localhost:8080'
+      }
+    }
   ]
 })
 export class CoreModule {
