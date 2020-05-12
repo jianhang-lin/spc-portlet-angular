@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MonitorGroupModel } from '../../domain/monitor-group.model';
+import { MonitorGroupService } from '../../services/monitor-group.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-monitor-group-list',
@@ -11,16 +13,22 @@ import { MonitorGroupModel } from '../../domain/monitor-group.model';
 })
 export class MonitorGroupListComponent implements OnInit {
 
-  displayedColumns: string[] = ['Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID', 'MDS URL/SFDC Web Service URL'];
-  dataSource = new MatTableDataSource<MonitorGroupModel>(MONITORGROUP_DATA);
-  selection = new SelectionModel<MonitorGroupModel>(true, []);
-
+  monitorGroups: MonitorGroupModel[];
+  displayedColumns: string[];
+  dataSource;
+  selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor() { }
+  constructor(private service$: MonitorGroupService) { }
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.service$.get('10961').subscribe(monitorGroups => {
+      this.monitorGroups = monitorGroups;
+      this.displayedColumns = ['Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID', 'MDS URL/SFDC Web Service URL'];
+      this.dataSource = new MatTableDataSource<MonitorGroupModel>(this.monitorGroups);
+      this.selection = new SelectionModel<MonitorGroupModel>(true, []);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   openNewMonitorGroupDialog() {
@@ -113,35 +121,4 @@ const LOADENGINE_DATA: any[] = [
     userId: 0,
     version: null
   }
-];
-
-const MONITORGROUP_DATA: MonitorGroupModel[] = [
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55939,
-    mdsUrl: '', name: 'fdjsrfewkr', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
-    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 1},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55941,
-    mdsUrl: '', name: 'dfjs', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
-    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 2},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55943,
-    mdsUrl: '', name: 'djf9', netUserId: 'cdcsfdcautotest', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
-    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 3},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55945,
-    mdsUrl: '', name: 'good', netUserId: 'cdcspctest01', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
-    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 4},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '', engineServer: '127.0.0.1', engineServerPort: '8090', id: 55947,
-    mdsUrl: '', name: 'yyyy', netUserId: 'cdcspctest01', offset: 800, plant: '', sendMds: false, sendMfg: false, sendSfdc: false,
-    sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 5},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'DotLine Source', description: '777', engineServer: '127.0.0.1',
-    engineServerPort: '8090', id: 59899, mdsUrl: '', name: 'abcd', netUserId: 'cdcspctest01', offset: -400, plant: '', sendMds: false,
-    sendMfg: false, sendSfdc: false, sfdcIp: '', sfdcTimezone: 'America\/Puerto_Rico', sfdcWebService: '', position: 6},
-  {collectSchema: 'mds', collectionDatasource: 'collect datasource', communityId: 10961, configDatasource: 'config datasource',
-    configSchema: 'config schema', datasourceType: 'MDS', description: '333', engineServer: '127.0.0.1', engineServerPort: '8090',
-    id: 60737, mdsUrl: 'p88mdb1.sanmina.com\/p88mdb1\/dev2', name: 'BA_Sunny_Test', netUserId: 'sfdctraining', offset: 800, plant: '',
-    sendMds: true, sendMfg: true, sendSfdc: false, sfdcIp: '', sfdcTimezone: 'Asia\/Shanghai', sfdcWebService: '', position: 7}
 ];
