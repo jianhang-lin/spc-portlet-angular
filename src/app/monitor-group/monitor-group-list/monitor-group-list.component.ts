@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MonitorGroupModel } from '../../domain/monitor-group.model';
-import { MonitorGroupService } from '../../services/monitor-group.service';
 import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromReducers from '../../reducers';
+import * as monitorGroupAction from '../../actions/monitor-group.action';
+import { MonitorGroupModel } from '../../domain/monitor-group.model';
 
 @Component({
   selector: 'app-monitor-group-list',
@@ -14,18 +16,23 @@ import { Observable } from 'rxjs';
 export class MonitorGroupListComponent implements OnInit {
 
   monitorGroups: MonitorGroupModel[];
+  monitorGroups$: Observable<MonitorGroupModel[]>;
   displayedColumns: string[];
   dataSource;
   selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private service$: MonitorGroupService) { }
+  constructor(
+    private store$: Store<fromReducers.State>) {
+    this.store$.dispatch(new monitorGroupAction.LoadAction(null));
+    this.monitorGroups$ = this.store$.select(fromReducers.getMonitorGroups);
+  }
 
   ngOnInit(): void {
-    this.service$.get('10961').subscribe(monitorGroups => {
+    this.monitorGroups$.subscribe(monitorGroups => {
       this.monitorGroups = monitorGroups;
-      this.displayedColumns = ['Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID', 'MDS URL/SFDC Web Service URL'];
       this.dataSource = new MatTableDataSource<MonitorGroupModel>(this.monitorGroups);
+      this.displayedColumns = ['Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID', 'MDS URL/SFDC Web Service URL'];
       this.selection = new SelectionModel<MonitorGroupModel>(true, []);
       this.dataSource.paginator = this.paginator;
     });
