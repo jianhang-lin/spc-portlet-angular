@@ -5,6 +5,8 @@ import { ServicesModule } from '../services/services.module';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedModule } from '../shared/shared.module';
+import { AppStoreModule } from '../reducers';
+import { AppEffectsModule } from '../effects';
 import { loadSvgResouces } from '../utils/svg.utils';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -17,6 +19,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     BrowserAnimationsModule,
     SharedModule,
     ServicesModule.forRoot(),
+    AppStoreModule,
+    AppEffectsModule
   ],
   exports: [
     HeaderComponent,
