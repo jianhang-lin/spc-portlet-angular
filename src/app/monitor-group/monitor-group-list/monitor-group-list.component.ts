@@ -33,7 +33,7 @@ export class MonitorGroupListComponent implements OnInit {
       this.monitorGroups = monitorGroups;
       this.dataSource = new MatTableDataSource<MonitorGroupModel>(this.monitorGroups);
       this.displayedColumns = ['select', 'Group Name', 'Data Source Type', 'Shop Floor Timezone', 'Shop Floor ID',
-        'MDS URL/SFDC Web Service URL'];
+        'MDS URL/SFDC Web Service URL', 'visibility'];
       this.selection = new SelectionModel<MonitorGroupModel>(true, []);
       this.dataSource.paginator = this.paginator;
     });

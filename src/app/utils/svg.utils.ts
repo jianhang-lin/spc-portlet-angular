@@ -6,4 +6,5 @@ export const loadSvgResouces = (mir: MatIconRegistry, ds: DomSanitizer) => {
   const iconDir = `${imgDir}/icons`;
   mir.addSvgIcon('settings_applications', ds.bypassSecurityTrustResourceUrl(`${iconDir}/settings_applications-24px.svg`));
   mir.addSvgIcon('add', ds.bypassSecurityTrustResourceUrl(`${iconDir}/add.svg`));
+  mir.addSvgIcon('visibility', ds.bypassSecurityTrustResourceUrl(`${iconDir}/visibility-24px.svg`));
 };
