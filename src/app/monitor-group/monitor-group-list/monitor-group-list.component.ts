@@ -68,6 +68,10 @@ export class MonitorGroupListComponent implements OnInit {
   masterToggle() {
     this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
   }
+
+  onChange(i: number) {
+    console.log(i);
+  }
 }
 
 const LOADENGINE_DATA: any[] = [
