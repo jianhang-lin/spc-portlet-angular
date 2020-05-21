@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import * as fromReducers from '../../reducers';
 import * as monitorGroupAction from '../../actions/monitor-group.action';
 import { MonitorGroupModel } from '../../domain/monitor-group.model';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-monitor-group-list',
@@ -62,15 +63,29 @@ export class MonitorGroupListComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-  /**
-   * Selects all rows if they are not all selected; otherwise clear selection.
-   */
-  masterToggle() {
-    this.isAllSelected() ? this.selection.clear() : this.dataSource.data.forEach(row => this.selection.select(row));
-  }
-
   onChange(i: number) {
     console.log(i);
+  }
+
+  onCheckboxClick($event: MouseEvent, row: MonitorGroupModel, index: number) {
+    this.selection.clear();
+    if (this.selection.isSelected(row)) {
+      this.selection.toggle(row);
+    }
+    $event.stopPropagation();
+  }
+
+  onCheckboxChecked(row: MonitorGroupModel, index: number) {
+    return this.selection.isSelected(row);
+  }
+
+  onCheckboxChange($event: MatCheckboxChange, row: MonitorGroupModel, index: number) {
+    return $event ? this.selection.toggle(row) : null;
+  }
+
+  onRowClick(row: MonitorGroupModel) {
+    this.selection.clear();
+    return this.selection.toggle(row);
   }
 }
 
