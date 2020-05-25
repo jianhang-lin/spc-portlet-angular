@@ -45,7 +45,7 @@
     <ng-container matColumnDef="visibility">
       <th mat-header-cell *matHeaderCellDef> </th>
       <td mat-cell *matCellDef="let element; let i = index">
-        <div class="icon-container" (click)="onChange(i)">
+        <div class="icon-container" (click)="selectMonitorGroup(element)">
           <div class="after">
             <div class="zoom">
               <mat-icon svgIcon="visibility"></mat-icon>

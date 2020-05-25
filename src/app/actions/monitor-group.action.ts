@@ -15,6 +15,7 @@ export const ActionTypes = {
   LOAD: type('[MonitorGroup] Load'),
   LOAD_SUCCESS: type('[MonitorGroup] Load Success'),
   LOAD_FAIL: type('[MonitorGroup] Load Fail'),
+  SELECT_MONITOR_GROUP: type('[MonitorGroup] Select MonitorGroup'),
 };
 
 export class AddAction implements Action {
@@ -77,7 +78,13 @@ export class LoadFailAction implements Action {
   constructor(public payload: string) {}
 }
 
+export class SelectAction implements Action {
+  type = ActionTypes.SELECT_MONITOR_GROUP;
+  constructor(public payload: MonitorGroupModel) {}
+}
+
 export type Actions = AddAction | AddSuccessAction | AddFailAction
   | UpdateAction | UpdateSuccessAction | UpdateFailAction
   | DeleteAction | DeleteSuccessAction | DeleteFailAction
-  | LoadAction | LoadSuccessAction | LoadFailAction;
+  | LoadAction | LoadSuccessAction | LoadFailAction
+  | SelectAction;

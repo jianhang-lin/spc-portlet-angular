@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -16,6 +16,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 })
 export class MonitorGroupListComponent implements OnInit {
 
+  @Output() visibility = new EventEmitter<void>();
   monitorGroups: MonitorGroupModel[];
   monitorGroups$: Observable<MonitorGroupModel[]>;
   displayedColumns: string[];
@@ -63,10 +64,6 @@ export class MonitorGroupListComponent implements OnInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
   }
 
-  onChange(i: number) {
-    console.log(i);
-  }
-
   onCheckboxClick($event: MouseEvent, row: MonitorGroupModel, index: number) {
     this.selection.clear();
     if (this.selection.isSelected(row)) {
@@ -86,6 +83,15 @@ export class MonitorGroupListComponent implements OnInit {
   onRowClick(row: MonitorGroupModel) {
     this.selection.clear();
     return this.selection.toggle(row);
+  }
+
+  onVisibilityClick(en: Event) {
+    en.stopPropagation();
+    this.visibility.emit();
+  }
+
+  selectMonitorGroup(monitorGroup: MonitorGroupModel) {
+    this.store$.dispatch(new monitorGroupAction.SelectAction(monitorGroup));
   }
 }
 
