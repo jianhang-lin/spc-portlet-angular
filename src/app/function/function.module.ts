@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FunctionListComponent } from './function-list/function-list.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [FunctionListComponent],
   imports: [
     CommonModule
   ]
