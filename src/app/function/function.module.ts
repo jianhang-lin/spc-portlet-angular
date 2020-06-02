@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { FunctionListComponent } from './function-list/function-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { FunctionRoutingModule } from './function-routing.module';
+import { FunctionStepGridListComponent } from './function-step-grid-list/function-step-grid-list.component';
 
 
 
 @NgModule({
-  declarations: [FunctionListComponent],
+  declarations: [FunctionListComponent, FunctionStepGridListComponent],
   imports: [
     SharedModule,
     FunctionRoutingModule
