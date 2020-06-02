@@ -6,6 +6,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { MonitorGroupModule } from './monitor-group/monitor-group.module';
+import { FunctionModule } from './function/function.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -19,7 +20,8 @@ import { AppComponent } from './app.component';
     CoreModule,
     SharedModule,
     HomeModule,
-    MonitorGroupModule
+    MonitorGroupModule,
+    FunctionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FunctionListComponent } from './function-list/function-list.component';
+import { SharedModule } from '../shared/shared.module';
+import { FunctionRoutingModule } from './function-routing.module';
 
 
 
 @NgModule({
   declarations: [FunctionListComponent],
   imports: [
-    CommonModule
+    SharedModule,
+    FunctionRoutingModule
   ]
 })
 export class FunctionModule { }
