@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-function-step-grid-list',
@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FunctionStepGridListComponent implements OnInit {
 
+  @Output() monitorListClick = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onMonitorListClick() {
+    this.monitorListClick.emit();
   }
 }
