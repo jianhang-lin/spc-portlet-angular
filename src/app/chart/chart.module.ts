@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartHomeComponent } from './chart-home/chart-home.component';
+import { SharedModule } from '../shared/shared.module';
+import { ChartRoutingModule } from './chart-routing.module';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ChartHomeComponent],
   imports: [
-    CommonModule
+    SharedModule,
+    ChartRoutingModule
   ]
 })
 export class ChartModule { }

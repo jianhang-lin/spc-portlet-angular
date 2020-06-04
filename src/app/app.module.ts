@@ -9,6 +9,7 @@ import { MonitorGroupModule } from './monitor-group/monitor-group.module';
 import { FunctionModule } from './function/function.module';
 import { AppComponent } from './app.component';
 import { MonitorModule } from './monitor/monitor.module';
+import { ChartModule } from './chart/chart.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { MonitorModule } from './monitor/monitor.module';
     HomeModule,
     MonitorGroupModule,
     FunctionModule,
-    MonitorModule
+    MonitorModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
