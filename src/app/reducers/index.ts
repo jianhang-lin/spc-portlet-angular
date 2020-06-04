@@ -1,24 +1,27 @@
 import { NgModule } from '@angular/core';
 import { ActionReducer, combineReducers, StoreModule } from '@ngrx/store';
-import * as monitorGroupReducer from './monitor-group.reducer';
-import * as monitorGroupActions from '../actions/monitor-group.action';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../../environments/environment';
 import { RouterModule } from '@angular/router';
 import { createSelector } from 'reselect';
+import * as monitorGroupReducer from './monitor-group.reducer';
+import * as monitorReducer from './monitor.reducer';
 
 export interface State {
   monitorGroup: monitorGroupReducer.State;
+  monitor: monitorReducer.State;
 }
 
 const initialState: State = {
   monitorGroup: monitorGroupReducer.initialState,
+  monitor: monitorReducer.initialState,
 };
 
 const reducers = {
   monitorGroup: monitorGroupReducer.reducer,
+  monitor: monitorReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -29,8 +32,10 @@ export function reducer(state = initialState, action: any ): State {
 }
 
 export const getMonitorGroupState = (state: State) => state.monitorGroup;
+export const getMonitorState = (state: State) => state.monitor;
 
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
+export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 
 @NgModule({
   imports: [
