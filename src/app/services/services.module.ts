@@ -1,5 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { MonitorGroupService } from './monitor-group.service';
+import { MonitorService } from './monitor.service';
 
 @NgModule()
 export class ServicesModule {
@@ -8,6 +9,7 @@ export class ServicesModule {
       ngModule: ServicesModule,
       providers: [
         MonitorGroupService,
+        MonitorService
       ]
     };
   }
