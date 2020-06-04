@@ -6,6 +6,7 @@ const routes: Routes = [
   {path: 'monitor_groups', redirectTo: '/monitor_groups', pathMatch: 'full'},
   {path: 'function_list', redirectTo: '/function_list', pathMatch: 'full'},
   {path: 'monitors', redirectTo: '/monitors', pathMatch: 'full'},
+  {path: 'monitor_details', redirectTo: '/monitor_details', pathMatch: 'full'},
 ];
 
 @NgModule({
