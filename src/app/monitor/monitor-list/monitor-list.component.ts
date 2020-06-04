@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MonitorModel } from '../../domain/monitor.model';
+import * as monitorGroupAction from '../../actions/monitor-group.action';
 
 @Component({
   selector: 'app-monitor-list',

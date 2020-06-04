@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as fromReducers from '../../reducers';
+import * as monitorDetailsAction from '../../actions/monitor-details.action';
+import { Observable } from 'rxjs';
+import {MonitorDetailsModel} from '../../domain/monitor-details.model';
 
 @Component({
   selector: 'app-monitor-details',
@@ -7,7 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MonitorDetailsComponent implements OnInit {
 
-  constructor() { }
+
+  monitorDetails$: Observable<MonitorDetailsModel>;
+  monitorDetails: MonitorDetailsModel;
+  details: string | any;
+  constructor(private store$: Store<fromReducers.State>) {
+    this.monitorDetails = {details: ''};
+    // this.store$.dispatch(new monitorDetailsAction.LoadDetailsAction(this.monitorDetails));
+    this.monitorDetails$ = this.store$.select(fromReducers.getMonitorDetails);
+    this.monitorDetails$.subscribe(pp => {
+      // this.details = pp.details;
+      this.details = this.store$.dispatch(new monitorDetailsAction.LoadDetailsAction(this.monitorDetails));
+    });
+  }
 
   ngOnInit(): void {
   }
