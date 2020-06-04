@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -28,7 +29,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCheckboxModule,
     MatPaginatorModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
   ],
   exports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MatCheckboxModule,
     MatPaginatorModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
   ]
 })
 export class SharedModule { }

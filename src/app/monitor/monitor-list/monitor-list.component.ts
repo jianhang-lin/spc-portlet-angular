@@ -10,6 +10,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MonitorModel } from '../../domain/monitor.model';
 import * as monitorGroupAction from '../../actions/monitor-group.action';
+import { MatDialog } from '@angular/material/dialog';
+import { ChartHomeComponent } from '../../chart/chart-home/chart-home.component';
 
 @Component({
   selector: 'app-monitor-list',
@@ -25,7 +27,9 @@ export class MonitorListComponent implements OnInit {
   dataSource;
   selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  constructor(private store$: Store<fromReducers.State>) {
+  constructor(
+    private store$: Store<fromReducers.State>,
+    private dialog: MatDialog) {
     this.store$.dispatch(new monitorAction.LoadAction(null));
     this.monitors$ = this.store$.select(fromReducers.getMonitors);
   }
@@ -90,6 +94,6 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
-    alert('openChartDialog');
+    this.dialog.open(ChartHomeComponent);
   }
 }
