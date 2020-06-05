@@ -29,10 +29,11 @@
       <div class="zoom">
         <mat-grid-tile colspan="1" rowspan="1" [routerLink]="['/monitor_groups']" (click)="onMonitorGroupClick()">
           <mat-card>
-            <img mat-card-image src="assets/img/SPCwelcome_enter.png" alt="Enter SPC">
+            <app-enter-spc></app-enter-spc>
           </mat-card>
         </mat-grid-tile>
       </div>
     </div>
   </div>
 </mat-grid-list>
+
