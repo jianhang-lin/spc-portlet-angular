@@ -94,6 +94,6 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
-    this.dialog.open(ChartHomeComponent);
+    const dialogRef = this.dialog.open(ChartHomeComponent);
   }
 }

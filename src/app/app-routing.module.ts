@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'monitors', redirectTo: '/monitors', pathMatch: 'full'},
   {path: 'monitor_details', redirectTo: '/monitor_details', pathMatch: 'full'},
   {path: 'charts', redirectTo: '/charts', pathMatch: 'full'},
+  {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
 ];
 
 @NgModule({
