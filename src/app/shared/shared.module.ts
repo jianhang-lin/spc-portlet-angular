@@ -13,6 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -31,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatRadioModule,
     MatDialogModule,
+    MatMenuModule,
   ],
   exports: [
     CommonModule,
@@ -47,6 +49,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatCardModule,
     MatRadioModule,
     MatDialogModule,
+    MatMenuModule,
   ]
 })
 export class SharedModule { }

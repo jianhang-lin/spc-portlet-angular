@@ -11,7 +11,7 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
   templateUrl: './dot-line-chart.component.html',
   styleUrls: ['./dot-line-chart.component.scss']
 })
-export class DotLineChartComponent implements OnInit, OnDestroy {
+export class DotLineChartComponent implements OnInit {
 
   public title = 'Line Chart';
   public data: any[] = [
@@ -36,11 +36,6 @@ export class DotLineChartComponent implements OnInit, OnDestroy {
   navigationSubscription;
 
   constructor(public router: Router, private route: ActivatedRoute) {
-    this.navigationSubscription = this.router.events.subscribe((event: any) => {
-      if (event instanceof NavigationEnd) {
-        this.initLoad(event);
-      }
-    });
     this.width = 960 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
   }
@@ -78,17 +73,5 @@ export class DotLineChartComponent implements OnInit, OnDestroy {
       .datum(this.data)
       .attr('class', 'line')
       .attr('d', this.line);
-  }
-
-
-  ngOnDestroy(): void {
-    if (this.navigationSubscription) {
-      this.navigationSubscription.unsubscribe();
-    }
-  }
-
-  initLoad(e) {
-    window.scrollTo(0, 0);
-    console.log(e);
   }
 }
