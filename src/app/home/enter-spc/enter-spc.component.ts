@@ -1,31 +1,26 @@
-import { ChangeDetectionStrategy, Component, HostBinding, HostListener, OnInit } from '@angular/core';
-import { enterSPCAnim } from '../../anims/enterSPC.anim';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output
+} from '@angular/core';
 
 @Component({
   selector: 'app-enter-spc',
   templateUrl: './enter-spc.component.html',
   styleUrls: ['./enter-spc.component.scss'],
-  animations: [
-    enterSPCAnim
-  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EnterSpcComponent implements OnInit {
 
-  @HostBinding('@enterSPC') enterSPCState = 'out';
-
+  @Output() doSelected = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  @HostListener('mouseenter')
-  onMouseEnter() {
-    this.enterSPCState = 'hover';
-  }
-
-  @HostListener('mouseleave')
-  onMouseLeave() {
-    this.enterSPCState = 'out';
+  onClick() {
+    this.doSelected.emit();
   }
 }
