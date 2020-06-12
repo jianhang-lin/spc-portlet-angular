@@ -41,5 +41,6 @@
 -->
 <div class="container" >
   <app-step-grid *ngFor="let stepGrid of (stepGrids$ | async); let i = index" [item]="stepGrid" [index]="i" (doSelected)="selectStepGrid(i)" class="card"></app-step-grid>
+  <app-enter-spc [routerLink]="['/monitor_groups']" (doSelected)="selectEnterSPC()" class="card"></app-enter-spc>
 </div>
 

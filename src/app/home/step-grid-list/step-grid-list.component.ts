@@ -33,11 +33,9 @@ export class StepGridListComponent implements OnInit {
   }
 
   selectStepGrid(index: number) {
-    console.log(index);
-    if (index === 5) {
-      this.store$.dispatch(new stepGridAction.SelectEnterAction(index));
-    } else {
-      this.store$.dispatch(new stepGridAction.SelectEnterFailAction(null));
-    }
+  }
+
+  selectEnterSPC() {
+    this.store$.dispatch(new stepGridAction.SelectEnterAction(0));
   }
 }
