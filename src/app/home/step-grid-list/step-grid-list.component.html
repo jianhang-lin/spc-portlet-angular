@@ -1,3 +1,4 @@
+<!--
 <mat-grid-list cols="3" rowHeight="118px" gutterSize="10px">
   <mat-grid-tile colspan="1" rowspan="1">
     <mat-card>
@@ -36,4 +37,9 @@
     </div>
   </div>
 </mat-grid-list>
+
+-->
+<div class="container" >
+  <app-step-grid *ngFor="let stepGrid of (stepGrids$ | async); let i = index" [item]="stepGrid" [index]="i" (doSelected)="selectStepGrid(i)" class="card"></app-step-grid>
+</div>
 
