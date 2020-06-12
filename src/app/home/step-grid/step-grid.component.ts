@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-step-grid',
@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StepGridComponent implements OnInit {
 
+  @Input() item;
+  @Input() index;
+  @Output() doSelected = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onClick() {
+    this.doSelected.emit();
+  }
 }
