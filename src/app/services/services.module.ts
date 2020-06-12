@@ -1,6 +1,8 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
+import { HomeService } from './home.service';
 import { MonitorGroupService } from './monitor-group.service';
 import { MonitorService } from './monitor.service';
+
 
 @NgModule()
 export class ServicesModule {
@@ -8,6 +10,7 @@ export class ServicesModule {
     return {
       ngModule: ServicesModule,
       providers: [
+        HomeService,
         MonitorGroupService,
         MonitorService
       ]
