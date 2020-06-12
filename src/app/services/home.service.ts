@@ -19,7 +19,7 @@ export class HomeService {
       {id: 3, src: 'assets/img/SPCwelcome_logo.png'},
       {id: 4, src: 'assets/img/SPCwelcome_3.png'},
       {id: 5, src: 'assets/img/SPCwelcome_4.png'},
-      {id: 6, src: 'assets/img/SPCwelcome_enter.png'},
+      // {id: 6, src: 'assets/img/SPCwelcome_enter.png'},
     ];
     return of(stepGrids);
   }
