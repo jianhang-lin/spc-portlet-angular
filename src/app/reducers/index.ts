@@ -5,6 +5,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../../environments/environment';
 import { RouterModule } from '@angular/router';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { createSelector } from 'reselect';
 import * as stepGridReducer from './step-grid.reducer';
 import * as monitorGroupReducer from './monitor-group.reducer';
@@ -63,7 +64,9 @@ export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorD
 
     ]),
     StoreRouterConnectingModule.forRoot(),
-    // !environment.production ? StoreDevtoolsModule.instrument({maxAge: 50}) : []
+    !environment.production ? StoreDevtoolsModule.instrument({
+      maxAge: 5
+    }) : []
   ]
 })
 export class AppStoreModule {
