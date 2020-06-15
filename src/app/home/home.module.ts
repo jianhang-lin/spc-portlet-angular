@@ -14,6 +14,9 @@ import { StepGridComponent } from './step-grid/step-grid.component';
     EnterSpcComponent,
     StepGridComponent
   ],
+  exports: [
+    StepGridComponent
+  ],
   imports: [
     SharedModule,
     HomeRoutingModule
