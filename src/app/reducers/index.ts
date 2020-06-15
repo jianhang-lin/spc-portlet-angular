@@ -8,12 +8,14 @@ import { RouterModule } from '@angular/router';
 import { createSelector } from 'reselect';
 import * as stepGridReducer from './step-grid.reducer';
 import * as monitorGroupReducer from './monitor-group.reducer';
+import * as functionStepGridReducer from './function-step-grid.reducer';
 import * as monitorReducer from './monitor.reducer';
 import * as monitorDetailsReducer from './monitor-details.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
   monitorGroup: monitorGroupReducer.State;
+  functionStepGrid: functionStepGridReducer.State;
   monitor: monitorReducer.State;
   monitorDetails: monitorDetailsReducer.State;
 }
@@ -21,6 +23,7 @@ export interface State {
 const initialState: State = {
   stepGrid: stepGridReducer.initialState,
   monitorGroup: monitorGroupReducer.initialState,
+  functionStepGrid: functionStepGridReducer.initialState,
   monitor: monitorReducer.initialState,
   monitorDetails: monitorDetailsReducer.initialState,
 };
@@ -28,6 +31,7 @@ const initialState: State = {
 const reducers = {
   stepGrid: stepGridReducer.reducer,
   monitorGroup: monitorGroupReducer.reducer,
+  functionStepGrid: functionStepGridReducer.reducer,
   monitor: monitorReducer.reducer,
   monitorDetails: monitorDetailsReducer.reducer,
 };
@@ -41,11 +45,13 @@ export function reducer(state = initialState, action: any ): State {
 
 export const getStepGridState = (state: State) => state.stepGrid;
 export const getMonitorGroupState = (state: State) => state.monitorGroup;
+export const getFunctionStepGridState = (state: State) => state.functionStepGrid;
 export const getMonitorState = (state: State) => state.monitor;
 export const getMonitorDetailsState = (state: State) => state.monitorDetails;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
+export const getFunctionStepGrids = createSelector(getFunctionStepGridState, functionStepGridReducer.getFunctionStepGrids);
 export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
 
