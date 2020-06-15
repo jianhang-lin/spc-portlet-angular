@@ -1,38 +1,5 @@
 <mat-grid-list cols="4" rowHeight="248px" gutterSize="10px">
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/monitor_setting.png" [routerLink]="['/monitors']" (click)="onMonitorListClick()">
-      Monitor Maintenance
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/mail_setting.png" >
-      Email Maintenance
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/lock.png" >
-      Lock Maintenance
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/location_family_setting.png" >
-      Location Family Maintenance
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/system_log.jpg" >
-      System Log Maintenance
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/icons/function/global_system_config.png" >
-      SPC System Parameter Maintenance
-    </mat-card>
+  <mat-grid-tile colspan="1" rowspan="1" *ngFor="let functionStepGrid of (functionStepGrids$ | async); let i = index" >
+    <app-function-step-grid [item]="functionStepGrid"></app-function-step-grid>
   </mat-grid-tile>
 </mat-grid-list>
