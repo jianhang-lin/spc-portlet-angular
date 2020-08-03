@@ -94,6 +94,10 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
-    const dialogRef = this.dialog.open(ChartHomeComponent);
+    const dialogRef = this.dialog.open(ChartHomeComponent, {
+      data: {
+        animal: 'panda'
+      }
+    });
   }
 }
