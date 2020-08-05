@@ -10,6 +10,8 @@ import { FunctionModule } from './function/function.module';
 import { AppComponent } from './app.component';
 import { MonitorModule } from './monitor/monitor.module';
 import { ChartModule } from './chart/chart.module';
+import { NgxEchartsModule } from 'ngx-echarts';
+import * as echarts from 'echarts';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,10 @@ import { ChartModule } from './chart/chart.module';
     MonitorGroupModule,
     FunctionModule,
     MonitorModule,
-    ChartModule
+    ChartModule,
+    NgxEchartsModule.forRoot({
+      echarts: {init: echarts.init }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

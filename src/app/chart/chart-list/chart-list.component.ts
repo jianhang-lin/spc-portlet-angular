@@ -10,8 +10,12 @@ export class ChartListComponent implements OnInit {
   title = 'D3.js with Angluar';
   examples = [
     {
-      title: 'Dot Line Chart',
+      title: 'Dot Line Chart By D3',
       route: '/dotLine'
+    },
+    {
+      title: 'Dot Line Chart By Echart',
+      route: '/dotLineE'
     },
     {
       title: 'Line Chart',

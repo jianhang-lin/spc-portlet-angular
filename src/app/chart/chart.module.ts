@@ -5,11 +5,13 @@ import { SharedModule } from '../shared/shared.module';
 import { ChartRoutingModule } from './chart-routing.module';
 import { DotLineChartComponent } from './dot-line-chart/dot-line-chart.component';
 import { ChartListComponent } from './chart-list/chart-list.component';
+import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-chart-echart.component';
+
 
 
 
 @NgModule({
-  declarations: [ChartHomeComponent, DotLineChartComponent, ChartListComponent],
+  declarations: [ChartHomeComponent, DotLineChartComponent, ChartListComponent, DotLineChartEchartComponent],
   imports: [
     SharedModule,
     ChartRoutingModule

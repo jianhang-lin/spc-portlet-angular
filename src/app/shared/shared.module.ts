@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   declarations: [],
@@ -33,6 +34,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatRadioModule,
     MatDialogModule,
     MatMenuModule,
+    NgxEchartsModule
   ],
   exports: [
     CommonModule,
@@ -50,6 +52,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatRadioModule,
     MatDialogModule,
     MatMenuModule,
+    NgxEchartsModule
   ]
 })
 export class SharedModule { }
