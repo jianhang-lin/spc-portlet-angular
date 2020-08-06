@@ -12,6 +12,7 @@ import * as monitorGroupReducer from './monitor-group.reducer';
 import * as functionStepGridReducer from './function-step-grid.reducer';
 import * as monitorReducer from './monitor.reducer';
 import * as monitorDetailsReducer from './monitor-details.reducer';
+import * as dotLinechartReducer from './dot-line-chart.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -19,6 +20,7 @@ export interface State {
   functionStepGrid: functionStepGridReducer.State;
   monitor: monitorReducer.State;
   monitorDetails: monitorDetailsReducer.State;
+  dotLineChart: dotLinechartReducer.State;
 }
 
 const initialState: State = {
@@ -27,6 +29,7 @@ const initialState: State = {
   functionStepGrid: functionStepGridReducer.initialState,
   monitor: monitorReducer.initialState,
   monitorDetails: monitorDetailsReducer.initialState,
+  dotLineChart: dotLinechartReducer.initialState,
 };
 
 const reducers = {
@@ -35,6 +38,7 @@ const reducers = {
   functionStepGrid: functionStepGridReducer.reducer,
   monitor: monitorReducer.reducer,
   monitorDetails: monitorDetailsReducer.reducer,
+  dotLineChart: dotLinechartReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -49,12 +53,14 @@ export const getMonitorGroupState = (state: State) => state.monitorGroup;
 export const getFunctionStepGridState = (state: State) => state.functionStepGrid;
 export const getMonitorState = (state: State) => state.monitor;
 export const getMonitorDetailsState = (state: State) => state.monitorDetails;
+export const getDotLineChartState = (state: State) => state.dotLineChart;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
 export const getFunctionStepGrids = createSelector(getFunctionStepGridState, functionStepGridReducer.getFunctionStepGrids);
 export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
+export const getCharts = createSelector(getDotLineChartState, dotLinechartReducer.getAll);
 
 @NgModule({
   imports: [

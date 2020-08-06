@@ -6,6 +6,7 @@ import { MonitorGroupEffects } from './monitor-group.effects';
 import { FunctionStepGridsEffects } from './function-step-grids.effects';
 import { MonitorEffects } from './monitor.effects';
 import { MonitorDetailsEffects } from './monitor-details.effects';
+import { DotLineChartEffects } from './dot-line-chart.effects';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { MonitorDetailsEffects } from './monitor-details.effects';
       FunctionStepGridsEffects,
       MonitorEffects,
       MonitorDetailsEffects,
+      DotLineChartEffects,
     ])
   ],
 })
