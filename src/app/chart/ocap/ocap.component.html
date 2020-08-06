@@ -1,10 +1,17 @@
-<h1 mat-dialog-title>Ocap</h1>
-<div mat-dialog-content >
-  <mat-form-field>
-    <input matInput [(ngModel)]="data.animal">
-  </mat-form-field>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close>Save</button>
-  <button mat-button mat-dialog-close [mat-dialog-close]="data.animal">Cancel</button>
-</div>
+<form [formGroup]="ocapFormGroup" (ngSubmit)="onSubmit(ocapFormGroup, $event)">
+  <h1 mat-dialog-title>Ocap</h1>
+  <div mat-dialog-content >
+      <mat-form-field appearance="outline" floatLabel="auto" class="full-width">
+        <mat-label>Ocap描述</mat-label>
+        <input matInput formControlName="ocapText">
+        <mat-error *ngIf="ocapFormGroup.controls.ocapText.hasError('required')">
+          Ocap Text is required.
+        </mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="isApplyToPreOcap" floatLabel="auto" class="full-width">Apply to previous OCAPs</mat-checkbox>
+  </div>
+  <div mat-dialog-actions>
+    <button type="submit" mat-raised-button color="primary" [disabled]="!ocapFormGroup.valid">Save</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+  </div>
+</form>
