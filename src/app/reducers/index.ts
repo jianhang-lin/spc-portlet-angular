@@ -60,7 +60,7 @@ export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGrou
 export const getFunctionStepGrids = createSelector(getFunctionStepGridState, functionStepGridReducer.getFunctionStepGrids);
 export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
-export const getCharts = createSelector(getDotLineChartState, dotLinechartReducer.getAll);
+export const getDotLineDataList = createSelector(getDotLineChartState, dotLinechartReducer.getAll);
 
 @NgModule({
   imports: [

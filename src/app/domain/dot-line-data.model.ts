@@ -20,4 +20,5 @@ export interface DotLineDataModel {
   seq: number;
   target: number;
   ucl: number;
+  position: number;
 }

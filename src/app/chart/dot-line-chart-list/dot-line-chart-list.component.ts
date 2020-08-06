@@ -6,8 +6,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromReducers from '../../reducers';
-import * as monitorAction from '../../actions/monitor.action';
-import { MonitorModel } from '../../domain/monitor.model';
+import * as dotLineChartAction from '../../actions/dot-line-chart.action';
+import { DotLineDataModel } from '../../domain/dot-line-data.model';
 
 
 @Component({
@@ -17,28 +17,28 @@ import { MonitorModel } from '../../domain/monitor.model';
 })
 export class DotLineChartListComponent implements OnInit {
 
-  monitors: MonitorModel[];
-  monitors$: Observable<MonitorModel[]>;
+  dotLineDataList: DotLineDataModel[];
+  dotLineDataList$: Observable<DotLineDataModel[]>;
   displayedColumns: string[];
   dataSource;
   selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(private store$: Store<fromReducers.State>) {
-    this.store$.dispatch(new monitorAction.LoadAction(null));
-    this.monitors$ = this.store$.select(fromReducers.getMonitors);
+    this.store$.dispatch(new dotLineChartAction.LoadDotLineDataAction(null));
+    this.dotLineDataList$ = this.store$.select(fromReducers.getDotLineDataList);
   }
 
   ngOnInit(): void {
-    this.monitors$.subscribe(monitors => {
-      this.monitors = monitors;
-      this.dataSource = new MatTableDataSource<MonitorModel>(this.monitors);
-      this.displayedColumns = ['select', 'Monitor Name', 'Monitor Type', 'Location|Process|Location Family', 'Part Number|Family ID',
-        'Group By', 'Collection Type', 'Status', 'BatchId', 'UpdateTime', 'Update By', 'More'];
-      this.selection = new SelectionModel<MonitorModel>(true, []);
+    this.dotLineDataList$.subscribe(dotLineDataList => {
+      this.dotLineDataList = dotLineDataList;
+      this.dataSource = new MatTableDataSource<DotLineDataModel>(this.dotLineDataList);
+      this.displayedColumns = ['select', 'SPC Collection Time', 'Application', 'Import Date', 'Data',
+        'UCL', 'LCL', 'Data1/Data2', 'Target', 'OCAP', 'extension1', 'extension2', 'extension3'];
+      this.selection = new SelectionModel<DotLineDataModel>(true, []);
       this.dataSource.paginator = this.paginator;
     });
   }
-    onCheckboxClick($event: MouseEvent, row: MonitorModel, index: number) {
+    onCheckboxClick($event: MouseEvent, row: DotLineDataModel, index: number) {
       this.selection.clear();
       if (this.selection.isSelected(row)) {
         this.selection.toggle(row);
@@ -46,15 +46,15 @@ export class DotLineChartListComponent implements OnInit {
       $event.stopPropagation();
     }
 
-    onCheckboxChange($event: MatCheckboxChange, row: MonitorModel, index: number) {
+    onCheckboxChange($event: MatCheckboxChange, row: DotLineDataModel, index: number) {
       return $event ? this.selection.toggle(row) : null;
     }
 
-    onCheckboxChecked(row: MonitorModel, index: number) {
+    onCheckboxChecked(row: DotLineDataModel, index: number) {
       return this.selection.isSelected(row);
     }
 
-    checkboxLable(row?: MonitorModel): string {
+    checkboxLable(row?: DotLineDataModel): string {
       if (!row) {
         return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
       }
@@ -67,7 +67,7 @@ export class DotLineChartListComponent implements OnInit {
       return numSelected === numRows;
     }
 
-    onRowClick(row: MonitorModel) {
+    onRowClick(row: DotLineDataModel) {
       this.selection.clear();
       return this.selection.toggle(row);
     }
