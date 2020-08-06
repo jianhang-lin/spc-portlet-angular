@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'chart_list', redirectTo: '/chart_list', pathMatch: 'full'},
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
+  {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},
 ];
 
 @NgModule({

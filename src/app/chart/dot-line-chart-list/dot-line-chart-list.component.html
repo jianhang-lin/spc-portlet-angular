@@ -67,7 +67,7 @@
       <td mat-cell *matCellDef="let element">
         <div [ngSwitch]="element.exception">
           <div *ngSwitchCase=true>
-            <img src="assets/img/ocap.png">
+            <img src="assets/img/ocap.png" (click)="openOcapDialog()">
           </div>
           <div *ngSwitchCase=false></div>
         </div>

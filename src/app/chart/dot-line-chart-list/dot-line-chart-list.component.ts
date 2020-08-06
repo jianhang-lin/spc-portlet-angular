@@ -5,9 +5,12 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
 import * as fromReducers from '../../reducers';
 import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
+import { OcapComponent } from '../ocap/ocap.component';
+
 
 
 @Component({
@@ -23,7 +26,9 @@ export class DotLineChartListComponent implements OnInit {
   dataSource;
   selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  constructor(private store$: Store<fromReducers.State>) {
+  constructor(
+    private store$: Store<fromReducers.State>,
+    private dialog: MatDialog) {
     this.store$.dispatch(new dotLineChartAction.LoadDotLineDataAction(null));
     this.dotLineDataList$ = this.store$.select(fromReducers.getDotLineDataList);
   }
@@ -72,4 +77,16 @@ export class DotLineChartListComponent implements OnInit {
       return this.selection.toggle(row);
     }
 
+  openOcapDialog() {
+    const dialogRef = this.dialog.open(OcapComponent, {
+      data: {
+        name: this.selection.selected,
+        animal: 'panda'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The ocap dialog was closed, animal = ' + result);
+    });
+  }
 }
