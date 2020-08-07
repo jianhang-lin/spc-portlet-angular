@@ -8,6 +8,7 @@ import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-ch
 import { DotLineChartListComponent } from './dot-line-chart-list/dot-line-chart-list.component';
 import { OcapComponent } from './ocap/ocap.component';
 import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
+import { OcapHistoryListComponent } from './ocap-history-list/ocap-history-list.component';
 
 
 
@@ -21,6 +22,7 @@ import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
     DotLineChartListComponent,
     OcapComponent,
     OcapHistoryComponent,
+    OcapHistoryListComponent,
   ],
   imports: [
     SharedModule,
