@@ -10,6 +10,7 @@ import * as fromReducers from '../../reducers';
 import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
 import { OcapComponent } from '../ocap/ocap.component';
+import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
 
 
 
@@ -87,6 +88,19 @@ export class DotLineChartListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The ocap dialog was closed, animal = ' + result);
+    });
+  }
+
+  openOcapHistoryDialog() {
+    const dialogRef = this.dialog.open(OcapHistoryComponent, {
+      data: {
+        name: this.selection.selected,
+        animal: 'ocap history animal'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The ocap history dialog was closed, animal = ' + result);
     });
   }
 }

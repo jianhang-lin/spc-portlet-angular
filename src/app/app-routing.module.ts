@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
   {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},
+  {path: 'ocap_history', redirectTo: '/ocap_history', pathMatch: 'full'},
 ];
 
 @NgModule({

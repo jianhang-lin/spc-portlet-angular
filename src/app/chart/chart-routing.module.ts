@@ -5,6 +5,7 @@ import { ChartListComponent } from './chart-list/chart-list.component';
 import { DotLineChartComponent } from './dot-line-chart/dot-line-chart.component';
 import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-chart-echart.component';
 import { OcapComponent } from './ocap/ocap.component';
+import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
 
 const routes: Routes = [
   {path: 'charts', component: ChartHomeComponent},
@@ -12,6 +13,7 @@ const routes: Routes = [
   {path: 'dotLine', component: DotLineChartComponent},
   {path: 'dotLineE', component: DotLineChartEchartComponent},
   {path: 'ocap', component: OcapComponent},
+  {path: 'ocap_history', component: OcapHistoryComponent},
 ];
 
 @NgModule({
