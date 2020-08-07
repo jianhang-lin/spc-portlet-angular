@@ -7,6 +7,7 @@ import { FunctionStepGridsEffects } from './function-step-grids.effects';
 import { MonitorEffects } from './monitor.effects';
 import { MonitorDetailsEffects } from './monitor-details.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
+import { OcapEffects } from './ocap.effects';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { DotLineChartEffects } from './dot-line-chart.effects';
       MonitorEffects,
       MonitorDetailsEffects,
       DotLineChartEffects,
+      OcapEffects,
     ])
   ],
 })

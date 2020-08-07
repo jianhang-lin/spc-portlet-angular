@@ -13,6 +13,7 @@ import * as functionStepGridReducer from './function-step-grid.reducer';
 import * as monitorReducer from './monitor.reducer';
 import * as monitorDetailsReducer from './monitor-details.reducer';
 import * as dotLinechartReducer from './dot-line-chart.reducer';
+import * as ocapReducer from './ocap.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -21,6 +22,7 @@ export interface State {
   monitor: monitorReducer.State;
   monitorDetails: monitorDetailsReducer.State;
   dotLineChart: dotLinechartReducer.State;
+  ocaps: ocapReducer.State;
 }
 
 const initialState: State = {
@@ -30,6 +32,7 @@ const initialState: State = {
   monitor: monitorReducer.initialState,
   monitorDetails: monitorDetailsReducer.initialState,
   dotLineChart: dotLinechartReducer.initialState,
+  ocaps: ocapReducer.initialState,
 };
 
 const reducers = {
@@ -39,6 +42,7 @@ const reducers = {
   monitor: monitorReducer.reducer,
   monitorDetails: monitorDetailsReducer.reducer,
   dotLineChart: dotLinechartReducer.reducer,
+  ocaps: ocapReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -54,6 +58,7 @@ export const getFunctionStepGridState = (state: State) => state.functionStepGrid
 export const getMonitorState = (state: State) => state.monitor;
 export const getMonitorDetailsState = (state: State) => state.monitorDetails;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
+export const getOcapState = (state: State) => state.ocaps;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -61,6 +66,7 @@ export const getFunctionStepGrids = createSelector(getFunctionStepGridState, fun
 export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
 export const getDotLineDataList = createSelector(getDotLineChartState, dotLinechartReducer.getAll);
+export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 
 @NgModule({
   imports: [
