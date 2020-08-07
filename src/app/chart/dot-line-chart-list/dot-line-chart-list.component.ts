@@ -11,6 +11,7 @@ import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
 import { OcapComponent } from '../ocap/ocap.component';
 import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
+import {CauseComponent} from "../cause/cause.component";
 
 
 
@@ -102,6 +103,18 @@ export class DotLineChartListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The ocap history dialog was closed, animal = ' + result);
+    });
+  }
+
+  openCauseDialog() {
+    const dialogRef = this.dialog.open(CauseComponent, {
+      data: {
+        cause: 'Consecutive Points above or low than UCL or LCL'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The cause dialog was closed, animal = ' + result);
     });
   }
 }

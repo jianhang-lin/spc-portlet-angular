@@ -63,7 +63,7 @@
     </ng-container>
 
     <ng-container matColumnDef="extension1">
-      <th mat-header-cell *matHeaderCellDef> </th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
         <div [ngSwitch]="element.exception">
           <div *ngSwitchCase=true>
@@ -75,11 +75,11 @@
     </ng-container>
 
     <ng-container matColumnDef="extension2">
-      <th mat-header-cell *matHeaderCellDef>extension2</th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
         <div [ngSwitch]="element.exception">
           <div *ngSwitchCase=true>
-            <img src="assets/img/calculation_history.png" (click)="openOcapHistoryDialog()">
+            <img src="assets/img/ocaphistory.png" (click)="openOcapHistoryDialog()">
           </div>
           <div *ngSwitchCase=false></div>
         </div>
@@ -87,14 +87,19 @@
     </ng-container>
 
     <ng-container matColumnDef="extension3">
-      <th mat-header-cell *matHeaderCellDef>extension3</th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <a href="/monitor_details">More...</a>
+        <div [ngSwitch]="element.exception">
+          <div *ngSwitchCase=true>
+            <img src="assets/img/cause.png" (click)="openCauseDialog()">
+          </div>
+          <div *ngSwitchCase=false></div>
+        </div>
       </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClick(row)" [ngClass]="{'highlightException' : row.exception, 'highlightNoException' : !row.exception }"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

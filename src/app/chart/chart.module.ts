@@ -9,9 +9,7 @@ import { DotLineChartListComponent } from './dot-line-chart-list/dot-line-chart-
 import { OcapComponent } from './ocap/ocap.component';
 import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
 import { OcapHistoryListComponent } from './ocap-history-list/ocap-history-list.component';
-
-
-
+import { CauseComponent } from './cause/cause.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +21,7 @@ import { OcapHistoryListComponent } from './ocap-history-list/ocap-history-list.
     OcapComponent,
     OcapHistoryComponent,
     OcapHistoryListComponent,
+    CauseComponent,
   ],
   imports: [
     SharedModule,
