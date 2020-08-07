@@ -1,8 +1,17 @@
 <h1 mat-dialog-title>OCAP</h1>
 <div mat-dialog-content >
-  <app-ocap-history-list></app-ocap-history-list>
-  <mat-form-field appearance="outline" floatLabel="auto" class="full-width">
-    <input matInput disabled value="Please select a ocap to see additional details">
+  <app-ocap-history-list (doSelected)="doSelectOcapHistory($event)"></app-ocap-history-list>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <span matPrefix *ngIf="selectedOcapHistory">Performed By</span>
+    <input matInput disabled value="{{selectedOcapHistory?selectedOcapHistory.performedBy:'Please select a ocap to see additional details'}}">
+  </mat-form-field>
+  <mat-form-field *ngIf="selectedOcapHistory" floatLabel="auto" class="full-width">
+    <span matPrefix>Update Time</span>
+    <input matInput disabled value="{{selectedOcapHistory.updateTime}}">
+  </mat-form-field>
+  <mat-form-field *ngIf="selectedOcapHistory" floatLabel="auto" class="full-width">
+    <span matPrefix>OCAP</span>
+    <input matInput disabled value="{{selectedOcapHistory.ocap}}">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

@@ -94,8 +94,9 @@ export class DotLineChartListComponent implements OnInit {
   openOcapHistoryDialog() {
     const dialogRef = this.dialog.open(OcapHistoryComponent, {
       data: {
-        name: this.selection.selected,
-        animal: 'ocap history animal'
+        ocap: this.selection.selected,
+        performedBy: this.selection.selected,
+        updateTime: this.selection.selected,
       }
     });
 

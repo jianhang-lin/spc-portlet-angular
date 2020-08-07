@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { Store } from '@ngrx/store';
@@ -24,6 +24,7 @@ export class OcapHistoryListComponent implements OnInit {
   displayedColumns: string[];
   dataSource;
   selection;
+  @Output() doSelected = new EventEmitter<OcapHistoryModel>();
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(
     private store$: Store<fromReducers.State>,
@@ -70,9 +71,11 @@ export class OcapHistoryListComponent implements OnInit {
     return numSelected === numRows;
   }
 
-  onRowClick(row: OcapHistoryModel) {
+  onRowClick(row: OcapHistoryModel, en: Event) {
     this.selection.clear();
-    return this.selection.toggle(row);
+    this.selection.toggle(row);
+    en.stopPropagation();
+    this.doSelected.emit(row);
   }
 
   openOcapDialog() {
