@@ -46,9 +46,23 @@ export class ChartListComponent implements OnInit {
       route: '/donut-chart'
     },
   ];
+  chartData: Array<any>;
   constructor() { }
 
   ngOnInit(): void {
+    /*setTimeout(() => {
+      this.generateData();
+      setInterval(() => this.generateData(), 5000);
+    }, 1000);*/
   }
 
+  generateData() {
+    this.chartData = [];
+    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
+      this.chartData.push([
+        `Index ${i}`,
+        Math.floor(Math.random() * 100)
+      ]);
+    }
+  }
 }
