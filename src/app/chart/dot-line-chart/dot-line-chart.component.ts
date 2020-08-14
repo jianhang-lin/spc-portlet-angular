@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import * as d3 from 'd3';
 
 
@@ -20,11 +21,11 @@ export class DotLineChartComponent implements OnInit, OnChanges {
   private margin = {top: 20, right: 20, bottom: 30, left: 30};
   public width: number;
   private height: number;
-  private x: any;
-  private y: any;
-  private svg: any;
+  private x: d3.ScaleTime<number, number>;
+  private y: d3.ScaleLinear<number, number>;
+  private svg: d3.Selection<any, any, HTMLElement, any>;
   private line: d3.Line<[number, number]>;
-  private path: any;
+  private path: d3.Selection<any, any, any, any>;
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
   @Input() private datas: Array<any>;
@@ -32,8 +33,8 @@ export class DotLineChartComponent implements OnInit, OnChanges {
   private xScale: any;
   private yScale: any;
   private colors: any;
-  private xAxis: any;
-  private yAxis: any;
+  private xAxis: d3.Axis<d3.AxisDomain>;
+  private yAxis: d3.Axis<d3.AxisDomain>;
 
   ngOnInit(): void {
     this.getData().subscribe(data => {
@@ -51,13 +52,13 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     }
   }
 
-  private getData() {
+  private getData(): Observable<string> {
     return this.http.get('http://localhost:4200/assets/cache' +
       '/b154f8efd1a64d5e3e829b93e4fefd6d72219371ef440007fe368369fea0bbcdc9bcac06b72aae851f392411102931eba7774befa8c8fcbfcad4fc28f136ecd6',
       {responseType: 'text'});
   }
 
-  private dataProcess(data: string) {
+  private dataProcess(data: string): void {
     const tsvArray = d3.tsvParse(data);
     const columns = tsvArray.columns.slice(1);
     this.data = Object.assign({
@@ -70,18 +71,18 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     });
   }
 
-  private buildSvg() {
+  private buildSvg(): void {
     this.svg = d3.select('svg')
       .attr('viewBox', `0, 0, ${this.width}, ${this.height}`)
       .style('overflow', 'visible');
   }
 
-  private addAxis() {
+  private addAxis(): void {
     this.x = d3.scaleUtc().range([this.margin.left, this.width - this.margin.right]);
     this.y = d3.scaleLinear()
       .range([this.height - this.margin.bottom, this.margin.top]);
     this.x.domain(d3.extent(this.data.dates as Date[]));
-    this.y.domain([0, d3.max(this.data.series, (d: any) => d3.max(d.values))]).nice();
+    this.y.domain([0, d3.max(this.data.series, (d: any) => d3.max(d.values) as unknown as number)]).nice();
 
     this.xAxis = d3.axisBottom(this.x).ticks(this.width / 80).tickSizeOuter(0);
     this.yAxis = d3.axisLeft(this.y);
@@ -94,7 +95,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .attr('font-weight', 'bold').text(this.data.y);
   }
 
-  private drawLineAndPath() {
+  private drawLineAndPath(): void {
     this.line = d3.line()
       .x((d: any, i) => this.x(this.data.dates[i]))
       .y((d: any) => this.y(d));
@@ -113,7 +114,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .selectAll('.xAxis path').style('mix-blend-mode', 'none');
   }
 
-  private hover() {
+  private hover(): void {
     const moved = () => {
       d3.event.preventDefault();
       const mouse = d3.mouse(d3.event.target);
@@ -167,22 +168,22 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
 
     this.colors = d3.scaleLinear().domain([0, this.datas.length]).range(['red', 'blue'] as any[]);
-    this.xAxis = svg.append('g')
+    /*this.xAxis = svg.append('g')
       .attr('class', 'axis axis-x')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + this.height})`)
       .call(d3.axisBottom(this.xScale));
     this.yAxis = svg.append('g')
       .attr('class', 'axis axis-y')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
-      .call(d3.axisLeft(this.yScale));
+      .call(d3.axisLeft(this.yScale));*/
   }
 
   updateChart() {
     this.xScale.domain(this.datas.map(d => d[0]));
     this.yScale.domain([0, d3.max(this.datas, d => d[1])]);
     this.colors.domain([0, this.datas.length]);
-    this.xAxis.transition().call(d3.axisBottom(this.xScale));
-    this.yAxis.transition().call(d3.axisLeft(this.yScale));
+    // this.xAxis.transition().call(d3.axisBottom(this.xScale));
+    // this.yAxis.transition().call(d3.axisLeft(this.yScale));
 
     const update = this.chart.selectAll('.bar').data(this.datas);
     update.exit().remove();
