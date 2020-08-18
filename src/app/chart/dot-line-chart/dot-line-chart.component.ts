@@ -43,7 +43,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       this.buildSvg();
       this.addAxis();
       this.drawLineAndPath();
-      this.hover();
+      this.showTip();
     });
 
     // this.createChart();
@@ -114,7 +114,8 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .selectAll('.xAxis path').style('mix-blend-mode', 'none');
   }
 
-  private hover(): void {
+  private showTip(): void {
+    const formatTime = d3.timeFormat('%m/%d/%y');
     const moved = () => {
       d3.event.preventDefault();
       const mouse = d3.mouse(d3.event.target);
@@ -126,7 +127,8 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       const s: any = least(this.data.series, (r: any) => Math.abs(r.values[i] - ym));
       d3.selectAll('.line path').attr('stroke', v => v === s ? null : '#ddd').filter(v => v === s).raise();
       dot.attr('transform', `translate(${this.x(this.data.dates[i])}, ${this.y(s.values[i])})`);
-      dot.select('text').text(s.name);
+      dot.select('.tooltip-date').text(formatTime(this.data.dates[i]));
+      dot.select('.tooltip-likes').text(s.values[i]);
     };
     const entered = () => {
       d3.selectAll('.line path').style('mix-blend-mode', null).attr('stroke', '#ddd');
@@ -147,9 +149,39 @@ export class DotLineChartComponent implements OnInit, OnChanges {
         .on('mouseenter', entered)
         .on('mouseleave', left);
     }
-    const dot = d3.select('svg').append('g').attr('display', 'none');
-    dot.append('circle').attr('r', 2.5);
-    dot.append('text').attr('font-family', 'sans-serif').attr('font-size', 10).attr('text-anchor', 'middle').attr('y', -8);
+    const dot = d3.select('svg').append('g')
+      .attr('class', 'focus')
+      .attr('display', 'none');
+    dot.append('circle')
+      .attr('r', 2.5).attr('fill', 'steelblue');
+    dot.append('rect')
+      .attr('class', 'tooltip')
+      .attr('width', 100)
+      .attr('height', 50)
+      .attr('x', 10)
+      .attr('y', -22)
+      .attr('rx', 4)
+      .attr('ry', 4)
+      .attr('fill', 'white')
+      .attr('stroke', '#000');
+    dot.append('text')
+      .attr('class', 'tooltip-date')
+      .attr('x', 18)
+      .attr('y', -2)
+      .attr('font-weight', 'bold')
+      .attr('font-size', 14);
+      // .attr('font-family', 'sans-serif').attr('font-size', 10).attr('text-anchor', 'middle').attr('y', -8);
+    dot.append('text')
+      .attr('x', 18)
+      .attr('y', 18)
+      .attr('font-size', 14)
+      .text('Value:');
+    dot.append('text')
+      .attr('class', 'tooltip-likes')
+      .attr('x', 60)
+      .attr('y', 18)
+      .attr('font-size', 14)
+      .attr('font-weight', 'bold');
   }
 
   createChart() {
