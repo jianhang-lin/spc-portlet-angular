@@ -54,7 +54,12 @@ export class DotLineChartEchartComponent implements OnInit {
           data: ['bar', 'bar2', 'ucl1', 'ucl2', 'lcl1', 'lcl2', 'target1', 'target2'],
           align: 'left'
         },
-        tooltip: {},
+        tooltip: {
+          show: true,
+          formatter(param) {
+            return JSON.stringify(param);
+          }
+        },
         xAxis: {
           data: xAxisData,
           silent: false,

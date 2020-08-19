@@ -21,6 +21,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
   private height: number;
   private x: d3.ScaleOrdinal<string, any>;
   private y: d3.ScaleLinear<number, number>;
+  private z: d3.ScaleOrdinal<string, any>;
   private svg: d3.Selection<any, any, HTMLElement, any>;
   private line: d3.Line<[number, number]>;
   private path: d3.Selection<any, any, any, any>;
@@ -83,20 +84,21 @@ export class DotLineChartComponent implements OnInit, OnChanges {
         this.data = Object.assign({
           y: '% Unemployment',
           series: [
-            {name: 'data1', values: data1},
-            {name: 'ucl1', values: ucl1},
-            {name: 'lcl1', values: lcl1},
-            {name: 'target1', values: target1},
-            {name: 'data2', values: data2},
-            {name: 'ucl2', values: ucl2},
-            {name: 'lcl2', values: lcl2},
-            {name: 'target2', values: target2},
+            {name: 'data1', values: data1, visibility: true},
+            {name: 'ucl1', values: ucl1, visibility: true},
+            {name: 'lcl1', values: lcl1, visibility: true},
+            {name: 'target1', values: target1, visibility: true},
+            {name: 'data2', values: data2, visibility: true},
+            {name: 'ucl2', values: ucl2, visibility: true},
+            {name: 'lcl2', values: lcl2, visibility: true},
+            {name: 'target2', values: target2, visibility: true},
           ],
           dates: labelDateTimes,
         });
         this.buildSvg();
         this.addAxis();
         this.drawLineAndPath();
+        this.addLegend();
         this.showTip();
       }
     });
@@ -142,10 +144,11 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     }
     this.x = d3.scaleOrdinal().range(this.xRangeArray);
     this.y = d3.scaleLinear().range([this.height - this.margin.bottom, this.margin.top]);
+    this.z = d3.scaleOrdinal(d3.schemeCategory10);
     this.x.domain(this.data.dates);
     this.y.domain([d3.min(this.data.series, (d: any) => d3.min(d.values) as unknown as number),
       d3.max(this.data.series, (d: any) => d3.max(d.values) as unknown as number)]).nice();
-
+    this.z.domain(['data1', 'ucl1', 'lcl1', 'target1', 'data2', 'ucl2', 'lcl2', 'target2']);
     this.xAxis = d3.axisBottom(this.x).ticks(xAxisTicksCount);
     this.yAxis = d3.axisLeft(this.y);
 
@@ -161,7 +164,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     this.line = d3.line()
       .x((d: any, i) => this.x(this.data.dates[i]))
       .y((d: any) => this.y(d));
-    this.path = this.svg.append('g')
+    /*this.path = this.svg.append('g')
       .attr('class', 'line')
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
@@ -169,11 +172,120 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .attr('stroke-linejoin', 'round')
       .attr('stroke-linecap', 'round')
       .selectAll('path')
-      .data(this.data.series)
-      .join('path')
+      .data(this.data.series);
+
+    this.path.join('path')
       .style('mix-blend-mode', 'multiply')
       .attr('d', (d: any) => this.line(d.values))
-      .selectAll('.xAxis path').style('mix-blend-mode', 'none');
+      .style('stroke', (d: any) => this.z(d.name));
+    this.path.append('text')
+      .datum((d: any) => {
+        return {id: d.name, value: d.values[d.values.length - 1]};
+      })
+      .attr('transform', (d: any) => {
+        return 'translate(' + this.x(d) + ',' + this.y(d.value) + ')';
+      })
+      .attr('x', 3)
+      .attr('dy', '0.35em')
+      .style('font', '10px sans-serif')
+      .text('abcdf');
+    d3.selectAll('.xAxis path').style('mix-blend-mode', 'none');*/
+
+    /*this.line = d3.line()
+      .x((d: any, i) => this.x(this.data.dates[i]))
+      .y((d: any) => this.y(d));
+    const city = d3.selectAll('.city').data(this.data.series).enter().append('g').attr('class', 'city');
+    city.append('path').attr('class', 'line').attr('d', (d: any) => this.line(d.values)).style('stroke', (d: any) => this.z(d.name));
+    city.append('text').datum((d: any) => {
+      return {name: d.name, value: d.values[d.values.length - 1]};
+    }).attr('transform', (d: any) => {
+      return 'translate(' + 0 + ',' + 100 + ')';
+    }).attr('x', 3)
+      .attr('dy', '0.35em')
+      .style('font', '10px sans-serif')
+      .text('abcdf');*/
+    const lines = this.svg.selectAll('lines').data(this.data.series).enter().append('g').attr('class', 'line')
+      .attr('fill', 'none')
+      .attr('stroke', 'steelblue')
+      .attr('stroke-width', 1.5)
+      .attr('stroke-linejoin', 'round')
+      .attr('stroke-linecap', 'round');
+    let id = 0;
+    const ids = () => {
+      return 'line-' + id++;
+    };
+    const xAxisWidth = this.width - this.margin.right - this.margin.left;
+    const xAxisTicksCount = this.data.series[0].values.length;
+    const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
+
+    lines.append('path').attr('class', 'line').attr('d', (d: any) => this.line(d.values)).style('stroke', (d: any) => this.z(d.name));
+    /*lines.append('text').attr('class', 'serie_label').datum((d: any) => {
+      return {name: d.name, value: d.values[d.values.length - 1]};
+    }).attr('transform', (d: any) => {
+      return 'translate(' + (this.margin.left + singleXAxisWidth * (xAxisTicksCount - 1) + 10) + ',' + (this.y(d.value) + 5) + ')';
+    }).attr('x', 5)
+      .text(d => d.name);*/
+  }
+
+  private addLegend(): void {
+
+    const xAxisWidth = this.width - this.margin.right - this.margin.left;
+    const xAxisTicksCount = this.data.series[0].values.length;
+    const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
+
+    const legend = this.svg.append('g')
+      .attr('transform', 'translate(' + (this.margin.left + singleXAxisWidth * (xAxisTicksCount - 1) + 10)  + ', 100)');
+    const size = 20;
+    const borderPadding = 15;
+    const itemPadding = 5;
+    const textOffset = 2;
+    // const palette = ['#f58442', '#ede02d', '#9fbda2', '#6dbfd6'];
+    const domains = ['data1', 'ucl1', 'lcl1', 'target1', 'data2', 'ucl2', 'lcl2', 'target2'];
+    // const color = d3.scaleOrdinal(palette).domain(domains);
+    legend.append('rect')
+      .attr('width', 120)
+      .attr('height', 230)
+      .style('fill', 'none')
+      .style('stroke-width', 1)
+      .attr('stroke', 'black');
+    legend.selectAll('boxes').data(domains).enter().append('rect')
+      .attr('x', borderPadding)
+      .attr('y', (d, i) => borderPadding + (i * (size + itemPadding)))
+      .attr('width', size)
+      .attr('height', size)
+      .style('fill', (d) => this.z(d));
+    legend.selectAll('labels')
+      .data(domains)
+      .enter()
+      .append('text')
+      .attr('x', borderPadding + size + itemPadding)
+      .attr('y', (d, i) => borderPadding + i * ( size + itemPadding) + (size / 2) + textOffset)
+      .text((d) => d)
+      .attr('text-anchor', 'left')
+      .style('alignment-baseline', 'middle')
+      .style('font-family', 'sans-serif')
+      .on('click', (d) => {
+        this.data.series.forEach((w: any, i) => {
+          if (w.name === d) {
+            w.visibility = !w.visibility;
+          }
+        });
+        console.log(JSON.stringify(this.data.series));
+        d3.selectAll('.line path')
+        .style('stroke', (v: any) => {
+          return (v.name !== d && !v.visibility) ? '#DCDCDC' : this.z(v.name);
+        })
+        .style('visibility', (v: any) => {
+          let toggleVisibility = false;
+          this.data.series.forEach((w: any, i) => {
+            if (w.name === v.name) {
+              toggleVisibility = w.visibility;
+            }
+          });
+          return toggleVisibility ? 'visible' : 'hidden';
+        })
+        .filter((v: any) => v.name === d).raise();
+      });
   }
 
   private showTip(): void {
@@ -192,18 +304,25 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       i = i1;
       const s: any = least(this.data.series, (r: any) => Math.abs(r.values[i] - ym));
       if (s) {
-        d3.selectAll('.line path').attr('stroke', v => v === s ? null : '#ddd').filter(v => v === s).raise();
+        d3.selectAll('.line path')
+          // .style('stroke', (v: any) => {
+            // v !== s ? '#DCDCDC' : this.z(v.name);
+          //  return this.z(v.name);
+          // })
+          .filter(v => v === s).raise();
         dot.attr('transform', `translate(${this.x(this.data.dates[i])}, ${this.y(s.values[i])})`);
         dot.select('.tooltip-date').text(formatTime(this.data.dates[i]));
         dot.select('.tooltip-likes').text(s.values[i]);
       }
     };
     const entered = () => {
-      d3.selectAll('.line path').style('mix-blend-mode', null).attr('stroke', '#ddd');
+      d3.selectAll('.line path').attr('mix-blend-mode', null).style('stroke', (v: any) => {
+        return this.z(v.name);
+      });
       dot.attr('display', null);
     };
     const left = () => {
-      d3.selectAll('.line path').style('mix-blend-mode', 'multiply').attr('stroke', null);
+      d3.selectAll('.line path').style('mix-blend-mode', 'multiply').style('stroke', (d: any) => this.z(d.name));
       dot.attr('display', 'none');
     };
     if ('ontouchstart' in document) {
