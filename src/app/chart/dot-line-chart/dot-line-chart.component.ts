@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as d3 from 'd3';
 import { ChartComponentBase } from '../chart-component-base';
+import { least } from '../../utils/chart.util';
 import * as fromReducers from '../../reducers';
 import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
@@ -25,7 +26,6 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
   private z: d3.ScaleOrdinal<string, any>;
   private svg: d3.Selection<any, any, HTMLElement, any>;
   private line: d3.Line<[number, number]>;
-  private path: d3.Selection<any, any, any, any>;
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
   @Input() private datas: Array<any>;
@@ -53,7 +53,6 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
     this.dotLineDataList$.subscribe(dotLineDataList => {
       if (dotLineDataList.length > 0) {
         this.dotLineDataList = dotLineDataList;
-        const parseTime = d3.timeParse('%Y-%m-%d %H:%M:%S');
         const labelDateTimes = [];
         const data1 = [];
         const ucl1 = [];
@@ -411,28 +410,4 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
     }
   }
 
-}
-
-function least(values, compare = d3.ascending) {
-  let min;
-  let defined = false;
-  if (compare.length === 1) {
-    let minValue;
-    for (const element of values) {
-      const value = compare(element, minValue);
-      if (defined ? d3.ascending(value, minValue) < 0 : d3.ascending(value, value) === 0) {
-        min = element;
-        minValue = value;
-        defined = true;
-      }
-    }
-  } else {
-    for (const value of values) {
-      if (defined ? compare(value, min) < 0 : compare(value, value) === 0) {
-        min = value;
-        defined = true;
-      }
-    }
-  }
-  return min;
 }
