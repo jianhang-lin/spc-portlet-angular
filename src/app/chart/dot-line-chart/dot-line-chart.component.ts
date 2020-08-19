@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as d3 from 'd3';
+import { ChartComponentBase } from '../chart-component-base';
 import * as fromReducers from '../../reducers';
 import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
@@ -13,7 +14,7 @@ import { DotLineDataModel } from '../../domain/dot-line-data.model';
   templateUrl: './dot-line-chart.component.html',
   styleUrls: ['./dot-line-chart.component.scss']
 })
-export class DotLineChartComponent implements OnInit, OnChanges {
+export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentBase {
   public title = 'Line Chart';
   public data: any;
   private margin = {top: 20, right: 20, bottom: 30, left: 30};
@@ -67,7 +68,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
             labelDateTimes.push(dotlineData.labelDateTimeStr);
           }
         });
-        this.dotLineDataList.forEach((dotlineData, index) => {
+        this.dotLineDataList.forEach((dotlineData) => {
           if (dotlineData.dotDimensionName === 'data1' && !dotlineData.hideRow) {
             data1.push(dotlineData.data);
             ucl1.push(dotlineData.ucl);
@@ -96,9 +97,9 @@ export class DotLineChartComponent implements OnInit, OnChanges {
           dates: labelDateTimes,
         });
         this.buildSvg();
-        this.addAxis();
+        this.drawAxis();
         this.drawLineAndPath();
-        this.addLegend();
+        this.drawLegend();
         this.showTip();
       }
     });
@@ -109,32 +110,13 @@ export class DotLineChartComponent implements OnInit, OnChanges {
     }
   }
 
-  private getData(): Observable<string> {
-    return this.http.get('http://localhost:4200/assets/cache' +
-      '/b154f8efd1a64d5e3e829b93e4fefd6d72219371ef440007fe368369fea0bbcdc9bcac06b72aae851f392411102931eba7774befa8c8fcbfcad4fc28f136ecd6',
-      {responseType: 'text'});
-  }
-
-  private dataProcess(data: string): void {
-    const tsvArray = d3.tsvParse(data);
-    const columns = tsvArray.columns.slice(1);
-    const t = Object.assign({
-      y: '% Unemployment',
-      series: tsvArray.map(d => ({
-        name: d.name.replace(/, ([\w-]+).*/, ' $1'),
-        values: columns.map(k => +d[k])
-      })),
-      dates: columns.map(d3.utcParse('%Y-%m'))
-    });
-  }
-
-  private buildSvg(): void {
+  public buildSvg(): void {
     this.svg = d3.select('svg')
       .attr('viewBox', `0, 0, ${this.width}, ${this.height}`)
       .style('overflow', 'visible');
   }
 
-  private addAxis(): void {
+  public drawAxis(): void {
     const xAxisWidth = this.width - this.margin.right - this.margin.left;
     const xAxisTicksCount = this.data.series[0].values.length;
     const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
@@ -160,7 +142,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .attr('font-weight', 'bold').text(this.data.y);
   }
 
-  private drawLineAndPath(): void {
+  public drawLineAndPath(): void {
     this.line = d3.line()
       .x((d: any, i) => this.x(this.data.dates[i]))
       .y((d: any) => this.y(d));
@@ -210,13 +192,9 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .attr('stroke-width', 1.5)
       .attr('stroke-linejoin', 'round')
       .attr('stroke-linecap', 'round');
-    let id = 0;
-    const ids = () => {
-      return 'line-' + id++;
-    };
-    const xAxisWidth = this.width - this.margin.right - this.margin.left;
-    const xAxisTicksCount = this.data.series[0].values.length;
-    const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
+    // const xAxisWidth = this.width - this.margin.right - this.margin.left;
+    // const xAxisTicksCount = this.data.series[0].values.length;
+    // const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
 
     lines.append('path').attr('class', 'line').attr('d', (d: any) => this.line(d.values)).style('stroke', (d: any) => this.z(d.name));
     /*lines.append('text').attr('class', 'serie_label').datum((d: any) => {
@@ -227,7 +205,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .text(d => d.name);*/
   }
 
-  private addLegend(): void {
+  public drawLegend(): void {
 
     const xAxisWidth = this.width - this.margin.right - this.margin.left;
     const xAxisTicksCount = this.data.series[0].values.length;
@@ -265,7 +243,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       .style('alignment-baseline', 'middle')
       .style('font-family', 'sans-serif')
       .on('click', (d) => {
-        this.data.series.forEach((w: any, i) => {
+        this.data.series.forEach((w: any) => {
           if (w.name === d) {
             w.visibility = !w.visibility;
           }
@@ -277,7 +255,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
         })
         .style('visibility', (v: any) => {
           let toggleVisibility = false;
-          this.data.series.forEach((w: any, i) => {
+          this.data.series.forEach((w: any) => {
             if (w.name === v.name) {
               toggleVisibility = w.visibility;
             }
@@ -288,7 +266,7 @@ export class DotLineChartComponent implements OnInit, OnChanges {
       });
   }
 
-  private showTip(): void {
+  public showTip(): void {
     const formatTime = d3.timeFormat('%m/%d/%y');
 
     const moved = () => {
