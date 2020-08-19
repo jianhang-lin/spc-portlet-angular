@@ -4,6 +4,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ChartRoutingModule } from './chart-routing.module';
 import { DotLineChartComponent } from './dot-line-chart/dot-line-chart.component';
 import { ChartListComponent } from './chart-list/chart-list.component';
+import { PChartComponent } from './p-chart/p-chart.component';
+import { CChartComponent } from './c-chart/c-chart.component';
 import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-chart-echart.component';
 import { DotLineChartListComponent } from './dot-line-chart-list/dot-line-chart-list.component';
 import { OcapComponent } from './ocap/ocap.component';
@@ -16,6 +18,8 @@ import { CauseComponent } from './cause/cause.component';
     ChartHomeComponent,
     DotLineChartComponent,
     ChartListComponent,
+    CChartComponent,
+    PChartComponent,
     DotLineChartEchartComponent,
     DotLineChartListComponent,
     OcapComponent,
