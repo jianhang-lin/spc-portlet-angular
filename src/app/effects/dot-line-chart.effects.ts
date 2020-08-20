@@ -17,7 +17,7 @@ export class DotLineChartEffects {
   loadDotLineDataList$: Observable<Action> = this.actions$.pipe(
     ofType(chartAction.ActionTypes.LOAD_DOT_LINE_DATA),
     map(toPayload),
-    withLatestFrom(this.store$.select(fromReducers.getMonitorState)),
+    withLatestFrom(this.store$.select(fromReducers.getDotLineChartState)),
     switchMap(([_, auth]) => {
         return this.service$.getDotLineDataList('1')
           .pipe(

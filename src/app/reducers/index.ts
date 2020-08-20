@@ -12,7 +12,8 @@ import * as monitorGroupReducer from './monitor-group.reducer';
 import * as functionStepGridReducer from './function-step-grid.reducer';
 import * as monitorReducer from './monitor.reducer';
 import * as monitorDetailsReducer from './monitor-details.reducer';
-import * as dotLinechartReducer from './dot-line-chart.reducer';
+import * as discreteChartReducer from './discrete-chart.reducer';
+import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
 
 export interface State {
@@ -21,7 +22,8 @@ export interface State {
   functionStepGrid: functionStepGridReducer.State;
   monitor: monitorReducer.State;
   monitorDetails: monitorDetailsReducer.State;
-  dotLineChart: dotLinechartReducer.State;
+  discreteChart: discreteChartReducer.State;
+  dotLineChart: dotLineChartReducer.State;
   ocaps: ocapReducer.State;
 }
 
@@ -31,7 +33,8 @@ const initialState: State = {
   functionStepGrid: functionStepGridReducer.initialState,
   monitor: monitorReducer.initialState,
   monitorDetails: monitorDetailsReducer.initialState,
-  dotLineChart: dotLinechartReducer.initialState,
+  discreteChart: discreteChartReducer.initialState,
+  dotLineChart: dotLineChartReducer.initialState,
   ocaps: ocapReducer.initialState,
 };
 
@@ -41,7 +44,8 @@ const reducers = {
   functionStepGrid: functionStepGridReducer.reducer,
   monitor: monitorReducer.reducer,
   monitorDetails: monitorDetailsReducer.reducer,
-  dotLineChart: dotLinechartReducer.reducer,
+  discreteChart: discreteChartReducer.reducer,
+  dotLineChart: dotLineChartReducer.reducer,
   ocaps: ocapReducer.reducer,
 };
 
@@ -57,6 +61,7 @@ export const getMonitorGroupState = (state: State) => state.monitorGroup;
 export const getFunctionStepGridState = (state: State) => state.functionStepGrid;
 export const getMonitorState = (state: State) => state.monitor;
 export const getMonitorDetailsState = (state: State) => state.monitorDetails;
+export const getDiscreteChartState = (state: State) => state.discreteChart;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
 
@@ -65,7 +70,8 @@ export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGrou
 export const getFunctionStepGrids = createSelector(getFunctionStepGridState, functionStepGridReducer.getFunctionStepGrids);
 export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll);
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
-export const getDotLineDataList = createSelector(getDotLineChartState, dotLinechartReducer.getAll);
+export const getDiscreteData = createSelector(getDiscreteChartState, discreteChartReducer.getDiscreteChart);
+export const getDotLineDataList = createSelector(getDotLineChartState, dotLineChartReducer.getAll);
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 
 @NgModule({

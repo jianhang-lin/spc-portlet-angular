@@ -3,6 +3,7 @@ import { HomeService } from './home.service';
 import { MonitorGroupService } from './monitor-group.service';
 import { FunctionService } from './function.service';
 import { MonitorService } from './monitor.service';
+import { DiscreteChartService } from './discrete-chart.service';
 import { DotLineChartService } from './dot-line-chart.service';
 import { OcapService } from './ocap.service';
 
@@ -16,6 +17,7 @@ export class ServicesModule {
         MonitorGroupService,
         FunctionService,
         MonitorService,
+        DiscreteChartService,
         DotLineChartService,
         OcapService,
       ]
