@@ -40,7 +40,7 @@ export interface CChartDataModel {
   start: number;
   startDate: string;
   totalProperty: number;
-  pageDiscreteChartData: PageDiscreteChart;
+  pageDiscreteChartData: CChartPageDiscreteChart;
 }
 
 export interface ChartType {
@@ -92,7 +92,7 @@ export interface CChartDiscreteData {
   adataTimeStr: string;
   yaxesValue: number;
 }
-export interface PageDiscreteChart {
+export interface CChartPageDiscreteChart {
   chartType: string;
   defectiveSum: number;
   defectsSum: number;

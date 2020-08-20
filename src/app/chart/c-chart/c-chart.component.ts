@@ -6,12 +6,10 @@ import { Store } from '@ngrx/store';
 import * as d3 from 'd3';
 import { ChartComponentBase } from '../chart-component-base';
 import { least } from '../../utils/chart.util';
+import { isEmptyArray, isNullObject } from '../../utils/object.util';
 import * as fromReducers from '../../reducers';
-import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import * as discreteChartAction from '../../actions/c-chart.action';
-import { DotLineDataModel } from '../../domain/dot-line-data.model';
-import {CChartDataModel, CChartDiscreteData} from '../../domain/c-chart-data.model';
-import { isEmptyArray } from '../../utils/array.util';
+import { CChartDataModel, CChartDiscreteData, CChartPageDiscreteChart } from '../../domain/c-chart-data.model';
 
 @Component({
   selector: 'app-c-chart',
@@ -40,10 +38,8 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
   private xAxis: d3.Axis<d3.AxisDomain>;
   private yAxis: d3.Axis<d3.AxisDomain>;
   private xRangeArray: any;
-
-  dotLineDataList: DotLineDataModel[];
-  dotLineDataList$: Observable<DotLineDataModel[]>;
-  discreteDataList: CChartDiscreteData[];
+  cChartDiscreteChartDataList: CChartDiscreteData[];
+  pageDiscreteChartData: CChartPageDiscreteChart;
   cChartData: CChartDataModel;
   cChartData$: Observable<CChartDataModel>;
   constructor(public router: Router,
@@ -52,8 +48,6 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
               private store$: Store<fromReducers.State>) {
     this.width = 1200; // window.innerWidth - this.margin.left - this.margin.right;
     this.height = 400; // window.innerHeight - this.margin.top - this.margin.bottom;
-    // this.store$.dispatch(new dotLineChartAction.LoadDotLineDataAction(null));
-    // this.dotLineDataList$ = this.store$.select(fromReducers.getDotLineDataList);
     this.store$.dispatch(new discreteChartAction.LoadCChartDataAction(null));
     this.cChartData$ = this.store$.select(fromReducers.getCChartData);
   }
@@ -61,64 +55,41 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
   ngOnInit(): void {
     this.cChartData$.subscribe(cChartData => {
       this.cChartData = cChartData;
-      if (isEmptyArray(this.cChartData.discreteDataList)) {
-        this.discreteDataList = this.cChartData.discreteDataList;
-        console.log(JSON.stringify(this.discreteDataList));
+      this.pageDiscreteChartData = this.cChartData.pageDiscreteChartData;
+      if (isNullObject(this.pageDiscreteChartData)) {
+        this.cChartDiscreteChartDataList = this.pageDiscreteChartData.discreteDataList;
+        if (isEmptyArray(this.cChartDiscreteChartDataList)) {
+          const labels = [];
+          const defects = [];
+          const ucl = [];
+          const lcl = [];
+          const cl = [];
+          this.cChartDiscreteChartDataList.forEach( (discreteData) => {
+            labels.push(discreteData.seq);
+            defects.push(discreteData.defects);
+            ucl.push(discreteData.ucl);
+            lcl.push(discreteData.lcl);
+            cl.push(discreteData.lcl);
+          });
+          this.data = Object.assign({
+            y: 'Defects',
+            series: [
+              {name: 'Defects', values: defects, visibility: true},
+              {name: 'UCL', values: ucl, visibility: true},
+              {name: 'LCL', values: lcl, visibility: true},
+              {name: 'CL', values: cl, visibility: true},
+            ],
+            dates: labels,
+          });
+          this.buildSvg();
+          this.drawAxis();
+          this.drawLineAndPath();
+          this.drawLegend();
+          this.showTip();
+        }
       }
 
     });
-    /*this.dotLineDataList$.subscribe(dotLineDataList => {
-      if (false) {
-        this.dotLineDataList = dotLineDataList;
-        const labelDateTimes = [];
-        const data1 = [];
-        const ucl1 = [];
-        const lcl1 = [];
-        const target1 = [];
-        const data2 = [];
-        const ucl2 = [];
-        const lcl2 = [];
-        const target2 = [];
-        this.dotLineDataList.forEach( (dotlineData, index) => {
-          if (index % 4 === 0) {
-            labelDateTimes.push(dotlineData.labelDateTimeStr);
-          }
-        });
-        this.dotLineDataList.forEach((dotlineData) => {
-          if (dotlineData.dotDimensionName === 'data1' && !dotlineData.hideRow) {
-            data1.push(dotlineData.data);
-            ucl1.push(dotlineData.ucl);
-            lcl1.push(dotlineData.lcl);
-            target1.push(dotlineData.target);
-          }
-          if (dotlineData.dotDimensionName === 'data2' && !dotlineData.hideRow) {
-            data2.push(dotlineData.data);
-            ucl2.push(dotlineData.ucl);
-            lcl2.push(dotlineData.lcl);
-            target2.push(dotlineData.target);
-          }
-        });
-        this.data = Object.assign({
-          y: '% Unemployment',
-          series: [
-            {name: 'data1', values: data1, visibility: true},
-            {name: 'ucl1', values: ucl1, visibility: true},
-            {name: 'lcl1', values: lcl1, visibility: true},
-            {name: 'target1', values: target1, visibility: true},
-            {name: 'data2', values: data2, visibility: true},
-            {name: 'ucl2', values: ucl2, visibility: true},
-            {name: 'lcl2', values: lcl2, visibility: true},
-            {name: 'target2', values: target2, visibility: true},
-          ],
-          dates: labelDateTimes,
-        });
-        this.buildSvg();
-        this.drawAxis();
-        this.drawLineAndPath();
-        this.drawLegend();
-        this.showTip();
-      }
-    });*/
 
     // this.createChart();
     if (this.datas) {
@@ -162,63 +133,14 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
     this.line = d3.line()
       .x((d: any, i) => this.x(this.data.dates[i]))
       .y((d: any) => this.y(d));
-    /*this.path = this.svg.append('g')
-      .attr('class', 'line')
-      .attr('fill', 'none')
-      .attr('stroke', 'steelblue')
-      .attr('stroke-width', 1.5)
-      .attr('stroke-linejoin', 'round')
-      .attr('stroke-linecap', 'round')
-      .selectAll('path')
-      .data(this.data.series);
-
-    this.path.join('path')
-      .style('mix-blend-mode', 'multiply')
-      .attr('d', (d: any) => this.line(d.values))
-      .style('stroke', (d: any) => this.z(d.name));
-    this.path.append('text')
-      .datum((d: any) => {
-        return {id: d.name, value: d.values[d.values.length - 1]};
-      })
-      .attr('transform', (d: any) => {
-        return 'translate(' + this.x(d) + ',' + this.y(d.value) + ')';
-      })
-      .attr('x', 3)
-      .attr('dy', '0.35em')
-      .style('font', '10px sans-serif')
-      .text('abcdf');
-    d3.selectAll('.xAxis path').style('mix-blend-mode', 'none');*/
-
-    /*this.line = d3.line()
-      .x((d: any, i) => this.x(this.data.dates[i]))
-      .y((d: any) => this.y(d));
-    const city = d3.selectAll('.city').data(this.data.series).enter().append('g').attr('class', 'city');
-    city.append('path').attr('class', 'line').attr('d', (d: any) => this.line(d.values)).style('stroke', (d: any) => this.z(d.name));
-    city.append('text').datum((d: any) => {
-      return {name: d.name, value: d.values[d.values.length - 1]};
-    }).attr('transform', (d: any) => {
-      return 'translate(' + 0 + ',' + 100 + ')';
-    }).attr('x', 3)
-      .attr('dy', '0.35em')
-      .style('font', '10px sans-serif')
-      .text('abcdf');*/
     const lines = this.svg.selectAll('lines').data(this.data.series).enter().append('g').attr('class', 'line')
       .attr('fill', 'none')
       .attr('stroke', 'steelblue')
       .attr('stroke-width', 1.5)
       .attr('stroke-linejoin', 'round')
       .attr('stroke-linecap', 'round');
-    // const xAxisWidth = this.width - this.margin.right - this.margin.left;
-    // const xAxisTicksCount = this.data.series[0].values.length;
-    // const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
 
     lines.append('path').attr('class', 'line').attr('d', (d: any) => this.line(d.values)).style('stroke', (d: any) => this.z(d.name));
-    /*lines.append('text').attr('class', 'serie_label').datum((d: any) => {
-      return {name: d.name, value: d.values[d.values.length - 1]};
-    }).attr('transform', (d: any) => {
-      return 'translate(' + (this.margin.left + singleXAxisWidth * (xAxisTicksCount - 1) + 10) + ',' + (this.y(d.value) + 5) + ')';
-    }).attr('x', 5)
-      .text(d => d.name);*/
   }
 
   public drawLegend(): void {
@@ -233,12 +155,10 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
     const borderPadding = 15;
     const itemPadding = 5;
     const textOffset = 2;
-    // const palette = ['#f58442', '#ede02d', '#9fbda2', '#6dbfd6'];
-    const domains = ['data1', 'ucl1', 'lcl1', 'target1', 'data2', 'ucl2', 'lcl2', 'target2'];
-    // const color = d3.scaleOrdinal(palette).domain(domains);
+    const domains = ['Defects', 'UCL', 'LCL', 'CL'];
     legend.append('rect')
       .attr('width', 120)
-      .attr('height', 230)
+      .attr('height', 125)
       .style('fill', 'none')
       .style('stroke-width', 1)
       .attr('stroke', 'black');
