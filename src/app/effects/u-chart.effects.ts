@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import * as discreteChartAction from '../actions/c-chart.action';
+import * as uChartAction from '../actions/u-chart.action';
 import * as RouterActions from '../actions/router.action';
 import * as fromReducers from '../reducers';
 import { ChartService } from '../services/chart.service';
@@ -11,18 +11,18 @@ import { ChartService } from '../services/chart.service';
 const toPayload = <T>(action: {payload: T}) => action.payload;
 
 @Injectable()
-export class CChartEffects {
+export class UChartEffects {
 
   @Effect()
-  loadCChartData$: Observable<Action> = this.actions$.pipe(
-    ofType(discreteChartAction.ActionTypes.LOAD_C_CHART_DATA),
+  loadUChartData$: Observable<Action> = this.actions$.pipe(
+    ofType(uChartAction.ActionTypes.LOAD_U_CHART_DATA),
     map(toPayload),
-    withLatestFrom(this.store$.select(fromReducers.getCChartState)),
+    withLatestFrom(this.store$.select(fromReducers.getUChartState)),
     switchMap(([_, auth]) => {
-        return this.service$.getCChartData('1', 1, 'C')
+        return this.service$.getUChartData('1', 1, 'U')
           .pipe(
-            map(cChartData => new discreteChartAction.LoadCChartDataSuccessAction(cChartData)),
-            catchError(err => of(new discreteChartAction.LoadCChartDataFailAction(JSON.stringify(err))))
+            map(uChartData => new uChartAction.LoadUChartDataSuccessAction(uChartData)),
+            catchError(err => of(new uChartAction.LoadUChartDataFailAction(JSON.stringify(err))))
           );
       }
     )

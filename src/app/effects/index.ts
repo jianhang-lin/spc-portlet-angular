@@ -7,6 +7,7 @@ import { FunctionStepGridsEffects } from './function-step-grids.effects';
 import { MonitorEffects } from './monitor.effects';
 import { MonitorDetailsEffects } from './monitor-details.effects';
 import { CChartEffects } from './c-chart.effects';
+import { UChartEffects } from './u-chart.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
 
@@ -20,6 +21,7 @@ import { OcapEffects } from './ocap.effects';
       MonitorEffects,
       MonitorDetailsEffects,
       CChartEffects,
+      UChartEffects,
       DotLineChartEffects,
       OcapEffects,
     ])

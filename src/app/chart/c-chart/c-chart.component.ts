@@ -8,8 +8,9 @@ import { ChartComponentBase } from '../chart-component-base';
 import { least } from '../../utils/chart.util';
 import { isEmptyArray, isNullObject } from '../../utils/object.util';
 import * as fromReducers from '../../reducers';
-import * as discreteChartAction from '../../actions/c-chart.action';
-import { CChartDataModel, CChartDiscreteData, CChartPageDiscreteChart } from '../../domain/c-chart-data.model';
+import * as cChartAction from '../../actions/c-chart.action';
+import { CChartDataModel } from '../../domain/c-chart-data.model';
+import { DiscreteData, PageDiscreteChart } from '../../domain/discrete-chart-data.model';
 
 @Component({
   selector: 'app-c-chart',
@@ -38,8 +39,8 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
   private xAxis: d3.Axis<d3.AxisDomain>;
   private yAxis: d3.Axis<d3.AxisDomain>;
   private xRangeArray: any;
-  cChartDiscreteChartDataList: CChartDiscreteData[];
-  pageDiscreteChartData: CChartPageDiscreteChart;
+  cChartDiscreteChartDataList: DiscreteData[];
+  pageDiscreteChartData: PageDiscreteChart;
   cChartData: CChartDataModel;
   cChartData$: Observable<CChartDataModel>;
   constructor(public router: Router,
@@ -48,7 +49,7 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
               private store$: Store<fromReducers.State>) {
     this.width = 1200; // window.innerWidth - this.margin.left - this.margin.right;
     this.height = 400; // window.innerHeight - this.margin.top - this.margin.bottom;
-    this.store$.dispatch(new discreteChartAction.LoadCChartDataAction(null));
+    this.store$.dispatch(new cChartAction.LoadCChartDataAction(null));
     this.cChartData$ = this.store$.select(fromReducers.getCChartData);
   }
 
@@ -117,7 +118,7 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
     this.x.domain(this.data.dates);
     this.y.domain([d3.min(this.data.series, (d: any) => d3.min(d.values) as unknown as number),
       d3.max(this.data.series, (d: any) => d3.max(d.values) as unknown as number)]).nice();
-    this.z.domain(['data1', 'ucl1', 'lcl1', 'target1', 'data2', 'ucl2', 'lcl2', 'target2']);
+    this.z.domain(['Defects', 'UCL', 'LCL', 'CL']);
     this.xAxis = d3.axisBottom(this.x).ticks(xAxisTicksCount);
     this.yAxis = d3.axisLeft(this.y);
 
