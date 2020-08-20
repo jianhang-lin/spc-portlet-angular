@@ -1,4 +1,4 @@
-export interface DiscreteDataModel {
+export interface CChartDataModel {
   activityDataList: string;
   allChartTypeByMonitorId: string;
   applyDataKeys: string;
@@ -11,7 +11,7 @@ export interface DiscreteDataModel {
   dataKey: number;
   dataSource: number;
   defectcode: string;
-  discreteDataList: DiscreteData[];
+  discreteDataList: CChartDiscreteData[];
   dispScanDurationFlag: boolean;
   dotDataList: string;
   dpmoTP: boolean;
@@ -48,7 +48,7 @@ export interface ChartType {
   index: string;
 }
 
-export interface DiscreteData {
+export interface CChartDiscreteData {
   a_DateTime: number;
   chartKeyMap: string;
   chartType: string;
@@ -96,7 +96,7 @@ export interface PageDiscreteChart {
   chartType: string;
   defectiveSum: number;
   defectsSum: number;
-  discreteDataList: DiscreteData[];
+  discreteDataList: CChartDiscreteData[];
   inspectedSum: number;
   lastDate: string;
   plottedData: number[];

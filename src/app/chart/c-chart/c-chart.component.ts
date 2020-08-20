@@ -8,9 +8,10 @@ import { ChartComponentBase } from '../chart-component-base';
 import { least } from '../../utils/chart.util';
 import * as fromReducers from '../../reducers';
 import * as dotLineChartAction from '../../actions/dot-line-chart.action';
-import * as discreteChartAction from '../../actions/discrete-chart.action';
+import * as discreteChartAction from '../../actions/c-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
-import { DiscreteDataModel } from '../../domain/discrete-data.model';
+import {CChartDataModel, CChartDiscreteData} from '../../domain/c-chart-data.model';
+import { isEmptyArray } from '../../utils/array.util';
 
 @Component({
   selector: 'app-c-chart',
@@ -42,8 +43,9 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
 
   dotLineDataList: DotLineDataModel[];
   dotLineDataList$: Observable<DotLineDataModel[]>;
-  discreteData: DiscreteDataModel;
-  discreteData$: Observable<DiscreteDataModel>;
+  discreteDataList: CChartDiscreteData[];
+  cChartData: CChartDataModel;
+  cChartData$: Observable<CChartDataModel>;
   constructor(public router: Router,
               private route: ActivatedRoute,
               private http: HttpClient,
@@ -52,14 +54,18 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
     this.height = 400; // window.innerHeight - this.margin.top - this.margin.bottom;
     // this.store$.dispatch(new dotLineChartAction.LoadDotLineDataAction(null));
     // this.dotLineDataList$ = this.store$.select(fromReducers.getDotLineDataList);
-    this.store$.dispatch(new discreteChartAction.LoadDiscreteChartDataAction(null));
-    this.discreteData$ = this.store$.select(fromReducers.getDiscreteData);
+    this.store$.dispatch(new discreteChartAction.LoadCChartDataAction(null));
+    this.cChartData$ = this.store$.select(fromReducers.getCChartData);
   }
 
   ngOnInit(): void {
-    this.discreteData$.subscribe(discreteData => {
-      this.discreteData = discreteData;
-      console.log(JSON.stringify(this.discreteData));
+    this.cChartData$.subscribe(cChartData => {
+      this.cChartData = cChartData;
+      if (isEmptyArray(this.cChartData.discreteDataList)) {
+        this.discreteDataList = this.cChartData.discreteDataList;
+        console.log(JSON.stringify(this.discreteDataList));
+      }
+
     });
     /*this.dotLineDataList$.subscribe(dotLineDataList => {
       if (false) {

@@ -1,13 +1,13 @@
-import * as discreteChartActions from '../actions/discrete-chart.action';
-import { DiscreteDataModel } from '../domain/discrete-data.model';
+import * as cChartActions from '../actions/c-chart.action';
+import { CChartDataModel } from '../domain/c-chart-data.model';
 
 
 export interface State {
-  discreteChart: DiscreteDataModel;
+  cChart: CChartDataModel;
 }
 
 export const initialState: State = {
-  discreteChart: {
+  cChart: {
     activityDataList: '',
     allChartTypeByMonitorId: '',
     applyDataKeys: '',
@@ -53,10 +53,10 @@ export const initialState: State = {
   }
 };
 
-export function reducer(state = initialState, action: discreteChartActions.Actions ): State {
+export function reducer(state = initialState, action: cChartActions.Actions ): State {
   switch (action.type) {
-    case discreteChartActions.ActionTypes.LOAD_DISCRETE_CHART_DATA_SUCCESS: {
-      return {...state, discreteChart: action.payload as DiscreteDataModel};
+    case cChartActions.ActionTypes.LOAD_C_CHART_DATA_SUCCESS: {
+      return {...state, cChart: action.payload as CChartDataModel};
     }
     default: {
       return state;
@@ -64,4 +64,4 @@ export function reducer(state = initialState, action: discreteChartActions.Actio
   }
 }
 
-export const getDiscreteChart = (state: State) => state.discreteChart;
+export const getCChart = (state: State) => state.cChart;
