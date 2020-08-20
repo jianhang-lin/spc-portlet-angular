@@ -11,7 +11,7 @@ import * as dotLineChartAction from '../../actions/dot-line-chart.action';
 import { DotLineDataModel } from '../../domain/dot-line-data.model';
 import { OcapComponent } from '../ocap/ocap.component';
 import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
-import {CauseComponent} from "../cause/cause.component";
+import { CauseComponent } from '../cause/cause.component';
 
 
 

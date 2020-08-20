@@ -12,6 +12,7 @@ import { OcapComponent } from './ocap/ocap.component';
 import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
 import { OcapHistoryListComponent } from './ocap-history-list/ocap-history-list.component';
 import { CauseComponent } from './cause/cause.component';
+import { CChartListComponent } from './c-chart-list/c-chart-list.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CauseComponent } from './cause/cause.component';
     DotLineChartComponent,
     ChartListComponent,
     CChartComponent,
+    CChartListComponent,
     PChartComponent,
     DotLineChartEchartComponent,
     DotLineChartListComponent,
@@ -26,6 +28,7 @@ import { CauseComponent } from './cause/cause.component';
     OcapHistoryComponent,
     OcapHistoryListComponent,
     CauseComponent,
+    CChartListComponent,
   ],
   imports: [
     SharedModule,
