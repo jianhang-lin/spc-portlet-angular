@@ -14,6 +14,10 @@ export class ChartListComponent implements OnInit {
       route: '/c_chart'
     },
     {
+      title: 'U Chart By D3',
+      route: '/u_chart'
+    },
+    {
       title: 'P Chart By D3',
       route: '/p_chart'
     },

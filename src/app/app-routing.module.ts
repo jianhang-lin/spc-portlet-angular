@@ -10,6 +10,7 @@ const routes: Routes = [
   {path: 'charts', redirectTo: '/charts', pathMatch: 'full'},
   {path: 'chart_list', redirectTo: '/chart_list', pathMatch: 'full'},
   {path: 'c_chart', redirectTo: '/c_chart', pathMatch: 'full'},
+  {path: 'u_chart', redirectTo: '/u_chart', pathMatch: 'full'},
   {path: 'p_chart', redirectTo: '/p_chart', pathMatch: 'full'},
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
