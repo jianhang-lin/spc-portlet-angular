@@ -20,6 +20,8 @@ import { AffectedListComponent } from './affected-list/affected-list.component';
 import { PChartListComponent } from './p-chart-list/p-chart-list.component';
 import { FpyChartComponent } from './fpy-chart/fpy-chart.component';
 import { FpyChartListComponent } from './fpy-chart-list/fpy-chart-list.component';
+import { YieldChartComponent } from './yield-chart/yield-chart.component';
+import { YieldChartListComponent } from './yield-chart-list/yield-chart-list.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { FpyChartListComponent } from './fpy-chart-list/fpy-chart-list.component
     AffectedListComponent,
     PChartListComponent,
     FpyChartListComponent,
+    YieldChartComponent,
+    YieldChartListComponent,
   ],
   imports: [
     SharedModule,

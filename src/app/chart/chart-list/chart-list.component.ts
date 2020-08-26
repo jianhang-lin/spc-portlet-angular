@@ -26,6 +26,10 @@ export class ChartListComponent implements OnInit {
       route: '/fpy_chart'
     },
     {
+      title: 'Yield Chart By D3',
+      route: '/yield_chart'
+    },
+    {
       title: 'Dot Line Chart By D3',
       route: '/dotLine'
     },

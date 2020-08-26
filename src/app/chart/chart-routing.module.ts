@@ -6,6 +6,7 @@ import { CChartComponent } from './c-chart/c-chart.component';
 import { UChartComponent } from './u-chart/u-chart.component';
 import { PChartComponent } from './p-chart/p-chart.component';
 import { FpyChartComponent } from './fpy-chart/fpy-chart.component';
+import { YieldChartComponent } from './yield-chart/yield-chart.component';
 import { DotLineChartComponent } from './dot-line-chart/dot-line-chart.component';
 import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-chart-echart.component';
 import { OcapComponent } from './ocap/ocap.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'u_chart', component: UChartComponent},
   {path: 'p_chart', component: PChartComponent},
   {path: 'fpy_chart', component: FpyChartComponent},
+  {path: 'yield_chart', component: YieldChartComponent},
   {path: 'dotLine', component: DotLineChartComponent},
   {path: 'dotLineE', component: DotLineChartEchartComponent},
   {path: 'ocap', component: OcapComponent},
