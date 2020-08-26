@@ -10,6 +10,7 @@ import { CChartEffects } from './c-chart.effects';
 import { UChartEffects } from './u-chart.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
+import { AffectedEffects } from './affected.effects';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { OcapEffects } from './ocap.effects';
       UChartEffects,
       DotLineChartEffects,
       OcapEffects,
+      AffectedEffects,
     ])
   ],
 })

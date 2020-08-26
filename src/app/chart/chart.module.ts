@@ -15,6 +15,8 @@ import { OcapComponent } from './ocap/ocap.component';
 import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
 import { OcapHistoryListComponent } from './ocap-history-list/ocap-history-list.component';
 import { CauseComponent } from './cause/cause.component';
+import { AffectedComponent } from './affected/affected.component';
+import { AffectedListComponent } from './affected-list/affected-list.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,8 @@ import { CauseComponent } from './cause/cause.component';
     OcapHistoryComponent,
     OcapHistoryListComponent,
     CauseComponent,
+    AffectedComponent,
+    AffectedListComponent,
   ],
   imports: [
     SharedModule,

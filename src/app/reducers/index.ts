@@ -16,6 +16,7 @@ import * as cChartReducer from './c-chart.reducer';
 import * as uChartReducer from './u-chart.reducer';
 import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
+import * as affctedReducer from './affected.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -27,6 +28,7 @@ export interface State {
   uChart: uChartReducer.State;
   dotLineChart: dotLineChartReducer.State;
   ocaps: ocapReducer.State;
+  affecteds: affctedReducer.State;
 }
 
 const initialState: State = {
@@ -39,6 +41,7 @@ const initialState: State = {
   uChart: uChartReducer.initialState,
   dotLineChart: dotLineChartReducer.initialState,
   ocaps: ocapReducer.initialState,
+  affecteds: affctedReducer.initialState,
 };
 
 const reducers = {
@@ -51,6 +54,7 @@ const reducers = {
   uChart: uChartReducer.reducer,
   dotLineChart: dotLineChartReducer.reducer,
   ocaps: ocapReducer.reducer,
+  affecteds: affctedReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -69,6 +73,7 @@ export const getCChartState = (state: State) => state.cChart;
 export const getUChartState = (state: State) => state.uChart;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
+export const getAffectedState = (state: State) => state.affecteds;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -79,6 +84,7 @@ export const getCChartData = createSelector(getCChartState, cChartReducer.getCCh
 export const getUChartData = createSelector(getUChartState, uChartReducer.getUChart);
 export const getDotLineDataList = createSelector(getDotLineChartState, dotLineChartReducer.getAll);
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
+export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
 
 @NgModule({
   imports: [

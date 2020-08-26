@@ -6,6 +6,7 @@ import { MonitorService } from './monitor.service';
 import { ChartService } from './chart.service';
 import { DotLineChartService } from './dot-line-chart.service';
 import { OcapService } from './ocap.service';
+import { AffectedService } from './affected.service';
 
 @NgModule()
 export class ServicesModule {
@@ -20,6 +21,7 @@ export class ServicesModule {
         ChartService,
         DotLineChartService,
         OcapService,
+        AffectedService,
       ]
     };
   }

@@ -17,6 +17,7 @@ const routes: Routes = [
   {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},
   {path: 'ocap_history', redirectTo: '/ocap_history', pathMatch: 'full'},
   {path: 'cause', redirectTo: '/cause', pathMatch: 'full'},
+  {path: 'affected', redirectTo: '/affected', pathMatch: 'full'},
 ];
 
 @NgModule({

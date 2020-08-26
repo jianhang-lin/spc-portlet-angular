@@ -6,13 +6,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { isEmptyArray, isNullObject } from '../../utils/object.util';
 import * as fromReducers from '../../reducers';
 import * as cChartAction from '../../actions/c-chart.action';
 import { OcapComponent } from '../ocap/ocap.component';
 import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
 import { CauseComponent } from '../cause/cause.component';
-import { CChartDataModel, CChartDiscreteData, CChartPageDiscreteChart } from '../../domain/c-chart-data.model';
-import { isEmptyArray, isNullObject } from '../../utils/object.util';
+import { CChartDataModel } from '../../domain/c-chart-data.model';
+import { DiscreteData, PageDiscreteChart } from '../../domain/discrete-chart-data.model';
+import {AffectedComponent} from "../affected/affected.component";
 
 @Component({
   selector: 'app-c-chart-list',
@@ -23,8 +25,8 @@ export class CChartListComponent implements OnInit {
 
   // dotLineDataList: DotLineDataModel[];
   // dotLineDataList$: Observable<DotLineDataModel[]>;
-  discreteDataList: CChartDiscreteData[];
-  pageDiscreteChartData: CChartPageDiscreteChart;
+  discreteDataList: DiscreteData[];
+  pageDiscreteChartData: PageDiscreteChart;
   cChartData: CChartDataModel;
   cChartData$: Observable<CChartDataModel>;
   displayedColumns: string[];
@@ -45,16 +47,16 @@ export class CChartListComponent implements OnInit {
       if (isNullObject(this.pageDiscreteChartData)) {
         this.discreteDataList = this.pageDiscreteChartData.discreteDataList;
         if (isEmptyArray(this.discreteDataList)) {
-          this.dataSource = new MatTableDataSource<CChartDiscreteData>(this.discreteDataList);
+          this.dataSource = new MatTableDataSource<DiscreteData>(this.discreteDataList);
           this.displayedColumns = ['select', 'SPC Collection Time', 'Inspected', 'Defects', 'UCL',
             'LCL', 'OCAP', 'extension1', 'extension2', 'extension3', 'extension4'];
-          this.selection = new SelectionModel<CChartDiscreteData>(true, []);
+          this.selection = new SelectionModel<DiscreteData>(true, []);
           this.dataSource.paginator = this.paginator;
         }
       }
     });
   }
-  onCheckboxClick($event: MouseEvent, row: CChartDiscreteData, index: number) {
+  onCheckboxClick($event: MouseEvent, row: DiscreteData, index: number) {
     this.selection.clear();
     if (this.selection.isSelected(row)) {
       this.selection.toggle(row);
@@ -62,15 +64,15 @@ export class CChartListComponent implements OnInit {
     $event.stopPropagation();
   }
 
-  onCheckboxChange($event: MatCheckboxChange, row: CChartDiscreteData, index: number) {
+  onCheckboxChange($event: MatCheckboxChange, row: DiscreteData, index: number) {
     return $event ? this.selection.toggle(row) : null;
   }
 
-  onCheckboxChecked(row: CChartDiscreteData, index: number) {
+  onCheckboxChecked(row: DiscreteData, index: number) {
     return this.selection.isSelected(row);
   }
 
-  checkboxLable(row?: CChartDiscreteData): string {
+  checkboxLable(row?: DiscreteData): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
@@ -83,7 +85,7 @@ export class CChartListComponent implements OnInit {
     return numSelected === numRows;
   }
 
-  onRowClick(row: CChartDiscreteData) {
+  onRowClick(row: DiscreteData) {
     this.selection.clear();
     return this.selection.toggle(row);
   }
@@ -115,10 +117,10 @@ export class CChartListComponent implements OnInit {
     });
   }
 
-  openCauseDialog() {
+  openCauseDialog(element: DiscreteData) {
     const dialogRef = this.dialog.open(CauseComponent, {
       data: {
-        cause: 'Consecutive Points above or low than UCL or LCL'
+        cause: element.rulesExceptionHtml
       }
     });
 
@@ -127,4 +129,17 @@ export class CChartListComponent implements OnInit {
     });
   }
 
+  openAffectedDialog(element: DiscreteData) {
+    const dialogRef = this.dialog.open(AffectedComponent, {
+      data: {
+        sn: element.rulesExceptionHtml,
+        defects: element.rulesExceptionHtml,
+        scanTime: element.rulesExceptionHtml,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The cause dialog was closed, animal = ' + result);
+    });
+  }
 }

@@ -76,7 +76,7 @@
       <td mat-cell *matCellDef="let element">
         <div [ngSwitch]="element.exception">
           <div *ngSwitchCase=true>
-            <img src="assets/img/cause.png" (click)="openCauseDialog()">
+            <img src="assets/img/cause.png" (click)="openCauseDialog(element)">
           </div>
           <div *ngSwitchCase=false></div>
         </div>
@@ -86,12 +86,7 @@
     <ng-container matColumnDef="extension4">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <div [ngSwitch]="element.exception">
-          <div *ngSwitchCase=true>
-            <img src="assets/img/cause.png" (click)="openCauseDialog()">
-          </div>
-          <div *ngSwitchCase=false></div>
-        </div>
+        <img src="assets/img/affectedsn.png" (click)="openAffectedDialog(element)">
       </td>
     </ng-container>
 
