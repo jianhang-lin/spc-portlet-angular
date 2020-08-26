@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'c_chart', redirectTo: '/c_chart', pathMatch: 'full'},
   {path: 'u_chart', redirectTo: '/u_chart', pathMatch: 'full'},
   {path: 'p_chart', redirectTo: '/p_chart', pathMatch: 'full'},
+  {path: 'fpy_chart', redirectTo: '/fpy_chart', pathMatch: 'full'},
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
   {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},

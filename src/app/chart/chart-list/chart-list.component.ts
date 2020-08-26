@@ -22,6 +22,10 @@ export class ChartListComponent implements OnInit {
       route: '/p_chart'
     },
     {
+      title: 'FPY Chart By D3',
+      route: '/fpy_chart'
+    },
+    {
       title: 'Dot Line Chart By D3',
       route: '/dotLine'
     },

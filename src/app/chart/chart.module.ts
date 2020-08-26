@@ -18,6 +18,8 @@ import { CauseComponent } from './cause/cause.component';
 import { AffectedComponent } from './affected/affected.component';
 import { AffectedListComponent } from './affected-list/affected-list.component';
 import { PChartListComponent } from './p-chart-list/p-chart-list.component';
+import { FpyChartComponent } from './fpy-chart/fpy-chart.component';
+import { FpyChartListComponent } from './fpy-chart-list/fpy-chart-list.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { PChartListComponent } from './p-chart-list/p-chart-list.component';
     UChartComponent,
     UChartListComponent,
     PChartComponent,
+    FpyChartComponent,
     DotLineChartEchartComponent,
     DotLineChartListComponent,
     OcapComponent,
@@ -38,6 +41,7 @@ import { PChartListComponent } from './p-chart-list/p-chart-list.component';
     AffectedComponent,
     AffectedListComponent,
     PChartListComponent,
+    FpyChartListComponent,
   ],
   imports: [
     SharedModule,

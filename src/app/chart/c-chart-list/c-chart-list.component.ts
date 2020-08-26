@@ -14,7 +14,7 @@ import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
 import { CauseComponent } from '../cause/cause.component';
 import { CChartDataModel } from '../../domain/c-chart-data.model';
 import { DiscreteData, PageDiscreteChart } from '../../domain/discrete-chart-data.model';
-import {AffectedComponent} from "../affected/affected.component";
+import { AffectedComponent } from '../affected/affected.component';
 
 @Component({
   selector: 'app-c-chart-list',
