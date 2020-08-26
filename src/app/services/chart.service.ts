@@ -5,11 +5,13 @@ import { UChartDataModel } from '../domain/u-chart-data.model';
 import { CChartDataModel } from '../domain/c-chart-data.model';
 import { PChartDataModel } from '../domain/p-chart-data.model';
 import { FpyChartDataModel } from '../domain/fpy-chart-data.model';
+import { YieldChartDataModel } from '../domain/yield-chart-data.model';
 
 @Injectable()
 export class ChartService {
 
   private readonly loadDiscreteDataByPointsForExt = 'loadDiscreteDataByPointsForExt';
+  private readonly loadDiscreteDataByPoints = 'loadDiscreteDataByPoints';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -33,5 +35,10 @@ export class ChartService {
   getFpyChartData(page: string, dataKey: number, chartType: string): Observable<FpyChartDataModel> {
     const uri = `${this.config.uri}/${this.loadDiscreteDataByPointsForExt}`;
     return this.http.get<FpyChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+  }
+
+  getYieldChartData(page: string, dataKey: number, chartType: string): Observable<YieldChartDataModel> {
+    const uri = `${this.config.uri}/${this.loadDiscreteDataByPoints}`;
+    return this.http.get<YieldChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 }
