@@ -12,21 +12,21 @@ import * as cChartAction from '../../actions/c-chart.action';
 import { OcapComponent } from '../ocap/ocap.component';
 import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
 import { CauseComponent } from '../cause/cause.component';
-import { CChartDataModel } from '../../domain/c-chart-data.model';
+import { PChartDataModel } from '../../domain/p-chart-data.model';
 import { DiscreteData, PageDiscreteChart } from '../../domain/discrete-chart-data.model';
 import { AffectedComponent } from '../affected/affected.component';
 
 @Component({
-  selector: 'app-u-chart-list',
-  templateUrl: './u-chart-list.component.html',
-  styleUrls: ['./u-chart-list.component.scss']
+  selector: 'app-p-chart-list',
+  templateUrl: './p-chart-list.component.html',
+  styleUrls: ['./p-chart-list.component.scss']
 })
-export class UChartListComponent implements OnInit {
+export class PChartListComponent implements OnInit {
 
   discreteDataList: DiscreteData[];
   pageDiscreteChartData: PageDiscreteChart;
-  cChartData: CChartDataModel;
-  cChartData$: Observable<CChartDataModel>;
+  pChartData: PChartDataModel;
+  pChartData$: Observable<PChartDataModel>;
   displayedColumns: string[];
   dataSource;
   selection;
@@ -35,18 +35,18 @@ export class UChartListComponent implements OnInit {
     private store$: Store<fromReducers.State>,
     private dialog: MatDialog) {
     this.store$.dispatch(new cChartAction.LoadCChartDataAction(null));
-    this.cChartData$ = this.store$.select(fromReducers.getCChartData);
+    this.pChartData$ = this.store$.select(fromReducers.getPChartData);
   }
 
   ngOnInit(): void {
-    this.cChartData$.subscribe(cChartData => {
-      this.cChartData = cChartData;
-      this.pageDiscreteChartData = this.cChartData.pageDiscreteChartData;
+    this.pChartData$.subscribe(pChartData => {
+      this.pChartData = pChartData;
+      this.pageDiscreteChartData = this.pChartData.pageDiscreteChartData;
       if (isNullObject(this.pageDiscreteChartData)) {
         this.discreteDataList = this.pageDiscreteChartData.discreteDataList;
         if (isEmptyArray(this.discreteDataList)) {
           this.dataSource = new MatTableDataSource<DiscreteData>(this.discreteDataList);
-          this.displayedColumns = ['select', 'SPC Collection Time', 'Inspected', 'Defects', 'Defects/Inspected', 'UCL',
+          this.displayedColumns = ['select', 'SPC Collection Time', 'Inspected', 'Defective', 'Defective/Inspected', 'UCL',
             'LCL', 'OCAP', 'extension1', 'extension2', 'extension3', 'extension4'];
           this.selection = new SelectionModel<DiscreteData>(true, []);
           this.dataSource.paginator = this.paginator;

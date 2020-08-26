@@ -14,6 +14,7 @@ import * as monitorReducer from './monitor.reducer';
 import * as monitorDetailsReducer from './monitor-details.reducer';
 import * as cChartReducer from './c-chart.reducer';
 import * as uChartReducer from './u-chart.reducer';
+import * as pChartReducer from './p-chart.reducer';
 import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
 import * as affctedReducer from './affected.reducer';
@@ -26,6 +27,7 @@ export interface State {
   monitorDetails: monitorDetailsReducer.State;
   cChart: cChartReducer.State;
   uChart: uChartReducer.State;
+  pChart: pChartReducer.State;
   dotLineChart: dotLineChartReducer.State;
   ocaps: ocapReducer.State;
   affecteds: affctedReducer.State;
@@ -39,6 +41,7 @@ const initialState: State = {
   monitorDetails: monitorDetailsReducer.initialState,
   cChart: cChartReducer.initialState,
   uChart: uChartReducer.initialState,
+  pChart: pChartReducer.initialState,
   dotLineChart: dotLineChartReducer.initialState,
   ocaps: ocapReducer.initialState,
   affecteds: affctedReducer.initialState,
@@ -52,6 +55,7 @@ const reducers = {
   monitorDetails: monitorDetailsReducer.reducer,
   cChart: cChartReducer.reducer,
   uChart: uChartReducer.reducer,
+  pChart: pChartReducer.reducer,
   dotLineChart: dotLineChartReducer.reducer,
   ocaps: ocapReducer.reducer,
   affecteds: affctedReducer.reducer,
@@ -71,6 +75,7 @@ export const getMonitorState = (state: State) => state.monitor;
 export const getMonitorDetailsState = (state: State) => state.monitorDetails;
 export const getCChartState = (state: State) => state.cChart;
 export const getUChartState = (state: State) => state.uChart;
+export const getPChartState = (state: State) => state.pChart;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
 export const getAffectedState = (state: State) => state.affecteds;
@@ -82,6 +87,7 @@ export const getMonitors = createSelector(getMonitorState, monitorReducer.getAll
 export const getMonitorDetails = createSelector(getMonitorDetailsState, monitorDetailsReducer.getMonitorDetails);
 export const getCChartData = createSelector(getCChartState, cChartReducer.getCChart);
 export const getUChartData = createSelector(getUChartState, uChartReducer.getUChart);
+export const getPChartData = createSelector(getPChartState, pChartReducer.getPChart);
 export const getDotLineDataList = createSelector(getDotLineChartState, dotLineChartReducer.getAll);
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
