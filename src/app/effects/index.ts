@@ -9,6 +9,7 @@ import { MonitorDetailsEffects } from './monitor-details.effects';
 import { CChartEffects } from './c-chart.effects';
 import { UChartEffects } from './u-chart.effects';
 import { PChartEffects } from './p-chart.effects';
+import { FpyChartEffects } from './fpy-chart.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
 import { AffectedEffects } from './affected.effects';
@@ -25,6 +26,7 @@ import { AffectedEffects } from './affected.effects';
       CChartEffects,
       UChartEffects,
       PChartEffects,
+      FpyChartEffects,
       DotLineChartEffects,
       OcapEffects,
       AffectedEffects,

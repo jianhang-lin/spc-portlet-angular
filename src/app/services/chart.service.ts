@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { UChartDataModel } from '../domain/u-chart-data.model';
 import { CChartDataModel } from '../domain/c-chart-data.model';
 import { PChartDataModel } from '../domain/p-chart-data.model';
+import { FpyChartDataModel } from '../domain/fpy-chart-data.model';
 
 @Injectable()
 export class ChartService {
@@ -27,5 +28,10 @@ export class ChartService {
   getPChartData(page: string, dataKey: number, chartType: string): Observable<PChartDataModel> {
     const uri = `${this.config.uri}/${this.loadDiscreteDataByPointsForExt}`;
     return this.http.get<PChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+  }
+
+  getFpyChartData(page: string, dataKey: number, chartType: string): Observable<FpyChartDataModel> {
+    const uri = `${this.config.uri}/${this.loadDiscreteDataByPointsForExt}`;
+    return this.http.get<FpyChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 }

@@ -106,4 +106,7 @@ export interface PageDiscreteChart {
   cl: number;
   lcl: number[];
   ucl: number[];
+  display: boolean;
+  target: number;
+  trigger: boolean;
 }
