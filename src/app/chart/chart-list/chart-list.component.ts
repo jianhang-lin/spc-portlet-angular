@@ -30,6 +30,10 @@ export class ChartListComponent implements OnInit {
       route: '/yield_chart'
     },
     {
+      title: 'Pareto Chart By D3',
+      route: '/pareto_chart'
+    },
+    {
       title: 'Dot Line Chart By D3',
       route: '/dotLine'
     },

@@ -22,6 +22,8 @@ import { FpyChartComponent } from './fpy-chart/fpy-chart.component';
 import { FpyChartListComponent } from './fpy-chart-list/fpy-chart-list.component';
 import { YieldChartComponent } from './yield-chart/yield-chart.component';
 import { YieldChartListComponent } from './yield-chart-list/yield-chart-list.component';
+import { ParetoChartListComponent } from './pareto-chart-list/pareto-chart-list.component';
+import { ParetoChartComponent } from './pareto-chart/pareto-chart.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { YieldChartListComponent } from './yield-chart-list/yield-chart-list.com
     FpyChartListComponent,
     YieldChartComponent,
     YieldChartListComponent,
+    ParetoChartListComponent,
+    ParetoChartComponent,
   ],
   imports: [
     SharedModule,
