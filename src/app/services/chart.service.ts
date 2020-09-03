@@ -6,12 +6,14 @@ import { CChartDataModel } from '../domain/c-chart-data.model';
 import { PChartDataModel } from '../domain/p-chart-data.model';
 import { FpyChartDataModel } from '../domain/fpy-chart-data.model';
 import { YieldChartDataModel } from '../domain/yield-chart-data.model';
+import { ParetoChartDataModel } from '../domain/pareto-chart-data.model';
 
 @Injectable()
 export class ChartService {
 
   private readonly loadDiscreteDataByPointsForExt = 'loadDiscreteDataByPointsForExt';
   private readonly loadDiscreteDataByPoints = 'loadDiscreteDataByPoints';
+  private readonly viewParetoData = 'viewParetoData';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -40,5 +42,10 @@ export class ChartService {
   getYieldChartData(page: string, dataKey: number, chartType: string): Observable<YieldChartDataModel> {
     const uri = `${this.config.uri}/${this.loadDiscreteDataByPoints}`;
     return this.http.get<YieldChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+  }
+
+  getParetoChartData(page: string, dataKey: number, chartType: string): Observable<ParetoChartDataModel[]> {
+    const uri = `${this.config.uri}/${this.viewParetoData}`;
+    return this.http.get<ParetoChartDataModel[]>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 }
