@@ -57,3 +57,22 @@ table {
 .full-width {
   width: 100%;
 }
+
+// pareto css
+.paretoSvg {
+  font: 10px sans-serif;
+}
+.paretoBar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+.paretoAxis path, .paretoAxis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+.paretoLine {
+  fill: none;
+  stroke: purple;
+  stroke-width: 1.5px;
+}
