@@ -7,8 +7,8 @@ import * as d3 from 'd3';
 import { ChartComponentBase } from '../chart-component-base';
 import { isEmptyArray } from '../../utils/object.util';
 import * as fromReducers from '../../reducers';
-import * as paretoChartAction from '../../actions/pareto-chart.action';
-import { ParetoChartDataModel } from '../../domain/pareto-chart-data.model';
+import * as paretoBeanAction from '../../actions/pareto-bean.action';
+import { ParetoBeanModel } from '../../domain/pareto-bean.model';
 
 @Component({
   selector: 'app-pareto-chart',
@@ -44,8 +44,8 @@ export class ParetoChartComponent implements OnInit, OnChanges, ChartComponentBa
   private showDefectNumber: boolean;
   private showCumulative: boolean;
   private bar: any;
-  paretoChartDataList: ParetoChartDataModel[];
-  paretoChartDataList$: Observable<ParetoChartDataModel[]>;
+  paretoBeanDataList: ParetoBeanModel[];
+  paretoBeanDataList$: Observable<ParetoBeanModel[]>;
   constructor(public router: Router,
               private route: ActivatedRoute,
               private http: HttpClient,
@@ -54,16 +54,16 @@ export class ParetoChartComponent implements OnInit, OnChanges, ChartComponentBa
     this.height = 500 - this.margin.top - this.margin.bottom; // window.innerHeight - this.margin.top - this.margin.bottom;
     this.showDefectNumber = true;
     this.showCumulative = true;
-    this.store$.dispatch(new paretoChartAction.LoadParetoChartDataListAction(null));
-    this.paretoChartDataList$ = this.store$.select(fromReducers.getParetoChartData);
+    this.store$.dispatch(new paretoBeanAction.LoadParetoBeanDataListAction(null));
+    this.paretoBeanDataList$ = this.store$.select(fromReducers.getParetoBeanData);
   }
 
   ngOnInit(): void {
-    this.paretoChartDataList$.subscribe(paretoChartDataList => {
-      this.paretoChartDataList = paretoChartDataList;
-      if (isEmptyArray(this.paretoChartDataList)) {
+    this.paretoBeanDataList$.subscribe(paretoBeanDataList => {
+      this.paretoBeanDataList = paretoBeanDataList;
+      if (isEmptyArray(this.paretoBeanDataList)) {
         this.data = [];
-        this.paretoChartDataList.forEach((w) => {
+        this.paretoBeanDataList.forEach((w) => {
           this.data.push(Object.assign({Category: w.description, Amount: w.countnumber, visibility: true}));
         });
 

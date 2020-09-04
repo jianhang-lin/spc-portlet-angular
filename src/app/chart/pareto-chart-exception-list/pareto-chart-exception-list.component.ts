@@ -7,22 +7,25 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import * as fromReducers from '../../reducers';
-import * as paretoBeanAction from '../../actions/pareto-bean.action';
+import * as paretoChartAction from '../../actions/pareto-chart.action';
 import { OcapComponent } from '../ocap/ocap.component';
 import { OcapHistoryComponent } from '../ocap-history/ocap-history.component';
 import { CauseComponent } from '../cause/cause.component';
 import { AffectedComponent } from '../affected/affected.component';
+import { ParetoChartDataModel } from '../../domain/pareto-chart-data.model';
+import { isNullObject } from '../../utils/object.util';
 import { ParetoBeanModel } from '../../domain/pareto-bean.model';
 
 @Component({
-  selector: 'app-pareto-chart-list',
-  templateUrl: './pareto-chart-list.component.html',
-  styleUrls: ['./pareto-chart-list.component.scss']
+  selector: 'app-pareto-chart-exception-list',
+  templateUrl: './pareto-chart-exception-list.component.html',
+  styleUrls: ['./pareto-chart-exception-list.component.scss']
 })
-export class ParetoChartListComponent implements OnInit {
+export class ParetoChartExceptionListComponent implements OnInit {
 
-  paretoBeanDataList: ParetoBeanModel[];
-  paretoBeanDataList$: Observable<ParetoBeanModel[]>;
+  paretoBeanList: ParetoBeanModel[];
+  paretoChartData: ParetoChartDataModel;
+  paretoChartData$: Observable<ParetoChartDataModel>;
   displayedColumns: string[];
   dataSource;
   selection;
@@ -30,18 +33,21 @@ export class ParetoChartListComponent implements OnInit {
   constructor(
     private store$: Store<fromReducers.State>,
     private dialog: MatDialog) {
-    this.store$.dispatch(new paretoBeanAction.LoadParetoBeanDataListAction(null));
-    this.paretoBeanDataList$ = this.store$.select(fromReducers.getParetoBeanData);
+    this.store$.dispatch(new paretoChartAction.LoadParetoChartDataListAction(null));
+    this.paretoChartData$ = this.store$.select(fromReducers.getParetoChartData);
   }
 
   ngOnInit(): void {
-    this.paretoBeanDataList$.subscribe(paretoBeanDataList => {
-      this.paretoBeanDataList = paretoBeanDataList;
-      this.dataSource = new MatTableDataSource<ParetoBeanModel>(this.paretoBeanDataList);
-      this.displayedColumns = ['select', 'Defect Code', 'Description', 'Defect Number', 'Percent(%)', 'Cumulative(%)',
-        'extension1', 'extension2', 'extension3', 'extension4'];
-      this.selection = new SelectionModel<ParetoBeanModel>(true, []);
-      this.dataSource.paginator = this.paginator;
+    this.paretoChartData$.subscribe(paretoChartData => {
+      this.paretoChartData = paretoChartData;
+      this.paretoBeanList = this.paretoChartData.paretoBeans;
+      if (isNullObject(this.paretoBeanList)) {
+        this.dataSource = new MatTableDataSource<ParetoBeanModel>(this.paretoBeanList);
+        this.displayedColumns = ['select', 'SPC Collection Time', 'Defect Code', 'Description', 'Cause', 'OCAP',
+          'extension1', 'extension2', 'extension3'];
+        this.selection = new SelectionModel<ParetoBeanModel>(true, []);
+        this.dataSource.paginator = this.paginator;
+      }
     });
   }
   onCheckboxClick($event: MouseEvent, row: ParetoBeanModel, index: number) {
@@ -64,7 +70,7 @@ export class ParetoChartListComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${1}`;
   }
 
   isAllSelected() {

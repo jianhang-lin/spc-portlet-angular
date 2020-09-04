@@ -1,8 +1,6 @@
-import { DiscreteChartDataModel } from './discrete-chart-data.model';
+export interface ParetoBeanModel {
 
-// tslint:disable-next-line:no-empty-interface
-export interface ParetoChartDataModel extends DiscreteChartDataModel {
-  /*aDateTime: number;
+  aDateTime: number;
   aDateTimeGroupSeq: number;
   aactive: number;
   activityKey: number;
@@ -14,7 +12,7 @@ export interface ParetoChartDataModel extends DiscreteChartDataModel {
   cumulative: string;
   dataStatus: number;
   datekey: number;
-  defectcode: string;
+  defectcode: number;
   defectqty: number;
   description: string;
   dispADateTime: string;
@@ -22,10 +20,10 @@ export interface ParetoChartDataModel extends DiscreteChartDataModel {
   hasaDateTimeGroup: boolean;
   locationKey: number;
   monitorkey: number;
-  ocap: string;
+  ocap: number;
   partKey: number;
   percent: string;
   serialKey: string;
   serialNumber: string;
-  position: number;*/
+  position: number;
 }

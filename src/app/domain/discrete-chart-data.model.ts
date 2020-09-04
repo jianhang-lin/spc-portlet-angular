@@ -1,3 +1,5 @@
+import { ParetoBeanModel } from './pareto-bean.model';
+
 export interface DiscreteChartDataModel {
   activityDataList: string;
   allChartTypeByMonitorId: string;
@@ -28,7 +30,7 @@ export interface DiscreteChartDataModel {
   operateByHanld: boolean;
   page: number;
   pageDiscreteChartDataForTV: string;
-  paretoBeans: string;
+  paretoBeans: ParetoBeanModel[];
   partFamilyId: string;
   partName: string;
   partNumber: string;

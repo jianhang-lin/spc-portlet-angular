@@ -18,6 +18,7 @@ import * as pChartReducer from './p-chart.reducer';
 import * as fpyChartReducer from './fpy-chart.reducer';
 import * as yieldChartReducer from './yield-chart.reducer';
 import * as paretoChartReducer from './pareto-chart.reducer';
+import * as paretoBeanReducer from './pareto-bean.reducer';
 import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
 import * as affctedReducer from './affected.reducer';
@@ -34,6 +35,7 @@ export interface State {
   fpyChart: fpyChartReducer.State;
   yieldChart: yieldChartReducer.State;
   paretoChart: paretoChartReducer.State;
+  paretoBean: paretoBeanReducer.State;
   dotLineChart: dotLineChartReducer.State;
   ocaps: ocapReducer.State;
   affecteds: affctedReducer.State;
@@ -51,6 +53,7 @@ const initialState: State = {
   fpyChart: fpyChartReducer.initialState,
   yieldChart: yieldChartReducer.initialState,
   paretoChart: paretoChartReducer.initialState,
+  paretoBean: paretoBeanReducer.initialState,
   dotLineChart: dotLineChartReducer.initialState,
   ocaps: ocapReducer.initialState,
   affecteds: affctedReducer.initialState,
@@ -68,6 +71,7 @@ const reducers = {
   fpyChart: fpyChartReducer.reducer,
   yieldChart: yieldChartReducer.reducer,
   paretoChart: paretoChartReducer.reducer,
+  paretoBean: paretoBeanReducer.reducer,
   dotLineChart: dotLineChartReducer.reducer,
   ocaps: ocapReducer.reducer,
   affecteds: affctedReducer.reducer,
@@ -91,6 +95,7 @@ export const getPChartState = (state: State) => state.pChart;
 export const getFpyChartState = (state: State) => state.fpyChart;
 export const getYieldChartState = (state: State) => state.yieldChart;
 export const getParetoChartState = (state: State) => state.paretoChart;
+export const getParetoBeanState = (state: State) => state.paretoBean;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
 export const getAffectedState = (state: State) => state.affecteds;
@@ -105,7 +110,8 @@ export const getUChartData = createSelector(getUChartState, uChartReducer.getUCh
 export const getPChartData = createSelector(getPChartState, pChartReducer.getPChart);
 export const getFpyChartData = createSelector(getFpyChartState, fpyChartReducer.getFpyChart);
 export const getYieldChartData = createSelector(getYieldChartState, yieldChartReducer.getYieldChart);
-export const getParetoChartData = createSelector(getParetoChartState, paretoChartReducer.getAll);
+export const getParetoChartData = createSelector(getParetoChartState, paretoChartReducer.getParetoChart);
+export const getParetoBeanData = createSelector(getParetoBeanState, paretoBeanReducer.getAll);
 export const getDotLineDataList = createSelector(getDotLineChartState, dotLineChartReducer.getAll);
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);

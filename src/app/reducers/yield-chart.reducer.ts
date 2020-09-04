@@ -37,7 +37,7 @@ export const initialState: State = {
     operateByHanld: false,
     page: 0,
     pageDiscreteChartDataForTV: '',
-    paretoBeans: '',
+    paretoBeans: [],
     partFamilyId: '',
     partName: '',
     partNumber: '',

@@ -15,7 +15,7 @@ export class LoadParetoChartDataListAction implements Action {
 
 export class LoadParetoChartDataListSuccessAction implements Action {
   type = ActionTypes.LOAD_PARETO_CHART_DATA_LIST_SUCCESS;
-  constructor(public payload: ParetoChartDataModel[]) {}
+  constructor(public payload: ParetoChartDataModel) {}
 }
 
 export class LoadParetoChartDataListFailAction implements Action {

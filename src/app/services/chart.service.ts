@@ -7,6 +7,7 @@ import { PChartDataModel } from '../domain/p-chart-data.model';
 import { FpyChartDataModel } from '../domain/fpy-chart-data.model';
 import { YieldChartDataModel } from '../domain/yield-chart-data.model';
 import { ParetoChartDataModel } from '../domain/pareto-chart-data.model';
+import { ParetoBeanModel } from '../domain/pareto-bean.model';
 
 @Injectable()
 export class ChartService {
@@ -14,6 +15,7 @@ export class ChartService {
   private readonly loadDiscreteDataByPointsForExt = 'loadDiscreteDataByPointsForExt';
   private readonly loadDiscreteDataByPoints = 'loadDiscreteDataByPoints';
   private readonly viewParetoData = 'viewParetoData';
+  private readonly loadParetoExceptionDataForExt = 'loadParetoExceptionDataForExt';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -44,8 +46,13 @@ export class ChartService {
     return this.http.get<YieldChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 
-  getParetoChartData(page: string, dataKey: number, chartType: string): Observable<ParetoChartDataModel[]> {
+  getParetoBeanData(page: string, dataKey: number, chartType: string): Observable<ParetoBeanModel[]> {
     const uri = `${this.config.uri}/${this.viewParetoData}`;
-    return this.http.get<ParetoChartDataModel[]>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+    return this.http.get<ParetoBeanModel[]>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+  }
+
+  getParetoChartData(page: string, dataKey: number, chartType: string): Observable<ParetoChartDataModel> {
+    const uri = `${this.config.uri}/${this.loadParetoExceptionDataForExt}`;
+    return this.http.get<ParetoChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 }
