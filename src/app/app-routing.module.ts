@@ -15,6 +15,7 @@ const routes: Routes = [
   {path: 'fpy_chart', redirectTo: '/fpy_chart', pathMatch: 'full'},
   {path: 'yield_chart', redirectTo: '/yield_chart', pathMatch: 'full'},
   {path: 'pareto_chart', redirectTo: '/pareto_chart', pathMatch: 'full'},
+  {path: 'cpkppk_chart', redirectTo: '/cpkppk_chart', pathMatch: 'full'},
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
   {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},

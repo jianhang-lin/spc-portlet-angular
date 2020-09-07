@@ -25,6 +25,7 @@ import { YieldChartListComponent } from './yield-chart-list/yield-chart-list.com
 import { ParetoChartListComponent } from './pareto-chart-list/pareto-chart-list.component';
 import { ParetoChartComponent } from './pareto-chart/pareto-chart.component';
 import { ParetoChartExceptionListComponent } from './pareto-chart-exception-list/pareto-chart-exception-list.component';
+import { CpkPpkChartComponent } from './cpk-ppk-chart/cpk-ppk-chart.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { ParetoChartExceptionListComponent } from './pareto-chart-exception-list
     ParetoChartListComponent,
     ParetoChartComponent,
     ParetoChartExceptionListComponent,
+    CpkPpkChartComponent,
   ],
   imports: [
     SharedModule,
