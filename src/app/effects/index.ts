@@ -13,6 +13,7 @@ import { FpyChartEffects } from './fpy-chart.effects';
 import { YieldChartEffects } from './yield-chart.effects';
 import { ParetoChartEffects } from './pareto-chart.effects';
 import { ParetoBeanEffects } from './pareto-bean.effects';
+import { CpkPpkChartEffects } from './cpk-ppk-chart.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
 import { AffectedEffects } from './affected.effects';
@@ -33,6 +34,7 @@ import { AffectedEffects } from './affected.effects';
       YieldChartEffects,
       ParetoChartEffects,
       ParetoBeanEffects,
+      CpkPpkChartEffects,
       DotLineChartEffects,
       OcapEffects,
       AffectedEffects,

@@ -8,6 +8,7 @@ import { FpyChartDataModel } from '../domain/fpy-chart-data.model';
 import { YieldChartDataModel } from '../domain/yield-chart-data.model';
 import { ParetoChartDataModel } from '../domain/pareto-chart-data.model';
 import { ParetoBeanModel } from '../domain/pareto-bean.model';
+import { CpkPpkChartDataModel } from '../domain/cpk-ppk-chart-data.model';
 
 @Injectable()
 export class ChartService {
@@ -16,6 +17,7 @@ export class ChartService {
   private readonly loadDiscreteDataByPoints = 'loadDiscreteDataByPoints';
   private readonly viewParetoData = 'viewParetoData';
   private readonly loadParetoExceptionDataForExt = 'loadParetoExceptionDataForExt';
+  private readonly viewCpkPpkData = 'viewCpkPpkData';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
@@ -54,5 +56,10 @@ export class ChartService {
   getParetoChartData(page: string, dataKey: number, chartType: string): Observable<ParetoChartDataModel> {
     const uri = `${this.config.uri}/${this.loadParetoExceptionDataForExt}`;
     return this.http.get<ParetoChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
+  }
+
+  getCpkPpkChartData(page: string, dataKey: number, chartType: string): Observable<CpkPpkChartDataModel> {
+    const uri = `${this.config.uri}/${this.viewCpkPpkData}`;
+    return this.http.get<CpkPpkChartDataModel>(uri, {params: {page, dataKey: String(dataKey), chartType}});
   }
 }
