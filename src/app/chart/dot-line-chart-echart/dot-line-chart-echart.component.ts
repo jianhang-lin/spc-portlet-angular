@@ -32,8 +32,12 @@ export class DotLineChartEchartComponent implements OnInit {
       const ucl2 = [];
       const lcl2 = [];
       const target2 = [];
+      const createTimes = [];
+      const applications = [];
       for (let i = 0; i < this.dotLineDataList.length / 4; i++) {
         xAxisData.push(this.dotLineDataList[i * 4].labelDateTimeStr);
+        createTimes.push(this.dotLineDataList[i * 4].createTimeStr);
+        applications.push(this.dotLineDataList[i * 4].application);
       }
       for (let i = 0; i < this.dotLineDataList.length; i++) {
         if (this.dotLineDataList[i].dotDimensionName === 'data1' && !this.dotLineDataList[i].hideRow) {
@@ -57,7 +61,12 @@ export class DotLineChartEchartComponent implements OnInit {
         tooltip: {
           show: true,
           formatter(param) {
-            return JSON.stringify(param);
+            const rest = '<div><p>Information</p></div>' +
+              '<p>Application:' + applications[param.dataIndex] + '</p>' +
+              '<p>Import Date:' + createTimes[param.dataIndex] + '</p>' +
+              '<p>Data:' + param.data + '</p>'
+            ;
+            return rest;
           }
         },
         xAxis: {
