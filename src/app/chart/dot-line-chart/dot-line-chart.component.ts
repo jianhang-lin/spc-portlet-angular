@@ -62,9 +62,13 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
         const ucl2 = [];
         const lcl2 = [];
         const target2 = [];
+        const createTimes = [];
+        const applications = [];
         this.dotLineDataList.forEach( (dotlineData, index) => {
           if (index % 4 === 0) {
             labelDateTimes.push(dotlineData.labelDateTimeStr);
+            createTimes.push(dotlineData.createTimeStr);
+            applications.push(dotlineData.application);
           }
         });
         this.dotLineDataList.forEach((dotlineData) => {
@@ -94,6 +98,8 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
             {name: 'target2', values: target2, visibility: true},
           ],
           dates: labelDateTimes,
+          createTimes,
+          applications,
         });
         this.buildSvg();
         this.drawAxis();
@@ -288,7 +294,9 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
           // })
           .filter(v => v === s).raise();
         dot.attr('transform', `translate(${this.x(this.data.dates[i])}, ${this.y(s.values[i])})`);
-        dot.select('.tooltip-date').text(formatTime(this.data.dates[i]));
+        dot.select('.tooltip-title').text('Information');
+        dot.select('.tooltip-application').text(this.data.applications[i]);
+        dot.select('.tooltip-date').text(this.data.createTimes[i]);
         dot.select('.tooltip-likes').text(s.values[i]);
       }
     };
@@ -320,8 +328,8 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
       .attr('r', 2.5).attr('fill', 'steelblue');
     dot.append('rect')
       .attr('class', 'tooltip')
-      .attr('width', 100)
-      .attr('height', 50)
+      .attr('width', 250)
+      .attr('height', 100)
       .attr('x', 10)
       .attr('y', -22)
       .attr('rx', 4)
@@ -329,21 +337,43 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
       .attr('fill', 'white')
       .attr('stroke', '#000');
     dot.append('text')
-      .attr('class', 'tooltip-date')
+      .attr('class', 'tooltip-title')
       .attr('x', 18)
       .attr('y', -2)
+      .attr('font-weight', 'bold')
+      .attr('font-size', 14);
+    dot.append('text')
+      .attr('x', 18)
+      .attr('y', 18)
+      .attr('font-size', 14)
+      .text('Application:');
+    dot.append('text')
+      .attr('class', 'tooltip-application')
+      .attr('x', 100)
+      .attr('y', 18)
+      .attr('font-weight', 'bold')
+      .attr('font-size', 14);
+    dot.append('text')
+      .attr('x', 18)
+      .attr('y', 38)
+      .attr('font-size', 14)
+      .text('Import Date:');
+    dot.append('text')
+      .attr('class', 'tooltip-date')
+      .attr('x', 100)
+      .attr('y', 38)
       .attr('font-weight', 'bold')
       .attr('font-size', 14);
       // .attr('font-family', 'sans-serif').attr('font-size', 10).attr('text-anchor', 'middle').attr('y', -8);
     dot.append('text')
       .attr('x', 18)
-      .attr('y', 18)
+      .attr('y', 58)
       .attr('font-size', 14)
-      .text('Value:');
+      .text('Data:');
     dot.append('text')
       .attr('class', 'tooltip-likes')
       .attr('x', 60)
-      .attr('y', 18)
+      .attr('y', 58)
       .attr('font-size', 14)
       .attr('font-weight', 'bold');
   }
