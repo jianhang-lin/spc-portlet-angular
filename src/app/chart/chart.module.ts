@@ -26,6 +26,7 @@ import { ParetoChartListComponent } from './pareto-chart-list/pareto-chart-list.
 import { ParetoChartComponent } from './pareto-chart/pareto-chart.component';
 import { ParetoChartExceptionListComponent } from './pareto-chart-exception-list/pareto-chart-exception-list.component';
 import { CpkPpkChartComponent } from './cpk-ppk-chart/cpk-ppk-chart.component';
+import { CChartEchartComponent } from './c-chart-echart/c-chart-echart.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CpkPpkChartComponent } from './cpk-ppk-chart/cpk-ppk-chart.component';
     ParetoChartComponent,
     ParetoChartExceptionListComponent,
     CpkPpkChartComponent,
+    CChartEchartComponent,
   ],
   imports: [
     SharedModule,
