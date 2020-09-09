@@ -101,7 +101,7 @@ export class ParetoChartComponent implements OnInit, OnChanges, ChartComponentBa
     this.svg = d3.select('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
-      .attr('class', 'paretoSvg')
+      .attr('class', 'svg')
       .append('g')
       .attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')');
   }

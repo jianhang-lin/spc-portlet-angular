@@ -50,29 +50,24 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   path: any;
   arcs: any;
   series: any;
-  // current: any;
   formatCount: any;
   numBuckets: number;
   numberOfDataPoints: number;
   mean: number;
   stdDeviatian: number;
   stdDeviationWithIn: number;
-  normalDistributionFunction: any;
   actualData: any;
-  sum: any;
-  probability: number;
-  variance: number;
-  idealData: number[];
-  idealData2: number[];
+  idealDataOfOverall: number[];
+  idealDataOfWithIn: number[];
   max: any;
   min: any;
   dataBar: any;
   x: any;
-  yMax: any;
+  yBarMax: any;
   y: any;
   xAxis: any;
   yAxis: any;
-  private yAxis2: d3.Axis<d3.AxisDomain>;
+  yAxisOfPdf: d3.Axis<d3.AxisDomain>;
   xNormal: any;
   yNormal: any;
   xNormal2: any;
@@ -86,223 +81,41 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
               private store$: Store<fromReducers.State>) {
     this.width = 960 - this.margin.left - this.margin.right;
     this.height = 500 - this.margin.top - this.margin.bottom;
-
-
-
     this.store$.dispatch(new cpkPpkChartAction.LoadCpkPpkChartDataAction(null));
     this.cpkPpkChartData$ = this.store$.select(fromReducers.getCpkPpkChartData);
-
-
-  }
-
-  private get_data(mean, sigma, x) {
-    const data = [];
-    for (let i = 0; i < this.width; i++) {
-      const q = x.invert(i);
-      const p = this.gaussian_pdf(q, mean, sigma);
-      const el = {q, p};
-      data.push(el);
-    }
-    data.sort(function (xx, y) {
-      return xx.q - y.q;
-    });
-    return data;
-  }
-
-  private gaussian_pdf(xR, mean, sigma) {
-    const gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
-    const xxxx = (xR - mean) / sigma;
-    return gaussianConstant * Math.exp(-.5 * xxxx * xxxx) / sigma;
-  }
-
-  private getProbabilityData(normalizedData, m, v): number[] {
-    const data = [];
-    for (let i = 0; i < normalizedData.length; i += 1) {
-      const q = normalizedData[i];
-      const p = this.probabilityDensityCalculation(q, m, v);
-      const el = { q, p};
-      data.push(el);
-    }
-    /*data.push({q: 31.3636, p: 1});
-    data.push({q: 34.0909, p: 1});
-    data.push({q: 36.8182, p: 0});
-    data.push({q: 39.5455, p: 1});
-    data.push({q: 42.2727, p: 0});
-    data.push({q: 45, p: 4});
-    data.push({q: 47.7273, p: 2});
-    data.push({q: 50.4545, p: 1});
-    data.push({q: 53.1818, p: 0});
-    data.push({q: 55.9091, p: 0});
-    data.push({q: 58.6364, p: 0});*/
-    data.sort(function(x, y) {
-      return x.q - y.q;
-    });
-    return data;
-  }
-
-  private probabilityDensityCalculation(x, mean, variance): number {
-    const m = Math.sqrt(2 * Math.PI * variance);
-    const e = Math.exp(-Math.pow(x - mean, 2) / (2 * variance));
-    return e / m;
   }
 
   ngOnInit(): void {
     this.cpkPpkChartData$.subscribe(cpkPpkChartData => {
       this.cpkPpkChartData = cpkPpkChartData;
       if (isEmptyArray(this.cpkPpkChartData.datas)) {
-        this.pieData = [];
-        this.data = [];
-        console.log(JSON.stringify(cpkPpkChartData));
-
-        this.series = ['Actual', 'Ideal'];
-        this.colors = d3.scaleOrdinal(d3.schemeCategory10);
-        this.colors.domain(this.series);
-        this.formatCount = d3.format(',.0f');
         this.numBuckets = 10;
         this.numberOfDataPoints = 20;
         this.mean = 105.458;
         this.stdDeviatian = 8.31948;
         this.stdDeviationWithIn = 6.28966;
-        this.normalDistributionFunction = d3.randomNormal(this.mean, this.stdDeviatian);
-        // ['31.3636', '34.0909', '36.8182', '39.5455', '42.2727',
-        //           '45', '47.7273', '50.4545', '53.1818', '55.9091', '58.6364'];
         this.actualData = [
-          125.358493,
-          107.609410,
-          112.524459,
-          101.673722,
-          103.311081,
-          110.197375,
-          106.192040,
-          101.928823,
-          96.318163,
-          105.644594,
-          92.994049,
-          94.065836,
-          99.319944,
-          99.483252,
-          104.607748,
-          120.619625,
-          114.920230,
-          102.841946,
-          100.294047,
-          109.248236,
-        ]; /*[31.3636, 34.0909, 39.5455,
+          125.358493, 107.609410, 112.524459, 101.673722, 103.311081,
+          110.197375, 106.192040, 101.928823, 96.318163, 105.644594,
+          92.994049, 94.065836, 99.319944, 99.483252, 104.607748,
+          120.619625, 114.920230, 102.841946, 100.294047, 109.248236,
+        ];
+        /*[31.3636, 34.0909, 39.5455,
           45, 45, 45, 45, 47.7273, 47.7273, 50.4545, 55.9091, 58.6364];*/
-        // d3.range(this.numberOfDataPoints).map(this.normalDistributionFunction);
-        this.sum = d3.sum(this.actualData);
-        this.probability = 1 / this.numberOfDataPoints;
-        this.variance = this.sum * this.probability * (1 - this.probability);
-        const actualData2 = d3.range(1000).map(this.normalDistributionFunction);
-         // this.getProbabilityData(actualData2, this.mean, this.variance);
-        this.max = d3.max(this.actualData);
-        this.min = d3.min(this.actualData);
-        this.x = d3.scaleLinear().range([0, this.width]).domain([this.min, this.max]);
-        this.idealData = this.get_data(this.mean,
+        this.formatCount = d3.format(',.0f');
+        this.pieData = [];
+        this.data = [];
+        console.log(JSON.stringify(cpkPpkChartData));
+        this.idealDataOfOverall = this.getNormalDistributionData(this.mean,
           this.stdDeviatian,
           d3.scaleLinear().range([0, this.width]).domain([this.mean - (3 * this.stdDeviatian), this.mean + (3 * this.stdDeviatian)]));
-        this.idealData2 = this.get_data(this.mean,
+        this.idealDataOfWithIn = this.getNormalDistributionData(this.mean,
           this.stdDeviationWithIn,
           d3.scaleLinear().range([0, this.width])
             .domain([this.mean - (3 * this.stdDeviationWithIn), this.mean + (3 * this.stdDeviationWithIn)]));
-        // this.dataBar = d3.histogram().thresholds(this.numBuckets)(this.actualData);
-        this.dataBar = d3.histogram().thresholds([92.5, 97.5, 102.5, 107.5, 112.5, 117.5, 122.5, 127.5])(this.actualData);
-        this.yMax = d3.max(this.dataBar, (d: any) => {
-          return d.length;
-        });
-        this.y = d3.scaleLinear().domain([0, this.yMax]).range([this.height, 0]);
-        this.xAxis = d3.axisBottom(this.x).ticks(10);
-        this.yAxis = d3.axisLeft(this.y).tickFormat(d3.format('.2s'));
-
-        const d1 = d3.min(this.idealData, (d: any) => d.q);
-        const d2 = d3.min(this.idealData2, (d: any) => d.q);
-        const minD = d3.min([d1, d2]);
-        const d4 = d3.max(this.idealData, (d: any) => d.q);
-        const d5 = d3.max(this.idealData2, (d: any) => d.q);
-        const maxD = d3.max([d4, d5]);
-        const d6 = d3.max(this.idealData, (d: any) => d.p);
-        const d7 = d3.max(this.idealData2, (d: any) => d.p);
-        const maxP = d3.max([d6, d7]);
-        this.ycum = d3.scaleLinear().domain([0, maxP]).range([this.height, 0]);
-        this.yAxis2 = d3.axisRight(this.ycum);
-        // this.xNormal = d3.scaleLinear().range([0, this.width]).domain(d3.extent(this.idealData, (d: any) => d.q));
-        this.xNormal = d3.scaleLinear().range([0, this.width]).domain([minD, maxD]);
-        // this.yNormal = d3.scaleLinear().range([this.height, 0]).domain(d3.extent(this.idealData, (d: any) => d.p));
-        this.yNormal = d3.scaleLinear().range([this.height, 0]).domain([0, maxP]);
-        // this.xNormal2 = d3.scaleLinear().range([0, this.width]).domain(d3.extent(this.idealData2, (d: any) => d.q));
-        // this.yNormal2 = d3.scaleLinear().range([this.height, 0]).domain(d3.extent(this.idealData2, (d: any) => d.p));
-        this.linePlot = d3.line().x((d: any) => {
-          return this.xNormal(d.q);
-        }).y((d: any) => {
-          return this.ycum(d.p);
-        });
-        /*this.linePlot2 = d3.line().x((d: any) => {
-          return this.xNormal2(d.q);
-        }).y((d: any) => {
-          return this.yNormal2(d.p);
-        });*/
-
-        this.svg = d3.select('svg')
-          .attr('width', this.width + this.margin.left + this.margin.right)
-          .attr('height', this.height + this.margin.top + this.margin.bottom)
-          .append('g').attr('transform', 'translate(' + this.margin.left + ',' + this.margin.top + ')')
-        ;
-        const bar = this.svg.selectAll('.bar').data(this.dataBar).enter()
-          .append('g').attr('class', 'bar')
-          .attr('transform', (d: any) => {
-            // return 'translate(' + this.x(d.x) + ',' + this.y(d.y) + ')';
-            return 'translate(' + this.x(d.x0) + ',' + this.y(d.length) + ')';
-          });
-        bar.append('rect').attr('x', 1).attr('width', (d: any) => {
-          return (this.x(d.x1 - d.x0) - this.x(0)) <= 0 ? 0 : (this.x(d.x1 - d.x0) - this.x(0)) - 1;
-        }).attr('height', (d: any) => {
-          return this.height - this.y(d.length);
-        }).attr('fill', (d: any) => {
-          return this.colors(this.series[0]);
-        })
-        ;
-        bar.append('text').attr('dy', '.75em').attr('y', -12)
-          .attr('x', (d) => {
-            const dx = this.dataBar[0].x1 - this.dataBar[0].x0;
-            console.log(this.dataBar[0].x1 - this.dataBar[0].x0);
-            const b = (this.x(dx) - this.x(0)) / 2;
-            console.log(b);
-            return b;
-          })
-          .attr('text-anchor', 'middle').text((d: any) => this.formatCount(d.length));
-
-        /*const lines = this.svg.selectAll('.series')
-          .data([1])
-          .enter().append('g').attr('class', 'series');*/
-        this.svg.append('path').datum(this.idealData).attr('class', 'line').attr('d', this.linePlot)
-          .style('stroke', () => this.colors(this.series[1]))
-          .style('stroke-width', '2px').style('fill', 'none')
-          .attr('id', 'line1')
-        ;
-        this.svg.append('path').datum(this.idealData2).attr('class', 'line').attr('d', this.linePlot)
-          .style('stroke', 'red')
-          .style('stroke-width', '2.2px').style('fill', 'none')
-          .attr('id', 'line2')
-          .style('stroke-dasharray', ('10,3'))
-        ;
-        this.svg.append('g').attr('class', 'x axis').attr('transform', 'translate(0,' + this.height + ')' )
-          .call(this.xAxis);
-        this.svg.append('g').attr('class', 'y axis')
-          .call(this.yAxis);
-        this.svg.append('g')
-          .attr('class', 'y2 axis')
-          .attr('transform', 'translate(' + this.width   + ',0)')
-          .style('fill', 'unset')
-          .call(this.yAxis2)
-          .append('text')
-          .attr('transform', 'rotate(-90)')
-          .attr('y', 4)
-          .attr('dy', '-.71em')
-          .style('text-anchor', 'end')
-          .text('Cumulative %');
-        // this.buildSvg();
-        // this.drawAxis();
-        // this.drawLineAndPath();
+        this.buildSvg();
+        this.drawAxis();
+        this.drawLineAndPath();
         // this.drawLegend();
         // this.showTip();
       }
@@ -313,52 +126,157 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
     }
   }
 
+  private getNormalDistributionData(mean, sd, xAxis) {
+    const normalDistributionData = [];
+    for (let i = 0; i < this.width; i++) {
+      const q = xAxis.invert(i);
+      // const p = this.gaussianPdf(q, mean, sigma);
+      const p = this.dnorm(q, mean, sd);
+      const el = {q, p};
+      normalDistributionData.push(el);
+    }
+    normalDistributionData.sort((x, y) => {
+      return x.q - y.q;
+    });
+    return normalDistributionData;
+  }
+
+  private dnorm(x, mean = 0, sd = 1) {
+    return 1 / sd * this.dnorm_standard((x - mean) / sd);
+  }
+
+  private dnorm_standard(x) {
+    return 1 / Math.sqrt(2 * Math.PI) * Math.exp(-0.5 * Math.pow(x, 2));
+  }
+
+  // Gaussian probability density function
+  private gaussianPdf(x, mean, sigma) {
+    const gaussianConstant = 1 / Math.sqrt(2 * Math.PI);
+    const temp = (x - mean) / sigma;
+    return gaussianConstant * Math.exp(-.5 * temp * temp) / sigma;
+  }
+
   public buildSvg(): void {
     this.svg = d3.select('svg')
-      .attr('viewBox', `0, 0, ${this.width}, ${this.height}`)
-      .style('overflow', 'visible');
+      .attr('width', this.width + this.margin.left + this.margin.right)
+      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('class', 'svg')
+      .append('g').attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
+    ;
   }
 
   public drawAxis(): void {
-    // const xAxisWidth = this.width - this.margin.right - this.margin.left;
-    // const xAxisTicksCount = 20;
-    // const singleXAxisWidth = xAxisWidth / xAxisTicksCount;
-    // this.xRangeArray = [];
-    // for (let i = 0; i < xAxisTicksCount; i++) {
-    //   this.xRangeArray.push(this.margin.left + singleXAxisWidth * i);
-    // }
-    // this.x = d3.scaleOrdinal().range(this.xRangeArray);
-    // this.y = d3.scaleLinear().range([this.height - this.margin.bottom, this.margin.top]);
     this.z = d3.scaleOrdinal(d3.schemeCategory10);
     this.z.domain(['Pass', 'Fail']);
-    // this.y.domain([-1000, 1000]).nice();
+
+    this.series = ['Actual', 'Ideal'];
+    this.colors = d3.scaleOrdinal(d3.schemeCategory10);
+    this.colors.domain(this.series);
+
+    this.max = d3.max(this.actualData);
+    this.min = d3.min(this.actualData);
+    this.x = d3.scaleLinear().rangeRound([0, this.width]).domain([this.min, this.max]).nice();
+
+    this.dataBar = d3.histogram().thresholds([92.5, 97.5, 102.5, 107.5, 112.5, 117.5, 122.5, 127.5])(this.actualData);
+    this.yBarMax = d3.max(this.dataBar, (d: any) => {
+      return d.length;
+    });
+    this.y = d3.scaleLinear().domain([0, this.yBarMax]).range([this.height, 0]);
+
+    this.xAxis = d3.axisBottom(this.x).ticks(10);
+    this.yAxis = d3.axisLeft(this.y).tickFormat(d3.format('.2s'));
+
+    const minQOfOverall = d3.min(this.idealDataOfOverall, (d: any) => d.q);
+    const minQOfWithIn = d3.min(this.idealDataOfWithIn, (d: any) => d.q);
+    const minQ = d3.min([minQOfOverall, minQOfWithIn]);
+    const maxQOfOverall = d3.max(this.idealDataOfOverall, (d: any) => d.q);
+    const maxQOfWithIn = d3.max(this.idealDataOfWithIn, (d: any) => d.q);
+    const maxQ = d3.max([maxQOfOverall, maxQOfWithIn]);
+    const maxPOfOverall = d3.max(this.idealDataOfOverall, (d: any) => d.p);
+    const maxPOfWithIn = d3.max(this.idealDataOfWithIn, (d: any) => d.p);
+    const maxP = d3.max([maxPOfOverall, maxPOfWithIn]);
+    this.ycum = d3.scaleLinear().domain([0, maxP]).range([this.height, 0]);
+    this.yAxisOfPdf = d3.axisRight(this.ycum);
+    this.xNormal = d3.scaleLinear().range([0, this.width]).domain([minQ, maxQ]);
+    this.yNormal = d3.scaleLinear().range([this.height, 0]).domain([0, maxP]);
+
+    this.svg.append('g').attr('class', 'x axis').attr('transform', `translate(0, ${this.height})`)
+      .call(this.xAxis);
+    this.svg.append('g').attr('class', 'y axis')
+      .call(this.yAxis);
+    this.svg.append('g')
+      .attr('class', 'y axis')
+      .attr('transform', `translate(${this.width}, 0)`)
+      // .style('fill', 'unset')
+      .call(this.yAxisOfPdf)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 4)
+      .attr('dy', '-.71em')
+      .style('text-anchor', 'end')
+      .text('Probability Density');
   }
 
   public drawLineAndPath(): void {
-    this.radius = this.height / 2;
-    this.donutWidth = this.radius;
-    const temp = this.svg
-      .data([this.data])
-      .attr('width', this.width)
-      .attr('height', this.height)
-      .append('g')
-      .attr('class', 'currentPie')
-      .attr('transform', `translate(${this.width / 2}, ${this.height / 2})`);
-    const pie = d3.pie().value((d: any) => d.value);
-
-    this.arcs = temp.selectAll('g.slice').data(pie(this.data)).enter().append('g').attr('class', (d: any) => {
-      const currentLabel: string = d.data.label;
-      if (Object.is(currentLabel, 'Pass')) {
-        return 'slice passSlice';
-      } else if (Object.is(currentLabel, 'Fail')) {
-        return 'slice failSlice';
-      }
-
+    this.linePlot = d3.line().x((d: any) => {
+      return this.xNormal(d.q);
+    }).y((d: any) => {
+      return this.ycum(d.p);
     });
-    this.path = this.arcs.append('path')
-      .attr('fill', (d, i) => this.z(i.toString()))
-      .attr('d', d3.arc().outerRadius(this.radius).innerRadius(0));
 
+    const bar = this.svg.selectAll('.bar').data(this.dataBar).enter()
+      .append('g').attr('class', 'bar')
+      .attr('transform', (d: any) => {
+        // return 'translate(' + this.x(d.x) + ',' + this.y(d.y) + ')';
+        return 'translate(' + this.x(d.x0) + ',' + this.y(d.length) + ')';
+      });
+    bar.append('rect').attr('x', 1).attr('width', (d: any) => {
+      return (this.x(d.x1 - d.x0) - this.x(0)) <= 0 ? 0 : (this.x(d.x1 - d.x0) - this.x(0)) - 1;
+    }).attr('height', (d: any) => {
+      return this.height - this.y(d.length);
+    }).attr('fill', (d: any) => {
+      return this.colors(this.series[0]);
+    })
+    ;
+    bar.append('text').attr('dy', '.75em').attr('y', -12)
+      .attr('x', (d) => {
+        const dx = this.dataBar[0].x1 - this.dataBar[0].x0;
+        return (this.x(dx) - this.x(0)) / 2;
+      })
+      .attr('text-anchor', 'middle').text((d: any) => this.formatCount(d.length));
+
+    /*const lines = this.svg.selectAll('.series')
+      .data([1])
+      .enter().append('g').attr('class', 'series');*/
+    this.svg.append('path').datum(this.idealDataOfOverall).attr('class', 'line').attr('d', this.linePlot)
+      .style('stroke', 'red')
+      .style('stroke-width', '2px').style('fill', 'none')
+      .attr('id', 'OverallLine')
+    ;
+    this.svg.append('path').datum(this.idealDataOfWithIn).attr('class', 'line').attr('d', this.linePlot)
+      .style('stroke', 'black')
+      .style('stroke-width', '2.2px').style('fill', 'none')
+      .attr('id', 'WithinLine')
+      .style('stroke-dasharray', ('10,3'))
+    ;
+
+    const lslPlot: any = d3.line().x((d: any) => {
+      return this.xNormal(d.q);
+    }).y((d: any) => {
+      return this.y(d.p);
+    });
+    this.svg.append('path').datum([{q: 92, p: 0}, {q: 92, p: 5}])
+      .attr('class', 'line').attr('d', lslPlot)
+      .style('stroke', 'black')
+      //.attr('x1', this.x.invert(90))
+      //.attr('y1', 0)
+      //.attr('x2', this.x.invert(90))
+      //.attr('y2', this.yBarMax)
+    ;
+    this.svg.append('path').datum([{q: 110, p: 0}, {q: 110, p: 5}])
+      .attr('class', 'line').attr('d', lslPlot)
+      .style('stroke', 'black')
+    ;
   }
 
 

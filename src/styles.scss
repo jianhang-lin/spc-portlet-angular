@@ -58,10 +58,11 @@ table {
   width: 100%;
 }
 
-// pareto css
-.paretoSvg {
+// common chart css
+.svg {
   font: 10px sans-serif;
 }
+// pareto css
 .paretoBar rect {
   fill: steelblue;
   shape-rendering: crispEdges;
