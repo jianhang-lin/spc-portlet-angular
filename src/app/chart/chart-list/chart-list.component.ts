@@ -46,6 +46,10 @@ export class ChartListComponent implements OnInit {
       route: '/dotLineE'
     },
     {
+      title: 'Dot Line Chart By Google',
+      route: '/dotLineGoogle'
+    },
+    {
       title: 'Line Chart',
       route: '/line-chart'
     },

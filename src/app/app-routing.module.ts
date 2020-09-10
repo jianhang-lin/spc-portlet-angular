@@ -19,6 +19,7 @@ const routes: Routes = [
   {path: 'cpkppk_chart', redirectTo: '/cpkppk_chart', pathMatch: 'full'},
   {path: 'dotLine', redirectTo: '/dotLine', pathMatch: 'full'},
   {path: 'dotLineE', redirectTo: '/dotLineE', pathMatch: 'full'},
+  {path: 'dotLineGoogle', redirectTo: '/dotLineGoogle', pathMatch: 'full'},
   {path: 'ocap', redirectTo: '/ocap', pathMatch: 'full'},
   {path: 'ocap_history', redirectTo: '/ocap_history', pathMatch: 'full'},
   {path: 'cause', redirectTo: '/cause', pathMatch: 'full'},

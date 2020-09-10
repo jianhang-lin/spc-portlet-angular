@@ -11,6 +11,7 @@ import { ParetoChartComponent } from './pareto-chart/pareto-chart.component';
 import { CpkPpkChartComponent } from './cpk-ppk-chart/cpk-ppk-chart.component';
 import { DotLineChartComponent } from './dot-line-chart/dot-line-chart.component';
 import { DotLineChartEchartComponent } from './dot-line-chart-echart/dot-line-chart-echart.component';
+import { DotLineChartGoogleComponent } from './dot-line-chart-google/dot-line-chart-google.component';
 import { OcapComponent } from './ocap/ocap.component';
 import { OcapHistoryComponent } from './ocap-history/ocap-history.component';
 import { CauseComponent } from './cause/cause.component';
@@ -26,8 +27,9 @@ const routes: Routes = [
   {path: 'yield_chart', component: YieldChartComponent},
   {path: 'pareto_chart', component: ParetoChartComponent},
   {path: 'dotLine', component: DotLineChartComponent},
-  {path: 'cpkppk_chart', component: CpkPpkChartComponent},
   {path: 'dotLineE', component: DotLineChartEchartComponent},
+  {path: 'dotLineGoogle', component: DotLineChartGoogleComponent},
+  {path: 'cpkppk_chart', component: CpkPpkChartComponent},
   {path: 'ocap', component: OcapComponent},
   {path: 'ocap_history', component: OcapHistoryComponent},
   {path: 'cause', component: CauseComponent},
