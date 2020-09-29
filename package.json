@@ -27,6 +27,7 @@
     "@ngrx/router-store": "^10.0.0",
     "@ngrx/store": "^10.0.0",
     "@ngrx/store-devtools": "^10.0.0",
+    "angular-google-charts": "^1.1.6",
     "d3": "^6.2.0",
     "echarts": "^4.9.0",
     "ngrx-store-freeze": "^0.2.4",
