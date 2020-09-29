@@ -5,6 +5,7 @@ import { formatPercent } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as d3 from 'd3';
+import * as d3Selection from 'd3-selection';
 import { ChartComponentBase } from '../chart-component-base';
 import { isEmptyArray, isNullObject } from '../../utils/object.util';
 import * as fromReducers from '../../reducers';
@@ -216,21 +217,21 @@ export class YieldChartComponent implements OnInit, OnChanges, ChartComponentBas
   public showTip(): void {
     const arcOver = d3.arc().outerRadius(this.radius + 10).innerRadius(0);
     const moved = function(d) {
-      d3.event.preventDefault();
-      const mouse = d3.mouse(this);
-      dot.attr('transform', 'translate(' + d3.event.pageX + ',' +  d3.event.pageY + ')');
+      // d3Selection.event.preventDefault();
+      const mouse = null; // d3Selection.mouse(this);
+      // dot.attr('transform', 'translate(' + d3Selection.event.pageX + ',' +  d3Selection.event.pageY + ')');
       dot.select('.tooltip-date').text(d.data.label);
       dot.select('.tooltip-likes').text(formatPercent(d.data.value / 100, 'en-US', '1.2-2'));
     };
     const entered = function(d) {
-      const mouse = d3.mouse(this);
+      const mouse = null; // d3Selection.mouse(this);
       d3.select(this)
         .attr('stroker', 'white')
         .transition()
         .duration(1000)
         .attr('d', arcOver.startAngle(d.startAngle).endAngle(d.endAngle))
         .attr('stroker-width', 6);
-      dot.attr('transform', 'translate(' + d3.event.pageX + ',' +  d3.event.pageY + ')');
+      // dot.attr('transform', 'translate(' + d3Selection.event.pageX + ',' +  d3Selection.event.pageY + ')');
       d3.select('.tooltip-date').text(d.data.label);
       d3.select('.tooltip-likes').text(formatPercent(d.data.value / 100, 'en-US', '1.2-2'));
       d3.select('.focus').attr('display', null);

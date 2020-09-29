@@ -351,22 +351,22 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
 
   public showTip(): void {
     const arcOver = d3.arc().outerRadius(this.radius + 10).innerRadius(0);
-    const moved = function(d) {
-      d3.event.preventDefault();
-      const mouse = d3.mouse(this);
-      dot.attr('transform', 'translate(' + d3.event.pageX + ',' +  d3.event.pageY + ')');
+    const moved = function(event, d) {
+      event.preventDefault();
+      const mouse = d3.pointer(event);
+      dot.attr('transform', 'translate(' + event.pageX + ',' +  event.pageY + ')');
       dot.select('.tooltip-date').text(d.data.label);
       dot.select('.tooltip-likes').text(formatPercent(d.data.value / 100, 'en-US', '1.2-2'));
     };
-    const entered = function(d) {
-      const mouse = d3.mouse(this);
+    const entered = function(event, d) {
+      const mouse = d3.pointer(event);
       d3.select(this)
         .attr('stroker', 'white')
         .transition()
         .duration(1000)
         .attr('d', arcOver.startAngle(d.startAngle).endAngle(d.endAngle))
         .attr('stroker-width', 6);
-      dot.attr('transform', 'translate(' + d3.event.pageX + ',' +  d3.event.pageY + ')');
+      dot.attr('transform', 'translate(' + event.pageX + ',' +  event.pageY + ')');
       d3.select('.tooltip-date').text(d.data.label);
       d3.select('.tooltip-likes').text(formatPercent(d.data.value / 100, 'en-US', '1.2-2'));
       d3.select('.focus').attr('display', null);

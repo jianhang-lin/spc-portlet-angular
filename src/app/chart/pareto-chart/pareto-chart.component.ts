@@ -231,11 +231,11 @@ export class ParetoChartComponent implements OnInit, OnChanges, ChartComponentBa
   }
 
   public showTip(): void {
-    const barMoved = (d) => {
-      d3.event.preventDefault();
-      const mouse = d3.mouse(d3.event.target);
+    const barMoved = (event, d) => {
+      event.preventDefault();
+      const mouse = d3.pointer(event);
       d3.selectAll('.circleTip').style('visibility', 'hidden');
-      barTip.attr('transform', 'translate(' + d3.event.pageX + ',' +  d3.event.pageY + ')');
+      barTip.attr('transform', 'translate(' + event.pageX + ',' +  event.pageY + ')');
       barTip.select('.tooltip-date').text(d.Category);
       barTip.select('.tooltip-likes').text(d.Amount);
     };
@@ -249,9 +249,9 @@ export class ParetoChartComponent implements OnInit, OnChanges, ChartComponentBa
       // d3.selectAll('.line path').style('mix-blend-mode', 'multiply').style('stroke', (d: any) => this.z(d.name));
       barTip.attr('display', 'none');
     };
-    const dotMoved = (d) => {
-      d3.event.preventDefault();
-      const mouse = d3.mouse(d3.event.target);
+    const dotMoved = (event, d) => {
+      event.preventDefault();
+      const mouse = d3.pointer(event);
       const position = d3.bisectLeft(this.xRangeArray, mouse[0]);
       const xm = 0;
       const ym = this.ycum.invert(mouse[1]);

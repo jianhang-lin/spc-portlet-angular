@@ -12,7 +12,6 @@ import { MonitorModule } from './monitor/monitor.module';
 import { ChartModule } from './chart/chart.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
-import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [
@@ -32,9 +31,6 @@ import { GoogleChartsModule } from 'angular-google-charts';
     NgxEchartsModule.forRoot({
       echarts: {init: echarts.init }
     }),
-    GoogleChartsModule.forRoot({
-      version: 'chart-version'
-    })
   ],
   providers: [],
   bootstrap: [AppComponent]

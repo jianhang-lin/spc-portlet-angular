@@ -205,9 +205,9 @@ export class UChartComponent implements OnInit, OnChanges, ChartComponentBase {
   public showTip(): void {
     const formatTime = d3.timeFormat('%m/%d/%y');
 
-    const moved = () => {
-      d3.event.preventDefault();
-      const mouse = d3.mouse(d3.event.target);
+    const moved = (event) => {
+      event.preventDefault();
+      const mouse = d3.pointer(event);
       // const xm: any = this.x.invert(mouse[0]);
       const position = d3.bisectLeft(this.xRangeArray, mouse[0]);
       const xm = 0;
