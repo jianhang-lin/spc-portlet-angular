@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 @NgModule({
   declarations: [],
@@ -42,6 +43,7 @@ import { MatInputModule } from '@angular/material/input';
     NgxEchartsModule,
     MatFormFieldModule,
     MatInputModule,
+    GoogleChartsModule,
   ],
   exports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { MatInputModule } from '@angular/material/input';
     NgxEchartsModule,
     MatFormFieldModule,
     MatInputModule,
+    GoogleChartsModule,
   ]
 })
 export class SharedModule { }
