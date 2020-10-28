@@ -249,7 +249,7 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
       .style('font-family', 'sans-serif')
       .on('click', (d) => {
         this.data.series.forEach((w: any) => {
-          if (w.name === d) {
+          if (w.name === d.currentTarget.innerHTML) {
             w.visibility = !w.visibility;
           }
         });
@@ -267,7 +267,7 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
           });
           return toggleVisibility ? 'visible' : 'hidden';
         })
-        .filter((v: any) => v.name === d).raise();
+        .filter((v: any) => v.name === d.currentTarget.innerHTML).raise();
       });
   }
 
