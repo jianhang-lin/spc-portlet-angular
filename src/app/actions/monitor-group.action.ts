@@ -65,7 +65,7 @@ export class DeleteFailAction implements Action {
 
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
-  constructor(public payload: null) {}
+  constructor(public payload: number) {}
 }
 
 export class LoadSuccessAction implements Action {
@@ -80,11 +80,21 @@ export class LoadFailAction implements Action {
 
 export class SelectAction implements Action {
   type = ActionTypes.SELECT_MONITOR_GROUP;
+  constructor(public payload: number) {}
+}
+
+export class SelectSuccessAction implements Action {
+  type = ActionTypes.LOAD_SUCCESS;
   constructor(public payload: MonitorGroupModel) {}
+}
+
+export class SelectFailAction implements Action {
+  type = ActionTypes.LOAD_FAIL;
+  constructor(public payload: string) {}
 }
 
 export type Actions = AddAction | AddSuccessAction | AddFailAction
   | UpdateAction | UpdateSuccessAction | UpdateFailAction
   | DeleteAction | DeleteSuccessAction | DeleteFailAction
   | LoadAction | LoadSuccessAction | LoadFailAction
-  | SelectAction;
+  | SelectAction | SelectSuccessAction | SelectFailAction;

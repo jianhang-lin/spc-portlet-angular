@@ -1,46 +1,5 @@
-<!--
-<mat-grid-list cols="3" rowHeight="118px" gutterSize="10px">
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/SPCwelcome_1.png" >
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/SPCwelcome_2.png" >
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/SPCwelcome_logo.png" >
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/SPCwelcome_3.png" >
-    </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile colspan="1" rowspan="1">
-    <mat-card>
-      <img mat-card-image src="assets/img/SPCwelcome_4.png" >
-    </mat-card>
-  </mat-grid-tile>
-  <div class="image-container">
-    <div class="after">
-      <div class="zoom">
-        <mat-grid-tile colspan="1" rowspan="1" [routerLink]="['/monitor_groups']" (click)="onMonitorGroupClick()">
-          <mat-card>
-            <app-enter-spc></app-enter-spc>
-          </mat-card>
-        </mat-grid-tile>
-      </div>
-    </div>
-  </div>
-</mat-grid-list>
-
--->
 <div class="container" >
   <app-step-grid *ngFor="let stepGrid of (stepGrids$ | async); let i = index" [item]="stepGrid" [index]="i" (doSelected)="selectStepGrid(i)" class="card"></app-step-grid>
-  <app-enter-spc [routerLink]="['/monitor_groups']" (doSelected)="selectEnterSPC()" class="card"></app-enter-spc>
+  <app-enter-spc (doSelected)="selectEnterSPC()" class="card"></app-enter-spc>
 </div>
 

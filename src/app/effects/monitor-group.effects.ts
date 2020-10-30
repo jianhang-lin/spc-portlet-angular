@@ -19,8 +19,8 @@ export class MonitorGroupEffects {
     ofType(monitorGroupAction.ActionTypes.LOAD),
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getMonitorGroupState)),
-    switchMap(([_, auth]) => {
-        return this.service$.get('10418')
+    switchMap(([communityId, auth]) => {
+        return this.service$.get(String(communityId))
           .pipe(
             map(monitorGroups => new monitorGroupAction.LoadSuccessAction(monitorGroups)),
             catchError(err => of(new monitorGroupAction.LoadFailAction(JSON.stringify(err))))

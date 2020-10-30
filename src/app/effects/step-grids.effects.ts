@@ -4,9 +4,11 @@ import { Action, Store } from '@ngrx/store';
 import { from, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as stepGridsAction from '../actions/step-grid.action';
+import * as functionStepGridsAction from '../actions/function-step-grid.action';
 import * as routerActions from '../actions/router.action';
 import * as fromReducers from '../reducers';
 import { HomeService } from '../services/home.service';
+import { FunctionService } from '../services/function.service';
 import { StepGridModel } from '../domain/step-grid.model';
 
 const toPayload = <T>(action: {payload: T}) => action.payload;
@@ -20,7 +22,7 @@ export class StepGridsEffects {
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getMonitorState)),
     switchMap(([_, auth]) => {
-        return this.service$.getStepGrids()
+        return this.homeService$.getStepGrids()
           .pipe(
             map(stepGrids => new stepGridsAction.LoadStepGridsSuccessAction(stepGrids)),
             catchError(err => of(new stepGridsAction.LoadStepGridsFailAction(JSON.stringify(err))))
@@ -33,19 +35,17 @@ export class StepGridsEffects {
   loadEnter$: Observable<Action> = this.actions$.pipe(
     ofType(stepGridsAction.ActionTypes.SELECT_ENTER),
     map(toPayload),
-    map((index: number) => {
-      if (index === 5) {
-        return new routerActions.Go({path: ['/monitor_groups']});
-      } else {
-        return new stepGridsAction.LoadStepGridsFailAction(JSON.stringify(`loadEnter: index is ${index}`));
-      }
+    map((communityId: number) => {
+      return new routerActions.Go({path: [`/community_id/${communityId}/monitor_groups`]});
     })
   );
 
   constructor(
     private actions$: Actions,
     private store$: Store<fromReducers.State>,
-    private service$: HomeService) {
+    private homeService$: HomeService,
+    private functionService$: FunctionService,
+    ) {
 
   }
 }

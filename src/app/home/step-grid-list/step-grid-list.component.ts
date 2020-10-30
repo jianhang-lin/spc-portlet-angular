@@ -36,6 +36,7 @@ export class StepGridListComponent implements OnInit {
   }
 
   selectEnterSPC() {
-    this.store$.dispatch(new stepGridAction.SelectEnterAction(0));
+    const communityId = 10418;
+    this.store$.dispatch(new stepGridAction.SelectEnterAction(communityId));
   }
 }
