@@ -20,7 +20,7 @@ export class MonitorGroupEffects {
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getMonitorGroupState)),
     switchMap(([_, auth]) => {
-        return this.service$.get('10961')
+        return this.service$.get('10418')
           .pipe(
             map(monitorGroups => new monitorGroupAction.LoadSuccessAction(monitorGroups)),
             catchError(err => of(new monitorGroupAction.LoadFailAction(JSON.stringify(err))))
