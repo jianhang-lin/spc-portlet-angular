@@ -91,7 +91,7 @@ export class MonitorGroupListComponent implements OnInit {
   }
 
   selectMonitorGroup(monitorGroup: MonitorGroupModel) {
-    // this.store$.dispatch(new monitorGroupAction.SelectAction(monitorGroup));
+    this.store$.dispatch(new monitorGroupAction.SelectAction(monitorGroup));
   }
 }
 
