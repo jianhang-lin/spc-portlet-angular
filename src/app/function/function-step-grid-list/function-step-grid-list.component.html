@@ -1,5 +1,5 @@
 <mat-grid-list cols="4" rowHeight="248px" gutterSize="10px">
   <mat-grid-tile colspan="1" rowspan="1" *ngFor="let functionStepGrid of (functionStepGrids$ | async); let i = index" >
-    <app-function-step-grid [item]="functionStepGrid"></app-function-step-grid>
+    <app-function-step-grid [item]="functionStepGrid" (doSelected)="handleFunctionStepGridClick(functionStepGrid)"></app-function-step-grid>
   </mat-grid-tile>
 </mat-grid-list>
