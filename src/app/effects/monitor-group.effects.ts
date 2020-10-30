@@ -33,8 +33,7 @@ export class MonitorGroupEffects {
   selectMonitorGroup$: Observable<Action> = this.actions$.pipe(
     ofType(monitorGroupAction.ActionTypes.SELECT_MONITOR_GROUP),
     map(toPayload),
-    // map((monitorGroup: MonitorGroupModel) => new RouterActions.Go({path: [`/monitor-groups/${monitorGroup.id}`]}))
-    map((monitorGroup: MonitorGroupModel) => new RouterActions.Go({path: [`/monitor-groups/766444/monitors?communityId=10961`]}))
+    map((monitorGroup: MonitorGroupModel) => new RouterActions.Go({path: [`/function_list/${monitorGroup.id}`]}))
   );
 
   constructor(

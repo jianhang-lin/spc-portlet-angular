@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-function-list',
@@ -7,9 +10,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FunctionListComponent implements OnInit {
 
-  constructor() { }
+  monitorGroupKey$: Observable<string>;
+  constructor(
+    private route: ActivatedRoute,
+  ) {
+    this.monitorGroupKey$ = this.route.paramMap.pipe(map(p => p.get('monitor_group_key')));
+  }
 
   ngOnInit(): void {
+    this.monitorGroupKey$.subscribe(value => {
+      console.log(JSON.stringify(value));
+    });
   }
 
 }
