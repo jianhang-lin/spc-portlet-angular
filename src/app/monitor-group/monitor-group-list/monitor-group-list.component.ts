@@ -1,8 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromReducers from '../../reducers';
 import * as monitorGroupAction from '../../actions/monitor-group.action';
@@ -18,6 +20,7 @@ export class MonitorGroupListComponent implements OnInit {
 
   @Output() visibility = new EventEmitter<void>();
   monitorGroups: MonitorGroupModel[];
+  id$: Observable<string>;
   monitorGroups$: Observable<MonitorGroupModel[]>;
   displayedColumns: string[];
   dataSource;
@@ -25,12 +28,17 @@ export class MonitorGroupListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
+    private route: ActivatedRoute,
     private store$: Store<fromReducers.State>) {
     this.store$.dispatch(new monitorGroupAction.LoadAction(null));
+    this.id$ = this.route.paramMap.pipe(map(p => p.get('id')));
     this.monitorGroups$ = this.store$.select(fromReducers.getMonitorGroups);
   }
 
   ngOnInit(): void {
+    this.id$.subscribe(value => {
+      console.log('monitorGroupList id =>' + JSON.stringify(value));
+    });
     this.monitorGroups$.subscribe(monitorGroups => {
       this.monitorGroups = monitorGroups;
       this.dataSource = new MatTableDataSource<MonitorGroupModel>(this.monitorGroups);

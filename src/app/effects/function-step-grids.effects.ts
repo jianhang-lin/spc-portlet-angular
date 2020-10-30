@@ -7,6 +7,7 @@ import * as functionStepGridsAction from '../actions/function-step-grid.action';
 import * as routerActions from '../actions/router.action';
 import * as fromReducers from '../reducers';
 import { FunctionService } from '../services/function.service';
+import { FunctionStepGridModel } from '../domain/function-step-grid.model';
 
 const toPayload = <T>(action: {payload: T}) => action.payload;
 
@@ -32,8 +33,8 @@ export class FunctionStepGridsEffects {
   loadFunctionStepGrid$: Observable<Action> = this.actions$.pipe(
     ofType(functionStepGridsAction.ActionTypes.SELECT_FUNCTION),
     map(toPayload),
-    map((index: number) => {
-      switch (index) {
+    map((functionStepGrid: FunctionStepGridModel) => {
+      switch (functionStepGrid.id) {
         case 1:
           return new routerActions.Go({path: ['/monitor_groups1']});
         case 2:

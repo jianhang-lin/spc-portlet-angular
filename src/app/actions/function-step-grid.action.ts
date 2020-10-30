@@ -28,7 +28,7 @@ export class LoadFunctionStepGridsFailAction implements Action {
 
 export class SelectFunctionAction implements Action {
   type = ActionTypes.SELECT_FUNCTION;
-  constructor(public payload: number) {}
+  constructor(public payload: FunctionStepGridModel) {}
 }
 
 export class SelectFunctionSuccessAction implements Action {

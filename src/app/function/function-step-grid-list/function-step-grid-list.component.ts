@@ -23,6 +23,6 @@ export class FunctionStepGridListComponent implements OnInit {
 
   handleFunctionStepGridClick(functionStepGrid: FunctionStepGridModel) {
     console.log(JSON.stringify(functionStepGrid));
-    this.store$.dispatch(new functionStepGridAction.SelectFunctionAction(functionStepGrid.id));
+    this.store$.dispatch(new functionStepGridAction.SelectFunctionAction(functionStepGrid));
   }
 }
