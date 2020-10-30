@@ -33,10 +33,21 @@ export class FunctionStepGridsEffects {
     ofType(functionStepGridsAction.ActionTypes.SELECT_FUNCTION),
     map(toPayload),
     map((index: number) => {
-      if (index === 5) {
-        return new routerActions.Go({path: ['/monitor_groups']});
-      } else {
-        return new functionStepGridsAction.LoadFunctionStepGridsFailAction(JSON.stringify(`loadEnter: index is ${index}`));
+      switch (index) {
+        case 1:
+          return new routerActions.Go({path: ['/monitor_groups1']});
+        case 2:
+          return new routerActions.Go({path: ['/monitor_groups2']});
+        case 3:
+          return new routerActions.Go({path: ['/monitor_groups3']});
+        case 4:
+          return new routerActions.Go({path: ['/monitor_groups4']});
+        case 5:
+          return new routerActions.Go({path: ['/monitor_groups5']});
+        case 6:
+          return new routerActions.Go({path: ['/monitor_groups6']});
+        default:
+          return new functionStepGridsAction.LoadFunctionStepGridsFailAction(JSON.stringify(`loadEnter: index is ${index}`));
       }
     })
   );

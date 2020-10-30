@@ -35,10 +35,12 @@ const loadFunction = (state, action) => {
   // const newIds = _.difference(incomingIds, state.ids);
   // const incomingEntities = _.chain(stepGrids).keyBy('id').mapValues(o => o).value();
   // const newEntities = newIds.reduce((entities, id: string) => ({...entities, [id]: incomingEntities[id]}), {});
+  const selectedNum = action.payload as number;
+  const selectedId = state.ids.filter(id => state.entities[id].id === selectedNum);
   return {
     ids: [...state.ids],
     entities: {...state.entities},
-    selectedId: null
+    selectedId
   };
 };
 
