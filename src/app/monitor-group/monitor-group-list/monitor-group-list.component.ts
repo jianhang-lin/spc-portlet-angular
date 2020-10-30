@@ -21,6 +21,7 @@ export class MonitorGroupListComponent implements OnInit {
   @Output() visibility = new EventEmitter<void>();
   monitorGroups: MonitorGroupModel[];
   id$: Observable<string>;
+  communityId$: Observable<string>;
   monitorGroups$: Observable<MonitorGroupModel[]>;
   displayedColumns: string[];
   dataSource;
@@ -30,14 +31,18 @@ export class MonitorGroupListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private store$: Store<fromReducers.State>) {
-    this.store$.dispatch(new monitorGroupAction.LoadAction(null));
     this.id$ = this.route.paramMap.pipe(map(p => p.get('id')));
+    this.communityId$ = this.route.paramMap.pipe(map(p => p.get('community_id')));
     this.monitorGroups$ = this.store$.select(fromReducers.getMonitorGroups);
   }
 
   ngOnInit(): void {
     this.id$.subscribe(value => {
       console.log('monitorGroupList id =>' + JSON.stringify(value));
+    });
+    this.communityId$.subscribe(value => {
+      console.log('monitorGroupList communityId=>' + JSON.stringify(value));
+      this.store$.dispatch(new monitorGroupAction.LoadAction(Number(value)));
     });
     this.monitorGroups$.subscribe(monitorGroups => {
       this.monitorGroups = monitorGroups;
