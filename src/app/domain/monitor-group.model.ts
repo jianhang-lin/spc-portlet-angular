@@ -1,7 +1,7 @@
 export interface MonitorGroupModel {
   collectSchema: string;
   collectionDatasource: string;
-  communityId: number;
+  communitId: number;
   configDatasource: string;
   configSchema: string;
   datasourceType: string;

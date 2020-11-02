@@ -5,8 +5,12 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'monitor_groups/:id', redirectTo: '/monitor_groups/:id', pathMatch: 'full'},
   {path: 'community_id/:community_id/monitor_groups', redirectTo: '/community_id/:community_id/monitor_groups', pathMatch: 'full'},
-  {path: 'function_list/:monitor_group_key', redirectTo: '/function_list/:monitor_group_key', pathMatch: 'full'},
-  {path: 'monitors', redirectTo: '/monitors', pathMatch: 'full'},
+  {path: 'community_id/:community_id/monitor_groups/:monitor_group_key/function_list', redirectTo: '/community_id/:community_id/monitor_groups/:monitor_group_key/function_list', pathMatch: 'full'},
+  {
+    path: 'community_id/:community_id/monitor_groups/:monitor_group_key/monitors',
+    redirectTo: '/community_id/:community_id/monitor_groups/:monitor_group_key/monitors',
+    pathMatch: 'full'
+  },
   {path: 'monitor_details', redirectTo: '/monitor_details', pathMatch: 'full'},
   {path: 'charts', redirectTo: '/charts', pathMatch: 'full'},
   {path: 'chart_list', redirectTo: '/chart_list', pathMatch: 'full'},
