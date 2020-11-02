@@ -5,7 +5,7 @@ import { MonitorDetailsComponent } from './monitor-details/monitor-details.compo
 
 
 const routes: Routes = [
-  {path: 'monitors', component: MonitorListComponent},
+  {path: 'community_id/:community_id/monitor_groups/:monitor_group_key/monitors', component: MonitorListComponent},
   {path: 'monitor_details', component: MonitorDetailsComponent},
 ];
 

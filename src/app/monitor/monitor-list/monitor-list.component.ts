@@ -1,17 +1,18 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import { MonitorGroupModel } from '../../domain/monitor-group.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-import * as monitorAction from '../../actions/monitor.action';
-import { Store } from '@ngrx/store';
-import * as fromReducers from '../../reducers';
-import { Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
-import { SelectionModel } from '@angular/cdk/collections';
-import { MonitorModel } from '../../domain/monitor.model';
-import * as monitorGroupAction from '../../actions/monitor-group.action';
 import { MatDialog } from '@angular/material/dialog';
+import * as monitorAction from '../../actions/monitor.action';
+import * as fromReducers from '../../reducers';
+import { MonitorModel } from '../../domain/monitor.model';
 import { ChartHomeComponent } from '../../chart/chart-home/chart-home.component';
+
 
 @Component({
   selector: 'app-monitor-list',
@@ -23,18 +24,24 @@ export class MonitorListComponent implements OnInit {
   @Output() visibility = new EventEmitter<void>();
   monitors: MonitorModel[];
   monitors$: Observable<MonitorModel[]>;
+  monitorGroupKey$: Observable<string>;
   displayedColumns: string[];
   dataSource;
   selection;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(
+    private route: ActivatedRoute,
     private store$: Store<fromReducers.State>,
     private dialog: MatDialog) {
+    this.monitorGroupKey$ = this.route.paramMap.pipe(map(p => p.get('monitor_group_key')));
     this.store$.dispatch(new monitorAction.LoadAction(null));
     this.monitors$ = this.store$.select(fromReducers.getMonitors);
   }
 
   ngOnInit(): void {
+    this.monitorGroupKey$.subscribe(value => {
+      console.log(value);
+    });
     this.monitors$.subscribe(monitors => {
       this.monitors = monitors;
       this.dataSource = new MatTableDataSource<MonitorModel>(this.monitors);
