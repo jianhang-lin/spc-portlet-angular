@@ -14,12 +14,14 @@ export class FunctionService {
 
   getFunctionStepGrids(): Observable<FunctionStepGridModel[]> {
     const functionStepGrids: FunctionStepGridModel[] = [
-      {id: 1, src: 'assets/img/icons/function/monitor_setting.png', desc: 'Monitor Maintenance', monitorGroupKey: 0},
-      {id: 2, src: 'assets/img/icons/function/mail_setting.png', desc: 'E-mail Maintenance', monitorGroupKey: 0},
-      {id: 3, src: 'assets/img/icons/function/lock.png', desc: 'Lock Maintenance', monitorGroupKey: 0},
-      {id: 4, src: 'assets/img/icons/function/location_family_setting.png', desc: 'Location Family Maintenance', monitorGroupKey: 0},
-      {id: 5, src: 'assets/img/icons/function/system_log.jpg', desc: 'System Log Maintenance', monitorGroupKey: 0},
-      {id: 6, src: 'assets/img/icons/function/system_parameter_setting.png', desc: 'SPC System Parameter Maintenance', monitorGroupKey: 0},
+      {id: 1, src: 'assets/img/icons/function/monitor_setting.png', desc: 'Monitor Maintenance', monitorGroupKey: 0, communityId: 0},
+      {id: 2, src: 'assets/img/icons/function/mail_setting.png', desc: 'E-mail Maintenance', monitorGroupKey: 0, communityId: 0},
+      {id: 3, src: 'assets/img/icons/function/lock.png', desc: 'Lock Maintenance', monitorGroupKey: 0, communityId: 0},
+      {id: 4, src: 'assets/img/icons/function/location_family_setting.png', desc: 'Location Family Maintenance', monitorGroupKey: 0,
+        communityId: 0},
+      {id: 5, src: 'assets/img/icons/function/system_log.jpg', desc: 'System Log Maintenance', monitorGroupKey: 0, communityId: 0},
+      {id: 6, src: 'assets/img/icons/function/system_parameter_setting.png', desc: 'SPC System Parameter Maintenance', monitorGroupKey: 0,
+        communityId: 0},
     ];
     return of(functionStepGrids);
   }

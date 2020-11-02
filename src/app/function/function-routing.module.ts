@@ -4,7 +4,7 @@ import { FunctionListComponent } from './function-list/function-list.component';
 
 
 const routes: Routes = [
-  {path: 'function_list/:monitor_group_key', component: FunctionListComponent}
+  {path: 'community_id/:community_id/monitor_groups/:monitor_group_key/function_list', component: FunctionListComponent}
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { FunctionStepGridModel } from '../../domain/function-step-grid.model';
 export class FunctionStepGridListComponent implements OnInit {
 
   @Input() monitorGroupKey;
+  @Input() communityId;
   functionStepGrids$: Observable<FunctionStepGridModel[]>;
   constructor(private store$: Store) {
     this.store$.dispatch(new functionStepGridAction.LoadFunctionStepGridsAction(null));
@@ -27,7 +28,8 @@ export class FunctionStepGridListComponent implements OnInit {
       id: functionStepGrid.id,
       src: functionStepGrid.src,
       desc: functionStepGrid.desc,
-      monitorGroupKey: Number(this.monitorGroupKey)
+      monitorGroupKey: Number(this.monitorGroupKey),
+      communityId: Number(this.communityId)
     };
     this.store$.dispatch(new functionStepGridAction.SelectFunctionAction(newFunctionStepGrid));
   }

@@ -11,14 +11,19 @@ import { map } from 'rxjs/operators';
 export class FunctionListComponent implements OnInit {
 
   monitorGroupKey$: Observable<string>;
+  communityId$: Observable<string>;
   constructor(
     private route: ActivatedRoute,
   ) {
     this.monitorGroupKey$ = this.route.paramMap.pipe(map(p => p.get('monitor_group_key')));
+    this.communityId$ = this.route.paramMap.pipe(map(p => p.get('community_id')));
   }
 
   ngOnInit(): void {
     this.monitorGroupKey$.subscribe(value => {
+      console.log(JSON.stringify(value));
+    });
+    this.communityId$.subscribe(value => {
       console.log(JSON.stringify(value));
     });
   }

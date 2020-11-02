@@ -3,4 +3,5 @@ export interface FunctionStepGridModel {
   src: string;
   desc: string;
   monitorGroupKey: number;
+  communityId: number;
 }

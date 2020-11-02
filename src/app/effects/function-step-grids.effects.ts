@@ -36,7 +36,7 @@ export class FunctionStepGridsEffects {
     map((functionStepGrid: FunctionStepGridModel) => {
       switch (functionStepGrid.id) {
         case 1:
-          return new routerActions.Go({path: [`/monitor_groups/${functionStepGrid.monitorGroupKey}`]});
+          return new routerActions.Go({path: [`/community_id/${functionStepGrid.communityId}/monitor_groups/${functionStepGrid.monitorGroupKey}/monitors`]});
         case 2:
           return new routerActions.Go({path: ['/monitor_groups2']});
         case 3:
