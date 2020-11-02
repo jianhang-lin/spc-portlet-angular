@@ -36,7 +36,7 @@ export function reducer(state = initialState, action: monitorGroupActions.Action
       return loadMonitorGroups(state, action);
     }
     case monitorGroupActions.ActionTypes.SELECT_MONITOR_GROUP: {
-      return {...state, selectedId: action.payload.id + ''};
+      return {...state, selectedId: action.payload + ''};
     }
     case monitorGroupActions.ActionTypes.LOAD_FAIL:
     default: {

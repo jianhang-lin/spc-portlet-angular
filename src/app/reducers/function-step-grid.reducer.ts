@@ -49,7 +49,7 @@ export function reducer(state = initialState, action: functionStepGridActions.Ac
     case functionStepGridActions.ActionTypes.LOAD_FUNCTION_STEP_GRIDS_SUCCESS: {
       return loadFunctionStepGrids(state, action);
     }
-    case functionStepGridActions.ActionTypes.SELECT_FUNCTION: {
+    case functionStepGridActions.ActionTypes.SELECT_FUNCTION_SUCCESS: {
       return loadFunction(state, action);
     }
     case functionStepGridActions.ActionTypes.SELECT_FUNCTION_FAIL: {

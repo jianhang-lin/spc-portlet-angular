@@ -80,7 +80,7 @@ export class LoadFailAction implements Action {
 
 export class SelectAction implements Action {
   type = ActionTypes.SELECT_MONITOR_GROUP;
-  constructor(public payload: number) {}
+  constructor(public payload: MonitorGroupModel) {}
 }
 
 export class SelectSuccessAction implements Action {
