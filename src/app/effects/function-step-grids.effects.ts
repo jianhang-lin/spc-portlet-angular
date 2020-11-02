@@ -48,7 +48,7 @@ export class FunctionStepGridsEffects {
         case 6:
           return new routerActions.Go({path: ['/monitor_groups6']});
         default:
-          return new functionStepGridsAction.LoadFunctionStepGridsFailAction(JSON.stringify(`loadEnter: index is ${index}`));
+          return new functionStepGridsAction.LoadFunctionStepGridsFailAction(JSON.stringify(`loadFunctionStepGrid: index is ${functionStepGrid.id}`));
       }
     })
   );
