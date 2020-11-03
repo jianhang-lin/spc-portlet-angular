@@ -62,20 +62,14 @@ export class MonitorListComponent implements OnInit {
 
   onSelectThChecboxChange($event: MatCheckboxChange) {
     if ($event) {
-      /*return this.isAllSelected() ?
+      return this.isAllSelected() ?
         this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));*/
-      if (this.isAllSelected()) {
-        this.selection.clear();
-      } else {
         this.dataSource.data.forEach(row => this.selection.select(row));
-      }
     }
     return null;
   }
 
   onSelectThChecboxChecked() {
-    console.log('onSelectThChecboxChecked');
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     const isAllSelected = numSelected === numRows;
@@ -83,7 +77,6 @@ export class MonitorListComponent implements OnInit {
   }
 
   onSelectThChecboxIndeterminate() {
-    console.log('onSelectThChecboxIndeterminate');
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     const isAllSelected = numSelected === numRows;
@@ -91,17 +84,14 @@ export class MonitorListComponent implements OnInit {
   }
 
   onSelectTdCheckBoxClick($event: MouseEvent) {
-    console.log('onSelectTdCheckBoxClick');
     return $event.stopPropagation();
   }
 
   onSelectTdCheckBoxChange($event: MatCheckboxChange, row: MonitorModel) {
-    console.log('onSelectTdCheckBoxChange');
     return $event ? this.selection.toggle(row) : null;
   }
 
   onSelectTdCheckBoxChecked(row: MonitorModel) {
-    console.log('onSelectTdCheckBoxChecked');
     return this.selection.isSelected(row);
   }
 
