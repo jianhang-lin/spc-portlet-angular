@@ -12,6 +12,7 @@ import * as monitorAction from '../../actions/monitor.action';
 import * as fromReducers from '../../reducers';
 import { MonitorModel, MonitorModelBuilder } from '../../domain/monitor.model';
 import { ChartHomeComponent } from '../../chart/chart-home/chart-home.component';
+import { ConfirmDialogComponent } from '../../shared/confirm-dialog/confirm-dialog.component';
 
 
 @Component({
@@ -116,7 +117,10 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
-    console.log(JSON.stringify(this.selected));
+    if (this.selected.monitorId === 0) {
+      this.dialog.open(ConfirmDialogComponent, {data: { title: '', content: '请选择一个Monitor.'}});
+      return;
+    }
     const dialogRef = this.dialog.open(ChartHomeComponent, {
       data: {
         animal: 'panda'
