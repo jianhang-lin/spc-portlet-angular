@@ -1,1 +1,8 @@
-<p>confirm-dialog works!</p>
+<h3 mat-dialog-title>{{title}}</h3>
+<div mat-dialog-content>
+  {{content}}
+</div>
+<div mat-dialog-actions>
+  <button type="button" mat-raised-button color="primary" (click)="onClick(true)">确定</button>
+  <button type="button" mat-button mat-dialog-close="" (click)="onClick(false)">取消</button>
+</div>
