@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import * as monitorAction from '../../actions/monitor.action';
 import * as fromReducers from '../../reducers';
-import { MonitorModel } from '../../domain/monitor.model';
+import { MonitorModel, MonitorModelBuilder } from '../../domain/monitor.model';
 import { ChartHomeComponent } from '../../chart/chart-home/chart-home.component';
 
 
@@ -30,6 +30,8 @@ export class MonitorListComponent implements OnInit {
   displayedColumns: string[];
   dataSource;
   selection;
+  selected: MonitorModel;
+  emptyMonitorModel: MonitorModel;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,7 @@ export class MonitorListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.emptyMonitorModel = new MonitorModelBuilder().getEmptyMonitorModel();
     this.combine$ = zip(this.communityId$, this.monitorGroupKey$);
     this.combine$.subscribe(([communityId, monitorGroupKey ]) => {
       console.log(communityId + ':' + monitorGroupKey);
@@ -61,6 +64,7 @@ export class MonitorListComponent implements OnInit {
     this.selection.clear();
     if (this.selection.isSelected(row)) {
       this.selection.toggle(row);
+      this.selected = row;
     }
     $event.stopPropagation();
   }
@@ -70,7 +74,13 @@ export class MonitorListComponent implements OnInit {
   }
 
   onCheckboxChecked(row: MonitorModel, index: number) {
-    return this.selection.isSelected(row);
+    const isSelected = this.selection.isSelected(row);
+    if (isSelected) {
+      this.selected = row;
+    } else {
+      this.selected = this.emptyMonitorModel;
+    }
+    return isSelected;
   }
 
   onRowClick(row: MonitorModel) {
@@ -106,6 +116,7 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
+    console.log(JSON.stringify(this.selected));
     const dialogRef = this.dialog.open(ChartHomeComponent, {
       data: {
         animal: 'panda'
