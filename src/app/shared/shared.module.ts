@@ -19,9 +19,12 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ConfirmDialogComponent,
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -67,6 +70,9 @@ import { GoogleChartsModule } from 'angular-google-charts';
     MatFormFieldModule,
     MatInputModule,
     GoogleChartsModule,
+  ],
+  entryComponents: [
+    ConfirmDialogComponent
   ]
 })
 export class SharedModule { }
