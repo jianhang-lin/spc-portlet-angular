@@ -22,7 +22,9 @@ export class MonitorEffects {
     switchMap((params: any) => {
         return this.service$.get(params[0].communityId, params[0].monitorGroupKey)
           .pipe(
-            map(monitors => new monitorAction.LoadSuccessAction(monitors)),
+            map(monitors => {
+              return new monitorAction.LoadSuccessAction(monitors);
+            }),
             catchError(err => of(new monitorAction.LoadFailAction(JSON.stringify(err))))
           );
       }

@@ -17,9 +17,9 @@ export const initialState: State = {
 
 const loadMonitors = (state, action) => {
   const monitors = action.payload;
-  const incomingIds = monitors.map(p => p.monitorId);
+  const incomingIds = monitors.map(p => p.monitorKey);
   const newIds = _.difference(incomingIds, state.ids);
-  const incomingEntities = _.chain(monitors).keyBy('monitorId').mapValues(o => o).value();
+  const incomingEntities = _.chain(monitors).keyBy('monitorKey').mapValues(o => o).value();
   const newEntities = newIds.reduce((entities, id: string) => ({...entities, [id]: incomingEntities[id]}), {});
   return {
     ids: [...state.ids, ...newIds],
