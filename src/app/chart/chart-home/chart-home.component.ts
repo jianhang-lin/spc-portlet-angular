@@ -1,9 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
-export interface DialogData {
-  animal: 'panda' | 'unicorn' | 'lion';
-}
+import { MonitorModel } from '../../domain/monitor.model';
 
 @Component({
   selector: 'app-chart-home',
@@ -12,7 +9,7 @@ export interface DialogData {
 })
 export class ChartHomeComponent implements OnInit {
 
-  constructor(private dialogRef: MatDialogRef<ChartHomeComponent>, @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+  constructor(private dialogRef: MatDialogRef<ChartHomeComponent>, @Inject(MAT_DIALOG_DATA) public data: MonitorModel) { }
 
   ngOnInit(): void {
   }

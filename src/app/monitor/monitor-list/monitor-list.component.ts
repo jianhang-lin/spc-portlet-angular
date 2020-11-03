@@ -31,7 +31,6 @@ export class MonitorListComponent implements OnInit {
   displayedColumns: string[];
   dataSource;
   selection;
-  selected: MonitorModel;
   emptyMonitorModel: MonitorModel;
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   constructor(
@@ -61,42 +60,49 @@ export class MonitorListComponent implements OnInit {
     });
   }
 
-  onCheckboxClick($event: MouseEvent, row: MonitorModel, index: number) {
-    this.selection.clear();
-    if (this.selection.isSelected(row)) {
-      this.selection.toggle(row);
-      this.selected = row;
+  onSelectThChecboxChange($event: MatCheckboxChange) {
+    if ($event) {
+      /*return this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSource.data.forEach(row => this.selection.select(row));*/
+      if (this.isAllSelected()) {
+        this.selection.clear();
+      } else {
+        this.dataSource.data.forEach(row => this.selection.select(row));
+      }
     }
-    $event.stopPropagation();
+    return null;
   }
 
-  onCheckboxChange($event: MatCheckboxChange, row: MonitorModel, index: number) {
+  onSelectThChecboxChecked() {
+    console.log('onSelectThChecboxChecked');
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    const isAllSelected = numSelected === numRows;
+    return this.selection.hasValue() && isAllSelected;
+  }
+
+  onSelectThChecboxIndeterminate() {
+    console.log('onSelectThChecboxIndeterminate');
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    const isAllSelected = numSelected === numRows;
+    return this.selection.hasValue() && !isAllSelected;
+  }
+
+  onSelectTdCheckBoxClick($event: MouseEvent) {
+    console.log('onSelectTdCheckBoxClick');
+    return $event.stopPropagation();
+  }
+
+  onSelectTdCheckBoxChange($event: MatCheckboxChange, row: MonitorModel) {
+    console.log('onSelectTdCheckBoxChange');
     return $event ? this.selection.toggle(row) : null;
   }
 
-  onCheckboxChecked(row: MonitorModel, index: number) {
-    const isSelected = this.selection.isSelected(row);
-    if (isSelected) {
-      this.selected = row;
-    } else {
-      this.selected = this.emptyMonitorModel;
-    }
-    return isSelected;
-  }
-
-  onRowClick(row: MonitorModel) {
-    this.selection.clear();
-    return this.selection.toggle(row);
-  }
-
-  /**
-   * The label for the checkbox on the passed row
-   */
-  checkboxLable(row?: MonitorModel): string {
-    if (!row) {
-      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
-    }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  onSelectTdCheckBoxChecked(row: MonitorModel) {
+    console.log('onSelectTdCheckBoxChecked');
+    return this.selection.isSelected(row);
   }
 
   /**
@@ -108,6 +114,21 @@ export class MonitorListComponent implements OnInit {
     return numSelected === numRows;
   }
 
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: MonitorModel): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
   selectMonitorGroup(monitor: MonitorModel) {
     this.store$.dispatch(new monitorAction.SelectAction(monitor));
   }
@@ -117,14 +138,12 @@ export class MonitorListComponent implements OnInit {
   }
 
   openChartDialog() {
-    if (this.selected.monitorId === 0) {
+    if (this.selection.selected.length === 0 || this.selection.selected.length > 1) {
       this.dialog.open(ConfirmDialogComponent, {data: { title: '', content: '请选择一个Monitor.'}});
       return;
     }
     const dialogRef = this.dialog.open(ChartHomeComponent, {
-      data: {
-        animal: 'panda'
-      }
+      data: this.selection.selected[0]
     });
   }
 }
