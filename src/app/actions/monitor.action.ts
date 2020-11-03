@@ -65,7 +65,7 @@ export class DeleteFailAction implements Action {
 
 export class LoadAction implements Action {
   type = ActionTypes.LOAD;
-  constructor(public payload: null) {}
+  constructor(public payload: {communityId: string, monitorGroupKey: string}) {}
 }
 
 export class LoadSuccessAction implements Action {

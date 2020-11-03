@@ -2,7 +2,7 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import { SelectionModel } from '@angular/cdk/collections';
 import { map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -24,7 +24,9 @@ export class MonitorListComponent implements OnInit {
   @Output() visibility = new EventEmitter<void>();
   monitors: MonitorModel[];
   monitors$: Observable<MonitorModel[]>;
+  communityId$: Observable<string>;
   monitorGroupKey$: Observable<string>;
+  combine$: Observable<[string, string]>;
   displayedColumns: string[];
   dataSource;
   selection;
@@ -33,15 +35,18 @@ export class MonitorListComponent implements OnInit {
     private route: ActivatedRoute,
     private store$: Store<fromReducers.State>,
     private dialog: MatDialog) {
+    this.communityId$ = this.route.paramMap.pipe(map(p => p.get('community_id')));
     this.monitorGroupKey$ = this.route.paramMap.pipe(map(p => p.get('monitor_group_key')));
-    this.store$.dispatch(new monitorAction.LoadAction(null));
-    this.monitors$ = this.store$.select(fromReducers.getMonitors);
   }
 
   ngOnInit(): void {
-    this.monitorGroupKey$.subscribe(value => {
-      console.log(value);
+    this.combine$ = zip(this.communityId$, this.monitorGroupKey$);
+    this.combine$.subscribe(([communityId, monitorGroupKey ]) => {
+      console.log(communityId + ':' + monitorGroupKey);
+      this.store$.dispatch(new monitorAction.LoadAction({communityId, monitorGroupKey}));
+      this.monitors$ = this.store$.select(fromReducers.getMonitors);
     });
+
     this.monitors$.subscribe(monitors => {
       this.monitors = monitors;
       this.dataSource = new MatTableDataSource<MonitorModel>(this.monitors);
