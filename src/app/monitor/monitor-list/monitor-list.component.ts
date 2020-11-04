@@ -129,11 +129,21 @@ export class MonitorListComponent implements OnInit {
 
   openChartDialog() {
     if (this.selection.selected.length === 0 || this.selection.selected.length > 1) {
-      this.dialog.open(ConfirmDialogComponent, {data: { title: '', content: '请选择一个Monitor.'}});
+      this.dialog.open(
+        ConfirmDialogComponent,
+        {
+          data: { title: '', content: '请选择一个Monitor.'},
+        }
+       );
       return;
     }
-    const dialogRef = this.dialog.open(ChartHomeComponent, {
-      data: this.selection.selected[0]
-    });
+    const dialogRef = this.dialog.open(
+      ChartHomeComponent,
+      {
+        data: this.selection.selected[0],
+        height: '720px',
+        width: '1080px',
+      }
+    );
   }
 }
