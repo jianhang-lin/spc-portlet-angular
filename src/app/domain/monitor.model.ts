@@ -29,6 +29,7 @@ export interface MonitorModel {
   monitorCreateTime: string;
   monitorCreateTimeStr: Date;
   monitorGroupKey: number;
+  monitorGroupName: string;
   monitorId: number;
   monitorInitialId: number;
   monitorName: string;
@@ -90,6 +91,7 @@ export class MonitorModelBuilder {
       monitorCreateTime: '',
       monitorCreateTimeStr: undefined,
       monitorGroupKey: 0,
+      monitorGroupName: '',
       monitorId: 0,
       monitorInitialId: 0,
       monitorName: '',
