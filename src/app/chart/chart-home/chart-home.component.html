@@ -1,4 +1,14 @@
-<h1 mat-dialog-title>Dialog with chart--{{data.monitorName}}</h1>
+<h3 mat-dialog-title id="dialogTitleContainer">
+  <div>Monitor Name: {{data.monitorName}} |&nbsp;</div>
+  <div>Part Number: {{data.partNumber}} |&nbsp;</div>
+  <div [ngSwitch]="data.monitorType">
+    <div *ngSwitchCase="0">Location: {{data.monitorShortName}}|&nbsp;</div>
+    <div *ngSwitchCase="1">Process: {{data.monitorShortName}}|&nbsp;</div>
+    <div *ngSwitchCase="2">Location Family: {{data.monitorShortName}}|&nbsp;</div>
+  </div>
+  <div>Monitor Group: {{data.monitorGroupName}} |&nbsp;</div>
+  <div>Shop Floor Id: {{data.netUserId}} </div>
+</h3>
 <div mat-dialog-content >
   <app-chart-list></app-chart-list>
 </div>

@@ -1,0 +1,12 @@
+#dialogTitleContainer {
+  display: flex;
+  display: -webkit-flex;
+  /* 从左端开始沿水平轴防止flex item */
+  flex-direction: row;
+  /* 强制 flex item不换行，沿着同一行堆叠 */
+  flex-wrap: nowrap;
+  /* flex item在主轴上的对齐方式，这里定义左对齐 */
+  justify-content: flex-start;
+  /* 定义交叉轴对其方式 */
+  align-items: flex-start;
+}
