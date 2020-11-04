@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { Observable, of } from 'rxjs';
+import { MonitorModel } from '../../domain/monitor.model';
 
 @Component({
   selector: 'app-chart-list',
@@ -8,10 +10,12 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
 })
 export class ChartListComponent implements OnInit {
 
+  @Input() monitorModel: MonitorModel;
   title = 'D3.js with Angluar';
   chartTypeSelecter: MatSelect;
   disableRevisionSelecter: boolean;
   disableRetrieveButton: boolean;
+  chartType$: Observable<any>;
   examples = [
     {
       title: 'C Chart By D3',
@@ -88,6 +92,7 @@ export class ChartListComponent implements OnInit {
   ngOnInit(): void {
     this.disableRevisionSelecter = true;
     this.disableRetrieveButton = true;
+    this.chartType$ = of(this.monitorModel.visibleChart.split(','));
   }
 
   generateData() {

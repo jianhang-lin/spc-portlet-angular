@@ -10,7 +10,7 @@
   <div>Shop Floor Id: {{data.netUserId}} </div>
 </h3>
 <div mat-dialog-content >
-  <app-chart-list></app-chart-list>
+  <app-chart-list [monitorModel]="data"></app-chart-list>
 </div>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>
