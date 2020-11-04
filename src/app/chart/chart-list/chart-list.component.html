@@ -1,4 +1,4 @@
-<mat-drawer-container>
+<!--<mat-drawer-container>
   <mat-drawer mode="side" opened="true">
     <mat-menu ></mat-menu>
     <a mat-menu-item *ngFor="let item of examples" [routerLink]="item.route" routerLinkActive="active">{{ item.title }}</a>
@@ -6,6 +6,25 @@
   <mat-drawer-content>
     <h1>{{ title }}</h1>
     <router-outlet></router-outlet>
-    <!--<app-dot-line-chart *ngIf="chartData" [datas]="chartData"></app-dot-line-chart>-->
+    &lt;!&ndash;<app-dot-line-chart *ngIf="chartData" [datas]="chartData"></app-dot-line-chart>&ndash;&gt;
   </mat-drawer-content>
-</mat-drawer-container>
+</mat-drawer-container>-->
+<mat-form-field appearance="fill">
+  <mat-label>Select</mat-label>
+  <mat-select disableRipple (selectionChange)="onSelectedChartTypeChange($event)">
+    <mat-option value="1">Option 1</mat-option>
+    <mat-option value="2">Option 2</mat-option>
+    <mat-option value="3">Option 3</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-label>Select revision</mat-label>
+  <mat-select disableRipple [disabled]="disableRevisionSelecter">
+    <mat-option value="1">Option 1</mat-option>
+    <mat-option value="2">Option 2</mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-button [disabled]="disableRetrieveButton">
+  <mat-icon>analytics</mat-icon>
+  Retrieve
+</button>

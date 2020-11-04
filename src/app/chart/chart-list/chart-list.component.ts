@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-chart-list',
@@ -8,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class ChartListComponent implements OnInit {
 
   title = 'D3.js with Angluar';
+  chartTypeSelecter: MatSelect;
+  disableRevisionSelecter: boolean;
+  disableRetrieveButton: boolean;
   examples = [
     {
       title: 'C Chart By D3',
@@ -82,10 +86,8 @@ export class ChartListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    /*setTimeout(() => {
-      this.generateData();
-      setInterval(() => this.generateData(), 5000);
-    }, 1000);*/
+    this.disableRevisionSelecter = true;
+    this.disableRetrieveButton = true;
   }
 
   generateData() {
@@ -96,5 +98,15 @@ export class ChartListComponent implements OnInit {
         Math.floor(Math.random() * 100)
       ]);
     }
+  }
+
+  onSelectedChartTypeChange($event: MatSelectChange) {
+    this.chartTypeSelecter = $event.source;
+    this.disableRevisionSelecter = !this.chartTypeSelecter.selected;
+    this.disableRetrieveButton = !this.chartTypeSelecter.selected;
+  }
+
+  onSelectedChartType($event: Event) {
+    console.log('onSelectedChartType:' + JSON.stringify($event));
   }
 }
