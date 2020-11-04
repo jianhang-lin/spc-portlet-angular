@@ -60,7 +60,7 @@ export class MonitorListComponent implements OnInit {
     });
   }
 
-  onSelectThChecboxChange($event: MatCheckboxChange) {
+  onSelectThCheckboxChange($event: MatCheckboxChange) {
     if ($event) {
       return this.isAllSelected() ?
         this.selection.clear() :
@@ -69,14 +69,14 @@ export class MonitorListComponent implements OnInit {
     return null;
   }
 
-  onSelectThChecboxChecked() {
+  onSelectThCheckboxChecked() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     const isAllSelected = numSelected === numRows;
     return this.selection.hasValue() && isAllSelected;
   }
 
-  onSelectThChecboxIndeterminate() {
+  onSelectThCheckboxIndeterminate() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     const isAllSelected = numSelected === numRows;
