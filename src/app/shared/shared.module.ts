@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
@@ -46,6 +47,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     NgxEchartsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     GoogleChartsModule,
   ],
   exports: [
@@ -69,6 +71,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     NgxEchartsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     GoogleChartsModule,
   ],
   entryComponents: [
