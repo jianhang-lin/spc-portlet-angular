@@ -15,6 +15,8 @@ export class ChartListComponent implements OnInit {
   title = 'D3.js with Angluar';
   chartTypeSelecter: MatSelect;
   disableRevisionSelecter: boolean;
+  hiddenRevisionSelecter: boolean;
+  hiddenOwlDateTimeRanger: boolean;
   disableRetrieveButton: boolean;
   chartType$: Observable<any>;
   examples = [
@@ -92,6 +94,8 @@ export class ChartListComponent implements OnInit {
 
   ngOnInit(): void {
     this.disableRevisionSelecter = true;
+    this.hiddenRevisionSelecter = true;
+    this.hiddenOwlDateTimeRanger = true;
     this.disableRetrieveButton = true;
     this.chartType$ = of(this.monitorModel.visibleChart.split(','));
   }
@@ -110,6 +114,22 @@ export class ChartListComponent implements OnInit {
     this.chartTypeSelecter = $event.source;
     this.disableRevisionSelecter = !this.chartTypeSelecter.selected;
     this.disableRetrieveButton = !this.chartTypeSelecter.selected;
+    switch ($event.value) {
+      case 'C':
+        this.hiddenRevisionSelecter = false;
+        this.hiddenOwlDateTimeRanger = true;
+        break;
+      case 'P':
+        this.hiddenRevisionSelecter = false;
+        this.hiddenOwlDateTimeRanger = false;
+        break;
+      case 'Cpk/Ppk':
+        this.hiddenRevisionSelecter = true;
+        break;
+      default:
+        this.hiddenRevisionSelecter = true;
+        break;
+    }
   }
 
   onSelectedChartType($event: Event) {

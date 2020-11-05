@@ -9,20 +9,30 @@
     &lt;!&ndash;<app-dot-line-chart *ngIf="chartData" [datas]="chartData"></app-dot-line-chart>&ndash;&gt;
   </mat-drawer-content>
 </mat-drawer-container>-->
-<mat-form-field appearance="fill">
-  <mat-label>Select</mat-label>
-  <mat-select disableRipple (selectionChange)="onSelectedChartTypeChange($event)">
-    <mat-option *ngFor="let chartType of (chartType$ | async)" [value]="chartType">{{chartType}}</mat-option>
-  </mat-select>
-</mat-form-field>
-<mat-form-field appearance="fill">
-  <mat-label>Select revision</mat-label>
-  <mat-select disableRipple [disabled]="disableRevisionSelecter">
-    <mat-option value="1">Option 1</mat-option>
-    <mat-option value="2">Option 2</mat-option>
-  </mat-select>
-</mat-form-field>
-<button mat-button [disabled]="disableRetrieveButton">
-  <mat-icon>analytics</mat-icon>
-  Retrieve
-</button>
+<div id="chartListContainer">
+  <div id="chartListBarContainer">
+    <mat-form-field appearance="fill">
+      <mat-label>Select</mat-label>
+      <mat-select disableRipple (selectionChange)="onSelectedChartTypeChange($event)">
+        <mat-option *ngFor="let chartType of (chartType$ | async)" [value]="chartType">{{chartType}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" [ngClass]="{invisible: this.hiddenOwlDateTimeRanger}">
+      <input matInput [owlDateTime]="owlDateTimeRange" [selectMode]="'range'" placeholder="Select Date Time Range">
+      <owl-date-time #owlDateTimeRange></owl-date-time>
+      <mat-icon matSuffix [owlDateTimeTrigger]="owlDateTimeRange">date_range</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="fill" [hidden]="hiddenRevisionSelecter">
+      <mat-label>Select revision</mat-label>
+      <mat-select disableRipple [disabled]="disableRevisionSelecter" >
+        <mat-option value="1">Option 1</mat-option>
+        <mat-option value="2">Option 2</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button [disabled]="disableRetrieveButton">
+      <mat-icon>analytics</mat-icon>
+      Retrieve
+    </button>
+  </div>
+  <div>show list</div>
+</div>
