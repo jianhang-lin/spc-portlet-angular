@@ -2,7 +2,9 @@ export interface ChartBarOptionsModel {
   chartType: string;
   startTime: Date;
   endTime: Date;
+  dateTimeRange: string;
   revision: number;
+  retrieve: boolean;
 }
 
 export class ChartBarOptionsModelBuilder {
@@ -14,8 +16,10 @@ export class ChartBarOptionsModelBuilder {
     return {
       chartType: '',
       endTime: undefined,
+      startTime: undefined,
+      dateTimeRange: '',
       revision: 0,
-      startTime: undefined
+      retrieve: false,
     };
   }
 }

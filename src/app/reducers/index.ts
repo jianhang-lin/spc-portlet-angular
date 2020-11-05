@@ -23,6 +23,7 @@ import * as cpkPpkChartReducer from './cpk-ppk-chart.reducer';
 import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
 import * as affctedReducer from './affected.reducer';
+import * as chartBarOptionsReducer from './chart-bar-options.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -41,6 +42,7 @@ export interface State {
   dotLineChart: dotLineChartReducer.State;
   ocaps: ocapReducer.State;
   affecteds: affctedReducer.State;
+  chartBarOptions: chartBarOptionsReducer.State;
 }
 
 const initialState: State = {
@@ -60,6 +62,7 @@ const initialState: State = {
   dotLineChart: dotLineChartReducer.initialState,
   ocaps: ocapReducer.initialState,
   affecteds: affctedReducer.initialState,
+  chartBarOptions: chartBarOptionsReducer.initialState,
 };
 
 const reducers = {
@@ -79,6 +82,7 @@ const reducers = {
   dotLineChart: dotLineChartReducer.reducer,
   ocaps: ocapReducer.reducer,
   affecteds: affctedReducer.reducer,
+  chartBarOptions: chartBarOptionsReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -104,6 +108,7 @@ export const getCpkPpkChartState = (state: State) => state.cpkPpkChart;
 export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
 export const getAffectedState = (state: State) => state.affecteds;
+export const getChartBarOptionsState = (state: State) => state.chartBarOptions;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -121,6 +126,7 @@ export const getCpkPpkChartData = createSelector(getCpkPpkChartState, cpkPpkChar
 export const getDotLineDataList = createSelector(getDotLineChartState, dotLineChartReducer.getAll);
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
+export const getChartBarOptions = createSelector(getChartBarOptionsState, chartBarOptionsReducer.getChartBarOptions);
 
 @NgModule({
   imports: [
