@@ -1,1 +1,5 @@
-<p>date-time-ranger works!</p>
+<mat-form-field appearance="fill" [ngClass]="{isHidden: this.hidden}">
+  <input matInput [owlDateTime]="owlDateTimeRange" [selectMode]="'range'" placeholder="Select Date Time Range">
+  <owl-date-time #owlDateTimeRange></owl-date-time>
+  <mat-icon matSuffix [owlDateTimeTrigger]="owlDateTimeRange">date_range</mat-icon>
+</mat-form-field>

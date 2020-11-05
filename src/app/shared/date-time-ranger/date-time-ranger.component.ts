@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { C_CHART, CPK_PPK_CHART, P_CHART } from '../../utils/const.util';
 
 @Component({
   selector: 'app-date-time-ranger',
@@ -7,9 +8,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DateTimeRangerComponent implements OnInit {
 
+  @Input()
+  set chartType(chartType: string) {
+    this.chartType = chartType;
+
+  }
+  get chartType() {
+    return this.chartType;
+  }
+  hidden: boolean;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.chartType);
+    switch (this.chartType) {
+      case C_CHART:
+        this.hidden = true;
+        break;
+      case P_CHART:
+        this.hidden = false;
+        break;
+      case CPK_PPK_CHART:
+        this.hidden = false;
+        break;
+      default:
+        this.hidden = true;
+        break;
+    }
   }
 
 }

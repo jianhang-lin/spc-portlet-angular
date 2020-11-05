@@ -17,11 +17,7 @@
         <mat-option *ngFor="let chartType of (chartType$ | async)" [value]="chartType">{{chartType}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill" [ngClass]="{invisible: this.hiddenOwlDateTimeRanger}">
-      <input matInput [owlDateTime]="owlDateTimeRange" [selectMode]="'range'" placeholder="Select Date Time Range">
-      <owl-date-time #owlDateTimeRange></owl-date-time>
-      <mat-icon matSuffix [owlDateTimeTrigger]="owlDateTimeRange">date_range</mat-icon>
-    </mat-form-field>
+    <app-date-time-ranger [chartType]="this.selectdChartType"></app-date-time-ranger>
     <mat-form-field appearance="fill" [hidden]="hiddenRevisionSelecter">
       <mat-label>Select revision</mat-label>
       <mat-select disableRipple [disabled]="disableRevisionSelecter" >
