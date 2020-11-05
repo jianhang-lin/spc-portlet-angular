@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { Observable, of } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MonitorModel } from '../../domain/monitor.model';
 
 @Component({
@@ -114,4 +115,5 @@ export class ChartListComponent implements OnInit {
   onSelectedChartType($event: Event) {
     console.log('onSelectedChartType:' + JSON.stringify($event));
   }
+
 }

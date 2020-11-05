@@ -19,6 +19,9 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
@@ -48,6 +51,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatNativeDateModule,
     GoogleChartsModule,
   ],
   exports: [
@@ -72,6 +78,9 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
     GoogleChartsModule,
   ],
   entryComponents: [
