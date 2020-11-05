@@ -26,11 +26,13 @@ import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { OwlDateTimeModule } from 'ng-pick-datetime';
 import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.component';
+import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-selecter.component';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
     DateTimeRangerComponent,
+    ChartTypeSelecterComponent,
   ],
   imports: [
     CommonModule,
