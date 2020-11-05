@@ -25,10 +25,12 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { OwlDateTimeModule } from 'ng-pick-datetime';
+import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.component';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
+    DateTimeRangerComponent,
   ],
   imports: [
     CommonModule,
@@ -85,6 +87,7 @@ import { OwlDateTimeModule } from 'ng-pick-datetime';
     MatMomentDateModule,
     GoogleChartsModule,
     OwlDateTimeModule,
+    DateTimeRangerComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent
