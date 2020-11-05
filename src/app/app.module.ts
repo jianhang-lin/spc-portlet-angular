@@ -13,6 +13,7 @@ import { ChartModule } from './chart/chart.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { GoogleChartsModule } from 'angular-google-charts';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,8 @@ import { GoogleChartsModule } from 'angular-google-charts';
       echarts: {init: echarts.init }
     }),
     GoogleChartsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

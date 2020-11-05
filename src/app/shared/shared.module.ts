@@ -24,6 +24,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { OwlDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatMomentDateModule,
     MatNativeDateModule,
     GoogleChartsModule,
+    OwlDateTimeModule,
   ],
   exports: [
     CommonModule,
@@ -82,6 +84,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatNativeDateModule,
     MatMomentDateModule,
     GoogleChartsModule,
+    OwlDateTimeModule,
   ],
   entryComponents: [
     ConfirmDialogComponent

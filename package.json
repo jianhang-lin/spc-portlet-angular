@@ -32,6 +32,7 @@
     "d3": "^6.2.0",
     "echarts": "^4.9.0",
     "moment": "^2.29.1",
+    "ng-pick-datetime": "^7.0.0",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-echarts": "^5.1.2",
     "reselect": "^4.0.0",
