@@ -8,14 +8,7 @@ import { C_CHART, CPK_PPK_CHART, P_CHART } from '../../utils/const.util';
 })
 export class DateTimeRangerComponent implements OnInit {
 
-  @Input()
-  set chartType(chartType: string) {
-    this.chartType = chartType;
-
-  }
-  get chartType() {
-    return this.chartType;
-  }
+  @Input() chartType: string;
   hidden: boolean;
   constructor() { }
 
