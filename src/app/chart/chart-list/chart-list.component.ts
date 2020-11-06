@@ -14,7 +14,7 @@ import { ChartBarOptionsModel } from '../../domain/chart-bar-options.model';
 export class ChartListComponent implements OnInit, OnDestroy {
 
   @Input() monitorModel: MonitorModel;
-  chartType$: Observable<any>;
+  chartType$: Observable<string[]>;
 
   chartBarOptions$: Observable<ChartBarOptionsModel>;
   private chartBarOptionsStateSubscription: Subscription;
@@ -23,13 +23,17 @@ export class ChartListComponent implements OnInit, OnDestroy {
   constructor(
     private store$: Store<fromReducers.State>,
   ) {
+    this.store$.dispatch(new chartBarOptionsActions.SelectChartTypeAction(''));
     this.chartBarOptions$ = this.store$.select(fromReducers.getChartBarOptions);
   }
 
   ngOnInit(): void {
+    /* input chartType value*/
     this.chartType$ = of(this.monitorModel.visibleChart.split(','));
+
     this.chartBarOptionsStateSubscription = this.chartBarOptions$.subscribe((state) => {
       this.chartBarOptions = state;
+      console.log('chartBarOptionsStateSubscription:' + JSON.stringify(this.chartBarOptions));
       this.done = this.chartBarOptions.retrieve;
     });
   }
@@ -39,7 +43,6 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   selectChartType(chartType: string) {
-    console.log('parent:selectChartType' + chartType);
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE,
       payload: chartType
@@ -47,6 +50,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   selectDateTimeRange(dateTimeRange: string) {
+    console.log('parent:selectDateTimeRange' + dateTimeRange);
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_DATE_TIME_RANGE,
       payload: dateTimeRange
@@ -66,4 +70,5 @@ export class ChartListComponent implements OnInit, OnDestroy {
       payload: retrieve
     });
   }
+
 }
