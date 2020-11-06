@@ -52,6 +52,10 @@ export class ChartListComponent implements OnInit, OnDestroy {
       type: chartBarOptionsActions.ActionTypes.HIDDEN_DATE_TIME_RANGE,
       payload: this.chartType
     });
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.HIDDEN_REVISION,
+      payload: this.chartType
+    });
   }
 
   selectDateTimeRange(dateTimeRange: string) {

@@ -30,7 +30,7 @@ export class ChartBarOptionsEffects {
   );
 
   @Effect()
-  hiddenDateTimeRanger$: Observable<Action> = this.actions$.pipe(
+  hiddenDateTime$: Observable<Action> = this.actions$.pipe(
     ofType(chartBarOptionsAction.ActionTypes.HIDDEN_DATE_TIME_RANGE),
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
@@ -38,7 +38,22 @@ export class ChartBarOptionsEffects {
         return of(String(v))
           .pipe(
             map((chartType) => new chartBarOptionsAction.HiddenDateTimeRangeSuccessAction(chartType)),
-            catchError(err => of(new chartBarOptionsAction.SelectChartTypeFailAction(JSON.stringify(err))))
+            catchError(err => of(new chartBarOptionsAction.HiddenDateTimeRangeFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
+  @Effect()
+  hiddenRevision$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.HIDDEN_REVISION),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(String(v))
+          .pipe(
+            map((chartType) => new chartBarOptionsAction.HiddenRevisionSuccessAction(chartType)),
+            catchError(err => of(new chartBarOptionsAction.HiddenRevisionFailAction(JSON.stringify(err))))
           );
       }
     )

@@ -23,7 +23,7 @@ const handleSelectChartTypeSuccess = (state, action) => {
   };
 };
 
-const handleHiddenChartTypeSuccess = (state, action) => {
+const handleHiddenDateTimeSuccess = (state, action) => {
   const chartType = action.payload;
   let hiddenDateTimeRanger = true;
   switch (chartType) {
@@ -52,19 +52,51 @@ const handleHiddenChartTypeSuccess = (state, action) => {
   };
 };
 
+const handleHiddenRevisionSuccess = (state, action) => {
+  const chartType = action.payload;
+  let hiddenRevision = true;
+  switch (chartType) {
+    case C_CHART:
+      hiddenRevision = false;
+      break;
+    case P_CHART:
+      hiddenRevision = true;
+      break;
+    case CPK_PPK_CHART:
+      hiddenRevision = true;
+      break;
+    default:
+      hiddenRevision = false;
+      break;
+  }
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(state.chartBarOptions.chartType,
+      state.chartBarOptions.endTime,
+      state.chartBarOptions.startTime,
+      state.chartBarOptions.dateTimeRange,
+      state.chartBarOptions.hiddenDateTimeRanger,
+      state.chartBarOptions.revision,
+      hiddenRevision,
+      state.chartBarOptions.retrieve)
+  };
+};
+
 export function reducer(state = initialState, action: chartBarOptionsActions.Actions ): State {
   switch (action.type) {
     case chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE_SUCCESS: {
       return handleSelectChartTypeSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.HIDDEN_DATE_TIME_RANGE_SUCCESS: {
-      return handleHiddenChartTypeSuccess(state, action);
+      return handleHiddenDateTimeSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.SELECT_DATE_TIME_RANGE: {
       console.log('reducer:' + action.payload);
       return Object.assign({}, state, {
         dateTimeRange: action.payload
       });
+    }
+    case chartBarOptionsActions.ActionTypes.HIDDEN_REVISION_SUCCESS: {
+      return handleHiddenRevisionSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.SELECT_REVISION: {
       console.log('reducer:' + action.payload);
