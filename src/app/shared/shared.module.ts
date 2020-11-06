@@ -27,12 +27,14 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { OwlDateTimeModule } from 'ng-pick-datetime';
 import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.component';
 import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-selecter.component';
+import { RevisionSelecterComponent } from './revision-selecter/revision-selecter.component';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
     DateTimeRangerComponent,
     ChartTypeSelecterComponent,
+    RevisionSelecterComponent,
   ],
   imports: [
     CommonModule,
