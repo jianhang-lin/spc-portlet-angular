@@ -1,1 +1,6 @@
-<p>chart-type-selecter works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Select</mat-label>
+  <mat-select disableRipple (selectionChange)="onSelectedChartTypeChange($event)">
+    <mat-option *ngFor="let chartType of (chartType$ | async)" [value]="chartType">{{chartType}}</mat-option>
+  </mat-select>
+</mat-form-field>
