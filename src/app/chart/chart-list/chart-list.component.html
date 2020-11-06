@@ -1,31 +1,15 @@
-<!--<mat-drawer-container>
-  <mat-drawer mode="side" opened="true">
-    <mat-menu ></mat-menu>
-    <a mat-menu-item *ngFor="let item of examples" [routerLink]="item.route" routerLinkActive="active">{{ item.title }}</a>
-  </mat-drawer>
-  <mat-drawer-content>
-    <h1>{{ title }}</h1>
-    <router-outlet></router-outlet>
-    &lt;!&ndash;<app-dot-line-chart *ngIf="chartData" [datas]="chartData"></app-dot-line-chart>&ndash;&gt;
-  </mat-drawer-content>
-</mat-drawer-container>-->
 <div id="chartListContainer">
   <div id="chartListBarContainer">
-    <mat-form-field appearance="fill">
-      <mat-label>Select</mat-label>
-      <mat-select disableRipple (selectionChange)="onSelectedChartTypeChange($event)">
-        <mat-option *ngFor="let chartType of (chartType$ | async)" [value]="chartType">{{chartType}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <app-date-time-ranger [chartType]="this.selectdChartType"></app-date-time-ranger>
-    <mat-form-field appearance="fill" [hidden]="hiddenRevisionSelecter">
+    <app-chart-type-selecter (selectChartTypeEvent)="selectChartType($event)"></app-chart-type-selecter>
+    <app-date-time-ranger [chartType]="'C'"></app-date-time-ranger>
+    <mat-form-field appearance="fill" [hidden]="false">
       <mat-label>Select revision</mat-label>
-      <mat-select disableRipple [disabled]="disableRevisionSelecter" >
+      <mat-select disableRipple [disabled]="false" >
         <mat-option value="1">Option 1</mat-option>
         <mat-option value="2">Option 2</mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-button [disabled]="disableRetrieveButton">
+    <button mat-button [disabled]="false">
       <mat-icon>analytics</mat-icon>
       Retrieve
     </button>

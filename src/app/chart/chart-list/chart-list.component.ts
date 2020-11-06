@@ -1,137 +1,69 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
-import { Observable, of } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, of, Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { MonitorModel } from '../../domain/monitor.model';
+import * as fromReducers from '../../reducers';
+import * as chartBarOptionsActions from '../../actions/chart-bar-options.action';
+import { ChartBarOptionsModel } from '../../domain/chart-bar-options.model';
 
 @Component({
   selector: 'app-chart-list',
   templateUrl: './chart-list.component.html',
   styleUrls: ['./chart-list.component.scss']
 })
-export class ChartListComponent implements OnInit {
+export class ChartListComponent implements OnInit, OnDestroy {
 
   @Input() monitorModel: MonitorModel;
-  title = 'D3.js with Angluar';
-  chartTypeSelecter: MatSelect;
-  disableRevisionSelecter: boolean;
-  hiddenRevisionSelecter: boolean;
-  disableRetrieveButton: boolean;
   chartType$: Observable<any>;
-  selectdChartType: string;
-  examples = [
-    {
-      title: 'C Chart By D3',
-      route: '/c_chart'
-    },
-    {
-      title: 'U Chart By D3',
-      route: '/u_chart'
-    },
-    {
-      title: 'P Chart By D3',
-      route: '/p_chart'
-    },
-    {
-      title: 'FPY Chart By D3',
-      route: '/fpy_chart'
-    },
-    {
-      title: 'Yield Chart By D3',
-      route: '/yield_chart'
-    },
-    {
-      title: 'Pareto Chart By D3',
-      route: '/pareto_chart'
-    },
-    {
-      title: 'Cpkppk Chart By D3',
-      route: '/cpkppk_chart'
-    },
-    {
-      title: 'Dot Line Chart By D3',
-      route: '/dotLine'
-    },
-    {
-      title: 'Dot Line Chart By Echart',
-      route: '/dotLineE'
-    },
-    {
-      title: 'Dot Line Chart By Google',
-      route: '/dotLineGoogle'
-    },
-    {
-      title: 'Line Chart',
-      route: '/line-chart'
-    },
-    {
-      title: 'Multi Series Line Chart',
-      route: '/multi-series'
-    },
-    {
-      title: 'Bar Chart',
-      route: '/bar-chart'
-    },
-    {
-      title: 'Stacked Bar Chart',
-      route: '/stacked-bar-chart'
-    },
-    {
-      title: 'Brush Zoom',
-      route: '/brush-zoom'
-    },
-    {
-      title: 'Pie Chart',
-      route: '/pie-chart'
-    },
-    {
-      title: 'Donut chart',
-      route: '/donut-chart'
-    },
-  ];
-  chartData: Array<any>;
-  constructor() { }
+
+  chartBarOptions$: Observable<ChartBarOptionsModel>;
+  private chartBarOptionsStateSubscription: Subscription;
+  chartBarOptions: ChartBarOptionsModel;
+  done = false;
+  constructor(
+    private store$: Store<fromReducers.State>,
+  ) {
+    this.chartBarOptions$ = this.store$.select(fromReducers.getChartBarOptions);
+  }
 
   ngOnInit(): void {
-    this.disableRevisionSelecter = true;
-    this.hiddenRevisionSelecter = true;
-    this.disableRetrieveButton = true;
     this.chartType$ = of(this.monitorModel.visibleChart.split(','));
+    this.chartBarOptionsStateSubscription = this.chartBarOptions$.subscribe((state) => {
+      this.chartBarOptions = state;
+      this.done = this.chartBarOptions.retrieve;
+    });
   }
 
-  generateData() {
-    this.chartData = [];
-    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-      this.chartData.push([
-        `Index ${i}`,
-        Math.floor(Math.random() * 100)
-      ]);
-    }
+  ngOnDestroy(): void {
+    this.chartBarOptionsStateSubscription.unsubscribe();
   }
 
-  onSelectedChartTypeChange($event: MatSelectChange) {
-    this.chartTypeSelecter = $event.source;
-    this.disableRevisionSelecter = !this.chartTypeSelecter.selected;
-    this.disableRetrieveButton = !this.chartTypeSelecter.selected;
-    this.selectdChartType = $event.value;
-    /*switch ($event.value) {
-      case 'C':
-        this.hiddenRevisionSelecter = false;
-        break;
-      case 'P':
-        this.hiddenRevisionSelecter = false;
-        break;
-      case 'Cpk/Ppk':
-        this.hiddenRevisionSelecter = true;
-        break;
-      default:
-        this.hiddenRevisionSelecter = true;
-        break;
-    }*/
+  selectChartType(chartType: string) {
+    console.log('parent:selectChartType' + chartType);
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE,
+      payload: chartType
+    });
   }
 
-  onSelectedChartType($event: Event) {
-    console.log('onSelectedChartType:' + JSON.stringify($event));
+  selectDateTimeRange(dateTimeRange: string) {
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.SELECT_DATE_TIME_RANGE,
+      payload: dateTimeRange
+    });
   }
 
+  selectRevision(revision: number) {
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.SELECT_REVISION,
+      payload: revision
+    });
+  }
+
+  selectRetrieve(retrieve: boolean) {
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.SELECT_RETRIEVE,
+      payload: retrieve
+    });
+  }
 }
