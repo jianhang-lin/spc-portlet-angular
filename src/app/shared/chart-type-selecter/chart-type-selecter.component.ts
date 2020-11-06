@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-chart-type-selecter',
@@ -9,13 +9,13 @@ import { Observable, of } from 'rxjs';
 })
 export class ChartTypeSelecterComponent implements OnInit {
 
-  chartType$: Observable<any>;
-  chartType: string;
+  @Input() chartType$: Observable<any>;
   @Output() selectChartTypeEvent = new EventEmitter();
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    this.chartType$ = of(['f', '2']);
+    this.chartType$.subscribe();
   }
 
   onSelectedChartTypeChange($event: MatSelectChange) {
