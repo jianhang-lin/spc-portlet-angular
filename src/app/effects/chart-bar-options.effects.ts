@@ -29,6 +29,21 @@ export class ChartBarOptionsEffects {
     )
   );
 
+  @Effect()
+  hiddenDateTimeRanger$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.HIDDEN_DATE_TIME_RANGE),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(String(v))
+          .pipe(
+            map((chartType) => new chartBarOptionsAction.HiddenDateTimeRangeSuccessAction(chartType)),
+            catchError(err => of(new chartBarOptionsAction.SelectChartTypeFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private store$: Store<fromReducers.State>,

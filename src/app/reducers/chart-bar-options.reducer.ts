@@ -11,39 +11,54 @@ export const initialState: State = {
   chartBarOptions: new ChartBarOptionsModelBuilder().getEmptyChartBarOptionsModel()
 };
 
+const handleSelectChartTypeSuccess = (state, action) => {
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(action.payload, undefined,
+      undefined,
+      '',
+      true,
+      0,
+      false,
+      false)
+  };
+};
+
+const handleHiddenChartTypeSuccess = (state, action) => {
+  const chartType = action.payload;
+  let hiddenDateTimeRanger = true;
+  switch (chartType) {
+    case C_CHART:
+      hiddenDateTimeRanger = true;
+      break;
+    case P_CHART:
+      hiddenDateTimeRanger = false;
+      break;
+    case CPK_PPK_CHART:
+      hiddenDateTimeRanger = false;
+      break;
+    default:
+      hiddenDateTimeRanger = true;
+      break;
+  }
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(state.chartBarOptions.chartType,
+      state.chartBarOptions.endTime,
+      state.chartBarOptions.startTime,
+      state.chartBarOptions.dateTimeRange,
+      hiddenDateTimeRanger,
+      state.chartBarOptions.revision,
+      state.chartBarOptions.hiddenRevision,
+      state.chartBarOptions.retrieve)
+  };
+};
+
 export function reducer(state = initialState, action: chartBarOptionsActions.Actions ): State {
   switch (action.type) {
     case chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE_SUCCESS: {
-      const chartType = action.payload;
-      let hiddenDateTimeRanger = true;
-      let hiddenRevision = false;
-      switch (chartType) {
-        case C_CHART:
-          hiddenDateTimeRanger = true;
-          hiddenRevision = false;
-          break;
-        case P_CHART:
-          hiddenDateTimeRanger = false;
-          hiddenRevision = true;
-          break;
-        case CPK_PPK_CHART:
-          hiddenDateTimeRanger = false;
-          hiddenRevision = true;
-          break;
-        default:
-          hiddenDateTimeRanger = true;
-          hiddenRevision = false;
-          break;
-      }
-      return {
-        chartBarOptions: new ChartBarOptionsModelBuilder().create(chartType, undefined,
-          undefined,
-          '',
-          hiddenDateTimeRanger,
-          0,
-          hiddenRevision,
-          false)
-      };
+      return handleSelectChartTypeSuccess(state, action);
+    }
+    case chartBarOptionsActions.ActionTypes.HIDDEN_DATE_TIME_RANGE_SUCCESS: {
+      return handleHiddenChartTypeSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.SELECT_DATE_TIME_RANGE: {
       console.log('reducer:' + action.payload);
