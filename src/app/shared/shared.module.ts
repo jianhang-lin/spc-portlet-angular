@@ -93,6 +93,7 @@ import { RevisionSelecterComponent } from './revision-selecter/revision-selecter
     OwlDateTimeModule,
     ChartTypeSelecterComponent,
     DateTimeRangerComponent,
+    RevisionSelecterComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent

@@ -15,6 +15,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
 
   @Input() monitorModel: MonitorModel;
   chartType$: Observable<string[]>;
+  revision$: Observable<number[]>;
   chartType: string;
   chartBarOptions$: Observable<ChartBarOptionsModel>;
   private chartBarOptionsStateSubscription: Subscription;
@@ -30,7 +31,8 @@ export class ChartListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     /* input chartType value*/
     this.chartType$ = of(this.monitorModel.visibleChart.split(','));
-
+    // TODO
+    this.revision$ = of([1, 2]);
     this.chartBarOptionsStateSubscription = this.chartBarOptions$.subscribe((state) => {
       this.chartBarOptions = state;
       console.log('chartBarOptionsStateSubscription:' + JSON.stringify(this.chartBarOptions));

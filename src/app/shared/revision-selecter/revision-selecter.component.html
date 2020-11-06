@@ -1,1 +1,6 @@
-<p>revision-selecter works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>Select revision</mat-label>
+  <mat-select disableRipple (selectionChange)="onSelectedRevisionChange($event)">
+    <mat-option *ngFor="let revision of (revision$ | async)" [value]="revision">{{revision}}</mat-option>
+  </mat-select>
+</mat-form-field>

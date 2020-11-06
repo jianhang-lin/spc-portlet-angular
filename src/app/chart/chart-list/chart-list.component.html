@@ -2,13 +2,7 @@
   <div id="chartListBarContainer">
     <app-chart-type-selecter [chartType$]="this.chartType$" (selectChartTypeEvent)="selectChartType($event)"></app-chart-type-selecter>
     <app-date-time-ranger (selectDateTimeRangeEvent)="selectDateTimeRange($event)" [ngClass]="{isHidden: this.chartBarOptions.hiddenDateTimeRanger}"></app-date-time-ranger>
-    <mat-form-field appearance="fill" [hidden]="false">
-      <mat-label>Select revision</mat-label>
-      <mat-select disableRipple [disabled]="false" >
-        <mat-option value="1">Option 1</mat-option>
-        <mat-option value="2">Option 2</mat-option>
-      </mat-select>
-    </mat-form-field>
+    <app-revision-selecter [revision$]="this.revision$" (selectRevisionEvent)="selectRevision($event)" [ngClass]="{isHidden: this.chartBarOptions.hiddenRevision}"></app-revision-selecter>
     <button mat-button [disabled]="false">
       <mat-icon>analytics</mat-icon>
       Retrieve
