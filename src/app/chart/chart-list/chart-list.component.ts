@@ -15,7 +15,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
 
   @Input() monitorModel: MonitorModel;
   chartType$: Observable<string[]>;
-
+  chartType: string;
   chartBarOptions$: Observable<ChartBarOptionsModel>;
   private chartBarOptionsStateSubscription: Subscription;
   chartBarOptions: ChartBarOptionsModel;
@@ -43,9 +43,14 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   selectChartType(chartType: string) {
+    this.chartType = chartType;
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE,
-      payload: chartType
+      payload: this.chartType
+    });
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.HIDDEN_DATE_TIME_RANGE,
+      payload: this.chartType
     });
   }
 
