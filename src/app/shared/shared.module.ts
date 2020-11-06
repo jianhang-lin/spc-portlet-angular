@@ -89,6 +89,7 @@ import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-sel
     MatMomentDateModule,
     GoogleChartsModule,
     OwlDateTimeModule,
+    ChartTypeSelecterComponent,
     DateTimeRangerComponent,
   ],
   entryComponents: [
