@@ -17,6 +17,7 @@ import { CpkPpkChartEffects } from './cpk-ppk-chart.effects';
 import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
 import { AffectedEffects } from './affected.effects';
+import { ChartBarOptionsEffects } from './chart-bar-options.effects';
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import { AffectedEffects } from './affected.effects';
       DotLineChartEffects,
       OcapEffects,
       AffectedEffects,
+      ChartBarOptionsEffects,
     ])
   ],
 })
