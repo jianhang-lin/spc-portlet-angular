@@ -96,6 +96,7 @@ import { RetrieveButtonComponent } from './retrieve-button/retrieve-button.compo
     ChartTypeSelecterComponent,
     DateTimeRangerComponent,
     RevisionSelecterComponent,
+    RetrieveButtonComponent,
   ],
   entryComponents: [
     ConfirmDialogComponent
