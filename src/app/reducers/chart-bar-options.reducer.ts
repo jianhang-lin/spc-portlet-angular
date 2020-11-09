@@ -17,7 +17,7 @@ const handleSelectChartTypeSuccess = (state, action) => {
       undefined,
       '',
       true,
-      0,
+      '',
       false,
       false)
   };
@@ -62,6 +62,20 @@ const handleHiddenDateTimeSuccess = (state, action) => {
       hiddenDateTimeRanger,
       state.chartBarOptions.revision,
       state.chartBarOptions.hiddenRevision,
+      state.chartBarOptions.retrieve)
+  };
+};
+
+const handleSelectRevisionSuccess = (state, action) => {
+  const revision = action.payload;
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(state.chartBarOptions.chartType,
+      state.chartBarOptions.endTime,
+      state.chartBarOptions.startTime,
+      state.chartBarOptions.dateTimeRange,
+      state.chartBarOptions.hiddenDateTimeRanger,
+      revision,
+      false,
       state.chartBarOptions.retrieve)
   };
 };
@@ -115,11 +129,8 @@ export function reducer(state = initialState, action: chartBarOptionsActions.Act
     case chartBarOptionsActions.ActionTypes.HIDDEN_REVISION_SUCCESS: {
       return handleHiddenRevisionSuccess(state, action);
     }
-    case chartBarOptionsActions.ActionTypes.SELECT_REVISION: {
-      console.log('reducer:' + action.payload);
-      return Object.assign({}, state, {
-        revision: action.payload
-      });
+    case chartBarOptionsActions.ActionTypes.SELECT_REVISION_SUCCESS: {
+      return handleSelectRevisionSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.SELECT_RETRIEVE: {
       console.log('reducer:' + action.payload);

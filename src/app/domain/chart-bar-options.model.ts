@@ -4,7 +4,7 @@ export interface ChartBarOptionsModel {
   endTime: Date;
   dateTimeRange: string;
   hiddenDateTimeRanger: boolean;
-  revision: number;
+  revision: string;
   hiddenRevision: boolean;
   retrieve: boolean;
 }
@@ -21,14 +21,14 @@ export class ChartBarOptionsModelBuilder {
       startTime: undefined,
       dateTimeRange: '',
       hiddenDateTimeRanger: true,
-      revision: 0,
+      revision: '',
       hiddenRevision: false,
       retrieve: false,
     };
   }
 
   public create(chartType: string, endTime: Date, startTime: Date, dateTimeRange: string, hiddenDateTimeRanger: boolean,
-                revision: number, hiddenRevision: boolean, retrieve: boolean): ChartBarOptionsModel {
+                revision: string, hiddenRevision: boolean, retrieve: boolean): ChartBarOptionsModel {
     return {
       chartType,
       endTime,

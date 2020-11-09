@@ -67,7 +67,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectRevision(revision: number) {
+  selectRevision(revision: string) {
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_REVISION,
       payload: revision

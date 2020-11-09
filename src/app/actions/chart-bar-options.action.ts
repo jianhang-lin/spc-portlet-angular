@@ -13,6 +13,8 @@ export const ActionTypes = {
   HIDDEN_DATE_TIME_RANGE_SUCCESS: type('[ChartBarOptions] Hidden Date Time Range Success'),
   HIDDEN_DATE_TIME_RANGE_FAIL: type('[ChartBarOptions] Hidden Date Time Range Fail'),
   SELECT_REVISION: type('[ChartBarOptions] Select Revision'),
+  SELECT_REVISION_SUCCESS: type('[ChartBarOptions] Select Revision Success'),
+  SELECT_REVISION_FAIL: type('[ChartBarOptions] Select Revision Fail'),
   HIDDEN_REVISION: type('[ChartBarOptions] Hidden Revision'),
   HIDDEN_REVISION_SUCCESS: type('[ChartBarOptions] Hidden Revision Success'),
   HIDDEN_REVISION_FAIL: type('[ChartBarOptions] Hidden Revision Fail'),
@@ -74,6 +76,16 @@ export class SelectRevisionAction implements Action {
   constructor(public payload: string) {}
 }
 
+export class SelectRevisionSuccessAction implements Action {
+  type = ActionTypes.SELECT_REVISION_SUCCESS;
+  constructor(public payload: string) {}
+}
+
+export class SelectRevisionFailAction implements Action {
+  type = ActionTypes.SELECT_REVISION_FAIL;
+  constructor(public payload: string) {}
+}
+
 export class HiddenRevisionAction implements Action {
   type = ActionTypes.HIDDEN_REVISION;
   constructor(public payload: string) {}
@@ -98,6 +110,6 @@ export type Actions = SelectChartTypeAction | SelectChartTypeSuccessAction | Sel
   SelectDateTimeRangeAction |
   ChangeDateTimeRangeAction | ChangeDateTimeRangeSuccessAction | ChangeDateTimeRangeFailAction |
   HiddenDateTimeRangeAction | HiddenDateTimeRangeSuccessAction | HiddenDateTimeRangeFailAction |
-  SelectRevisionAction |
+  SelectRevisionAction | SelectRevisionSuccessAction | SelectRevisionFailAction |
   HiddenRevisionAction | HiddenRevisionSuccessAction | HiddenRevisionFailAction |
   SelectRetrieveAction;

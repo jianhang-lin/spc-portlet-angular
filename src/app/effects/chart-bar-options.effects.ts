@@ -59,6 +59,21 @@ export class ChartBarOptionsEffects {
   );
 
   @Effect()
+  selectRevision$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.SELECT_REVISION),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(String(v))
+          .pipe(
+            map((revision) => new chartBarOptionsAction.SelectRevisionSuccessAction(revision)),
+            catchError(err => of(new chartBarOptionsAction.SelectRevisionFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
+  @Effect()
   hiddenRevision$: Observable<Action> = this.actions$.pipe(
     ofType(chartBarOptionsAction.ActionTypes.HIDDEN_REVISION),
     map(toPayload),
