@@ -19,7 +19,8 @@ const handleSelectChartTypeSuccess = (state, action) => {
       true,
       '',
       false,
-      false)
+      false,
+      true)
   };
 };
 
@@ -33,7 +34,8 @@ const handleChangeDateTimeSuccess = (state, action) => {
       state.chartBarOptions.hiddenDateTimeRanger,
       state.chartBarOptions.revision,
       state.chartBarOptions.hiddenRevision,
-      state.chartBarOptions.retrieve)
+      state.chartBarOptions.retrieve,
+      state.chartBarOptions.disableRetrieve)
   };
 };
 
@@ -62,7 +64,8 @@ const handleHiddenDateTimeSuccess = (state, action) => {
       hiddenDateTimeRanger,
       state.chartBarOptions.revision,
       state.chartBarOptions.hiddenRevision,
-      state.chartBarOptions.retrieve)
+      state.chartBarOptions.retrieve,
+      state.chartBarOptions.disableRetrieve)
   };
 };
 
@@ -76,7 +79,8 @@ const handleSelectRevisionSuccess = (state, action) => {
       state.chartBarOptions.hiddenDateTimeRanger,
       revision,
       false,
-      state.chartBarOptions.retrieve)
+      state.chartBarOptions.retrieve,
+      state.chartBarOptions.disableRetrieve)
   };
 };
 
@@ -105,7 +109,23 @@ const handleHiddenRevisionSuccess = (state, action) => {
       state.chartBarOptions.hiddenDateTimeRanger,
       state.chartBarOptions.revision,
       hiddenRevision,
-      state.chartBarOptions.retrieve)
+      state.chartBarOptions.retrieve,
+      state.chartBarOptions.disableRetrieve)
+  };
+};
+
+const handleDisabledRetrieveSuccess = (state, action) => {
+  const disabledRetrieve = action.payload;
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(state.chartBarOptions.chartType,
+      state.chartBarOptions.endTime,
+      state.chartBarOptions.startTime,
+      state.chartBarOptions.dateTimeRange,
+      state.chartBarOptions.hiddenDateTimeRanger,
+      state.chartBarOptions.revision,
+      state.chartBarOptions.hiddenRevision,
+      state.chartBarOptions.retrieve,
+      disabledRetrieve)
   };
 };
 
@@ -137,6 +157,9 @@ export function reducer(state = initialState, action: chartBarOptionsActions.Act
       return Object.assign({}, state, {
         retrieve: action.payload
       });
+    }
+    case chartBarOptionsActions.ActionTypes.DISABLED_RETRIEVE_SUCCESS: {
+      return handleDisabledRetrieveSuccess(state, action);
     }
     default: {
       return state;

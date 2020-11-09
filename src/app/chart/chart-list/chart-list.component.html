@@ -6,7 +6,7 @@
       [ngClass]="{isHidden: this.chartBarOptions.hiddenDateTimeRanger}"
     ></app-date-time-ranger>
     <app-revision-selecter [revision$]="this.revision$" (selectRevisionEvent)="selectRevision($event)" [ngClass]="{isHidden: this.chartBarOptions.hiddenRevision}"></app-revision-selecter>
-    <app-retrieve-button></app-retrieve-button>
+    <app-retrieve-button [ngClass]="{disabled: this.chartBarOptions.disableRetrieve}"></app-retrieve-button>
   </div>
   <div><app-chart-preview></app-chart-preview></div>
 </div>

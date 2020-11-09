@@ -88,6 +88,21 @@ export class ChartBarOptionsEffects {
     )
   );
 
+  @Effect()
+  disabledRetrieve$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.DISABLED_RETRIEVE),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(Boolean(v))
+          .pipe(
+            map((disabledRetrieve) => new chartBarOptionsAction.DisabledRetrieveSuccessAction(disabledRetrieve)),
+            catchError(err => of(new chartBarOptionsAction.DisabledRetrieveFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private store$: Store<fromReducers.State>,

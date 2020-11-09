@@ -65,12 +65,20 @@ export class ChartListComponent implements OnInit, OnDestroy {
       type: chartBarOptionsActions.ActionTypes.CHANGE_DATE_TIME_RANGE,
       payload: dateTimeRangeArray
     });
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.DISABLED_RETRIEVE,
+      payload: false
+    });
   }
 
   selectRevision(revision: string) {
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_REVISION,
       payload: revision
+    });
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.DISABLED_RETRIEVE,
+      payload: false
     });
   }
 

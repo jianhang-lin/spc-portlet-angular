@@ -7,6 +7,7 @@ export interface ChartBarOptionsModel {
   revision: string;
   hiddenRevision: boolean;
   retrieve: boolean;
+  disableRetrieve: boolean;
 }
 
 export class ChartBarOptionsModelBuilder {
@@ -24,11 +25,12 @@ export class ChartBarOptionsModelBuilder {
       revision: '',
       hiddenRevision: false,
       retrieve: false,
+      disableRetrieve: true,
     };
   }
 
   public create(chartType: string, endTime: Date, startTime: Date, dateTimeRange: string, hiddenDateTimeRanger: boolean,
-                revision: string, hiddenRevision: boolean, retrieve: boolean): ChartBarOptionsModel {
+                revision: string, hiddenRevision: boolean, retrieve: boolean, disableRetrieve: boolean): ChartBarOptionsModel {
     return {
       chartType,
       endTime,
@@ -38,6 +40,7 @@ export class ChartBarOptionsModelBuilder {
       revision,
       hiddenRevision,
       retrieve,
+      disableRetrieve,
     };
   }
 }
