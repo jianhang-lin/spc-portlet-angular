@@ -60,12 +60,8 @@ export class ChartListComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectDateTimeRange(dateTimeRange: string) {
-    console.log('parent:selectDateTimeRange' + dateTimeRange);
-    this.store$.dispatch({
-      type: chartBarOptionsActions.ActionTypes.SELECT_DATE_TIME_RANGE,
-      payload: dateTimeRange
-    });
+  dateTimeRangeChange(dateTimeRangeArray: Date[]) {
+    console.log('parent:dateTimeRangeChange' + JSON.stringify(dateTimeRangeArray));
   }
 
   selectRevision(revision: number) {
