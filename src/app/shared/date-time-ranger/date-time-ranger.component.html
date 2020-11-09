@@ -1,5 +1,6 @@
 <mat-form-field appearance="fill">
-  <input matInput [owlDateTime]="owlDateTimeRange" [selectMode]="'range'" placeholder="Select Date Time Range">
+  <input matInput [owlDateTime]="owlDateTimeRange" [selectMode]="'range'"
+         placeholder="Select Date Time Range" (dateTimeChange)="onDateTimeRangeChange($event.source.values)">
   <owl-date-time #owlDateTimeRange></owl-date-time>
   <mat-icon matSuffix [owlDateTimeTrigger]="owlDateTimeRange">date_range</mat-icon>
 </mat-form-field>

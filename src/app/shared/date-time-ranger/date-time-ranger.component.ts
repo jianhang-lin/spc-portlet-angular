@@ -8,13 +8,13 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class DateTimeRangerComponent implements OnInit {
 
-  @Output() selectDateTimeRangeEvent = new EventEmitter();
+  @Output() dateTimeRangeChangeEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  onSelectedDateTimeRangeChange($event: MatSelectChange) {
-    this.selectDateTimeRangeEvent.emit($event.source.value);
+  onDateTimeRangeChange(dateTimeRangeArray: Date[]) {
+    this.dateTimeRangeChangeEvent.emit(dateTimeRangeArray);
   }
 }
