@@ -4,7 +4,6 @@ import { Action, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as chartBarOptionsAction from '../actions/chart-bar-options.action';
-import * as RouterActions from '../actions/router.action';
 import * as fromReducers from '../reducers';
 import { ChartBarOptionsService } from '../services/chart-bar-options.service';
 
@@ -25,6 +24,21 @@ export class ChartBarOptionsEffects {
           map((chartType) => new chartBarOptionsAction.SelectChartTypeSuccessAction(chartType)),
           catchError(err => of(new chartBarOptionsAction.SelectChartTypeFailAction(JSON.stringify(err))))
         );
+      }
+    )
+  );
+
+  @Effect()
+  changeDateTime$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.CHANGE_DATE_TIME_RANGE),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(v as Date[])
+          .pipe(
+            map((dateTimeRange) => new chartBarOptionsAction.ChangeDateTimeRangeSuccessAction(dateTimeRange)),
+            catchError(err => of(new chartBarOptionsAction.ChangeDateTimeRangeFailAction(JSON.stringify(err))))
+          );
       }
     )
   );

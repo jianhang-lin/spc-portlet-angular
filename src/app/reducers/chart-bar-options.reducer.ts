@@ -23,6 +23,20 @@ const handleSelectChartTypeSuccess = (state, action) => {
   };
 };
 
+const handleChangeDateTimeSuccess = (state, action) => {
+  const dateTimeRange = action.payload;
+  return {
+    chartBarOptions: new ChartBarOptionsModelBuilder().create(state.chartBarOptions.chartType,
+      dateTimeRange[1],
+      dateTimeRange[0],
+      dateTimeRange,
+      state.chartBarOptions.hiddenDateTimeRanger,
+      state.chartBarOptions.revision,
+      state.chartBarOptions.hiddenRevision,
+      state.chartBarOptions.retrieve)
+  };
+};
+
 const handleHiddenDateTimeSuccess = (state, action) => {
   const chartType = action.payload;
   let hiddenDateTimeRanger = true;
@@ -85,6 +99,9 @@ export function reducer(state = initialState, action: chartBarOptionsActions.Act
   switch (action.type) {
     case chartBarOptionsActions.ActionTypes.SELECT_CHART_TYPE_SUCCESS: {
       return handleSelectChartTypeSuccess(state, action);
+    }
+    case chartBarOptionsActions.ActionTypes.CHANGE_DATE_TIME_RANGE_SUCCESS: {
+      return handleChangeDateTimeSuccess(state, action);
     }
     case chartBarOptionsActions.ActionTypes.HIDDEN_DATE_TIME_RANGE_SUCCESS: {
       return handleHiddenDateTimeSuccess(state, action);

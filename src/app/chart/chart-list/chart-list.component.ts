@@ -61,7 +61,10 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   dateTimeRangeChange(dateTimeRangeArray: Date[]) {
-    console.log('parent:dateTimeRangeChange' + JSON.stringify(dateTimeRangeArray));
+    this.store$.dispatch({
+      type: chartBarOptionsActions.ActionTypes.CHANGE_DATE_TIME_RANGE,
+      payload: dateTimeRangeArray
+    });
   }
 
   selectRevision(revision: number) {
