@@ -28,6 +28,7 @@ import { OwlDateTimeModule } from 'ng-pick-datetime';
 import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.component';
 import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-selecter.component';
 import { RevisionSelecterComponent } from './revision-selecter/revision-selecter.component';
+import { RetrieveButtonComponent } from './retrieve-button/retrieve-button.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RevisionSelecterComponent } from './revision-selecter/revision-selecter
     DateTimeRangerComponent,
     ChartTypeSelecterComponent,
     RevisionSelecterComponent,
+    RetrieveButtonComponent,
   ],
   imports: [
     CommonModule,
