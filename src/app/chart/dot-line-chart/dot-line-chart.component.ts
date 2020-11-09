@@ -116,7 +116,7 @@ export class DotLineChartComponent implements OnInit, OnChanges, ChartComponentB
   }
 
   public buildSvg(): void {
-    this.svg = d3.select('svg')
+    this.svg = d3.select('#dotLineChartId').append('svg')
       .attr('viewBox', `0, 0, ${this.width}, ${this.height}`)
       .style('overflow', 'visible');
   }
