@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-retrieve-button',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RetrieveButtonComponent implements OnInit {
 
+  @Output() selectRetrieveEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+
+  onClickRetrieveButton($event: MouseEvent) {
+    this.selectRetrieveEvent.emit();
+  }
 }

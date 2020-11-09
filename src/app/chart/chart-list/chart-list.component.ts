@@ -83,10 +83,11 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   selectRetrieve(retrieve: boolean) {
-    this.store$.dispatch({
+    /*this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_RETRIEVE,
       payload: retrieve
-    });
+    });*/
+    console.log('selectRetrieve:' + retrieve);
   }
 
 }
