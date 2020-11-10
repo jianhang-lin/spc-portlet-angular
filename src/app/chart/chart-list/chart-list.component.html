@@ -8,5 +8,5 @@
     <app-revision-selecter [revision$]="this.revision$" (selectRevisionEvent)="selectRevision($event)" [ngClass]="{isHidden: this.chartBarOptions.hiddenRevision}"></app-revision-selecter>
     <app-retrieve-button [ngClass]="{disabled: this.chartBarOptions.disableRetrieve}" (selectRetrieveEvent)="selectRetrieve($event)"></app-retrieve-button>
   </div>
-  <div><app-chart-preview [chartBarOptions$]="this.chartBarOptions$"></app-chart-preview></div>
+  <div><app-chart-preview [chartBarOptions$]="this.chartBarOptions$" [monitor]="this.monitorModel"></app-chart-preview></div>
 </div>

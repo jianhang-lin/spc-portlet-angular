@@ -4,7 +4,7 @@
       <app-c-chart></app-c-chart>
     </div>
     <div *ngSwitchCase="'Cpk/Ppk'">
-      <app-cpk-ppk-chart></app-cpk-ppk-chart>
+      <app-cpk-ppk-chart [chartBarOptions$]="chartBarOptions$" [monitor]="this.monitor"></app-cpk-ppk-chart>
     </div>
     <div *ngSwitchCase="'dotLine'">
       <app-dot-line-chart></app-dot-line-chart>

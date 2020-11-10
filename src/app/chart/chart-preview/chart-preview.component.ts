@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ChartBarOptionsModel } from '../../domain/chart-bar-options.model';
+import { MonitorModel } from '../../domain/monitor.model';
 
 @Component({
   selector: 'app-chart-preview',
@@ -10,12 +11,13 @@ import { ChartBarOptionsModel } from '../../domain/chart-bar-options.model';
 export class ChartPreviewComponent implements OnInit {
 
   @Input() chartBarOptions$: Observable<ChartBarOptionsModel>;
+  @Input() monitor: MonitorModel;
   constructor() { }
 
   ngOnInit(): void {
     this.chartBarOptions$.subscribe(
       value => {
-        console.log('ChartPreviewComponent:' + JSON.stringify(value));
+
       }
     );
   }

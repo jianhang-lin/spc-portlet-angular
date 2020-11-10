@@ -11,6 +11,8 @@ import * as fromReducers from '../../reducers';
 import * as cpkPpkChartAction from '../../actions/cpk-ppk-chart.action';
 import { DiscreteData, PageDiscreteChart } from '../../domain/discrete-chart-data.model';
 import { CpkPpkChartDataModel } from '../../domain/cpk-ppk-chart-data.model';
+import { ChartBarOptionsModel } from '../../domain/chart-bar-options.model';
+import { MonitorModel } from '../../domain/monitor.model';
 
 @Component({
   selector: 'app-cpk-ppk-chart',
@@ -19,6 +21,8 @@ import { CpkPpkChartDataModel } from '../../domain/cpk-ppk-chart-data.model';
 })
 export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBase  {
 
+  @Input() chartBarOptions$: Observable<ChartBarOptionsModel>;
+  @Input() monitor: MonitorModel;
   public title = 'CpkPpk Chart';
   public data: any;
   public pieData: any;
@@ -75,6 +79,10 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   }
 
   ngOnInit(): void {
+    console.log('Cpk/Ppk chart monitor,' + JSON.stringify(this.monitor));
+    this.chartBarOptions$.subscribe(value => {
+      console.log('Cpk/Ppk chart chartBarOptions$,' + JSON.stringify(value));
+    });
     this.cpkPpkChartData$.subscribe(cpkPpkChartData => {
       this.cpkPpkChartData = cpkPpkChartData;
       if (isEmptyArray(this.cpkPpkChartData.datas)) {
