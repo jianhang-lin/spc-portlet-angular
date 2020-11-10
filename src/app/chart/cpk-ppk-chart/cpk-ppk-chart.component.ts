@@ -157,7 +157,7 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   }
 
   public buildSvg(): void {
-    this.svg = d3.select('svg')
+    this.svg = d3.select('#cpkPpkChartId').append('svg')
       .attr('width', this.width + this.margin.left + this.margin.right)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .attr('class', 'svg')
