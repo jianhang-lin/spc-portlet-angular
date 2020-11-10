@@ -1,1 +1,8 @@
-<p>chart-preview works!</p>
+<div [ngSwitch]="(chartBarOptions$ | async).chartType">
+  <div *ngSwitchCase="'dotLine'">
+    <app-dot-line-chart></app-dot-line-chart>
+  </div>
+  <div *ngSwitchCase="'C'">
+    <app-c-chart></app-c-chart>
+  </div>
+</div>
