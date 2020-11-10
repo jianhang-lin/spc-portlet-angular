@@ -19,7 +19,7 @@ const handleSelectChartTypeSuccess = (state, action) => {
       true,
       '',
       false,
-      false,
+      0,
       true)
   };
 };
@@ -41,7 +41,7 @@ const handleChangeDateTimeSuccess = (state, action) => {
 
 const handleHiddenDateTimeSuccess = (state, action) => {
   const chartType = action.payload;
-  let hiddenDateTimeRanger = true;
+  let hiddenDateTimeRanger: boolean;
   switch (chartType) {
     case C_CHART:
       hiddenDateTimeRanger = true;
@@ -86,7 +86,7 @@ const handleSelectRevisionSuccess = (state, action) => {
 
 const handleHiddenRevisionSuccess = (state, action) => {
   const chartType = action.payload;
-  let hiddenRevision = true;
+  let hiddenRevision: boolean;
   switch (chartType) {
     case C_CHART:
       hiddenRevision = false;

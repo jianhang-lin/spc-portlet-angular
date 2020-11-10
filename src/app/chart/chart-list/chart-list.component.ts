@@ -20,7 +20,7 @@ export class ChartListComponent implements OnInit, OnDestroy {
   chartBarOptions$: Observable<ChartBarOptionsModel>;
   private chartBarOptionsStateSubscription: Subscription;
   chartBarOptions: ChartBarOptionsModel;
-  done = false;
+  selectRetrieveCount = 0;
   constructor(
     private store$: Store<fromReducers.State>,
   ) {
@@ -35,8 +35,6 @@ export class ChartListComponent implements OnInit, OnDestroy {
     this.revision$ = of([1, 2]);
     this.chartBarOptionsStateSubscription = this.chartBarOptions$.subscribe((state) => {
       this.chartBarOptions = state;
-      console.log('chartBarOptionsStateSubscription:' + JSON.stringify(this.chartBarOptions));
-      this.done = this.chartBarOptions.retrieve;
     });
   }
 
@@ -83,9 +81,10 @@ export class ChartListComponent implements OnInit, OnDestroy {
   }
 
   selectRetrieve(retrieve: boolean) {
+    this.selectRetrieveCount++;
     this.store$.dispatch({
       type: chartBarOptionsActions.ActionTypes.SELECT_RETRIEVE,
-      payload: true
+      payload: this.selectRetrieveCount
     });
   }
 

@@ -94,7 +94,7 @@ export class ChartBarOptionsEffects {
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
     switchMap(([v, auth]) => {
-        return of(Boolean(v))
+        return of(Number(v))
           .pipe(
             map((retrieve) => new chartBarOptionsAction.SelectRetrieveSuccessAction(retrieve)),
             catchError(err => of(new chartBarOptionsAction.SelectRetrieveFailAction(JSON.stringify(err))))

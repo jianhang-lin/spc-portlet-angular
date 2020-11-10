@@ -1,4 +1,4 @@
-<div *ngIf="(chartBarOptions$ | async).retrieve">
+<div *ngIf="(chartBarOptions$ | async).retrieve > 0">
   <div [ngSwitch]="(chartBarOptions$ | async).chartType">
     <div *ngSwitchCase="'C'">
       <app-c-chart></app-c-chart>

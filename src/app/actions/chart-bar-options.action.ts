@@ -108,12 +108,12 @@ export class HiddenRevisionFailAction implements Action {
 
 export class SelectRetrieveAction implements Action {
   type = ActionTypes.SELECT_RETRIEVE;
-  constructor(public payload: boolean) {}
+  constructor(public payload: number) {}
 }
 
 export class SelectRetrieveSuccessAction implements Action {
   type = ActionTypes.SELECT_RETRIEVE_SUCCESS;
-  constructor(public payload: boolean) {}
+  constructor(public payload: number) {}
 }
 
 export class SelectRetrieveFailAction implements Action {
