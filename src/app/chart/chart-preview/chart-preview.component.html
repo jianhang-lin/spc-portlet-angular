@@ -1,10 +1,13 @@
 <div *ngIf="(chartBarOptions$ | async).retrieve">
   <div [ngSwitch]="(chartBarOptions$ | async).chartType">
-    <div *ngSwitchCase="'dotLine'">
-      <app-dot-line-chart></app-dot-line-chart>
-    </div>
     <div *ngSwitchCase="'C'">
       <app-c-chart></app-c-chart>
+    </div>
+    <div *ngSwitchCase="'Cpk/Ppk'">
+      <app-cpk-ppk-chart></app-cpk-ppk-chart>
+    </div>
+    <div *ngSwitchCase="'dotLine'">
+      <app-dot-line-chart></app-dot-line-chart>
     </div>
   </div>
 </div>
