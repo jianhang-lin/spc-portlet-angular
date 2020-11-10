@@ -25,11 +25,8 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   private margin = {top: 20, right: 40, bottom: 30, left: 50};
   public width: number;
   private height: number;
-  // private x: d3.ScaleOrdinal<string, any>;
-  // private y: d3.ScaleLinear<number, number>;
   private z: d3.ScaleOrdinal<string, any>;
   private svg: d3.Selection<any, any, HTMLElement, any>;
-  // private line: d3.Line<[number, number]>;
 
   @ViewChild('chart', {static: true}) private chartContainer: ElementRef;
   @Input() private datas: Array<any>;
@@ -37,16 +34,11 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   private xScale: any;
   private yScale: any;
   private colors: any;
-  // private xAxis: d3.Axis<d3.AxisDomain>;
-  // private yAxis: d3.Axis<d3.AxisDomain>;
-  // private xRangeArray: any;
-  yieldChartDiscreteChartDataList: DiscreteData[];
   pageDiscreteChartData: PageDiscreteChart;
   cpkPpkChartData: CpkPpkChartDataModel;
   cpkPpkChartData$: Observable<CpkPpkChartDataModel>;
 
   radius: number;
-  donutWidth: number;
   path: any;
   arcs: any;
   series: any;
@@ -70,10 +62,7 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
   yAxisOfPdf: d3.Axis<d3.AxisDomain>;
   xNormal: any;
   yNormal: any;
-  xNormal2: any;
-  yNormal2: any;
   linePlot: any;
-  linePlot2: any;
   ycum: any;
   constructor(public router: Router,
               private route: ActivatedRoute,
@@ -100,8 +89,6 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
           92.994049, 94.065836, 99.319944, 99.483252, 104.607748,
           120.619625, 114.920230, 102.841946, 100.294047, 109.248236,
         ];
-        /*[31.3636, 34.0909, 39.5455,
-          45, 45, 45, 45, 47.7273, 47.7273, 50.4545, 55.9091, 58.6364];*/
         this.formatCount = d3.format(',.0f');
         this.pieData = [];
         this.data = [];
@@ -245,9 +232,6 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
       })
       .attr('text-anchor', 'middle').text((d: any) => this.formatCount(d.length));
 
-    /*const lines = this.svg.selectAll('.series')
-      .data([1])
-      .enter().append('g').attr('class', 'series');*/
     this.svg.append('path').datum(this.idealDataOfOverall).attr('class', 'line').attr('d', this.linePlot)
       .style('stroke', 'red')
       .style('stroke-width', '2px').style('fill', 'none')
@@ -268,10 +252,6 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
     this.svg.append('path').datum([{q: 92, p: 0}, {q: 92, p: 5}])
       .attr('class', 'line').attr('d', lslPlot)
       .style('stroke', 'black')
-      //.attr('x1', this.x.invert(90))
-      //.attr('y1', 0)
-      //.attr('x2', this.x.invert(90))
-      //.attr('y2', this.yBarMax)
     ;
     this.svg.append('path').datum([{q: 110, p: 0}, {q: 110, p: 5}])
       .attr('class', 'line').attr('d', lslPlot)
@@ -414,7 +394,6 @@ export class CpkPpkChartComponent implements OnInit, OnChanges, ChartComponentBa
       .attr('y', -2)
       .attr('font-weight', 'bold')
       .attr('font-size', 14);
-    // .attr('font-family', 'sans-serif').attr('font-size', 10).attr('text-anchor', 'middle').attr('y', -8);
     dot.append('text')
       .attr('x', 18)
       .attr('y', 18)
