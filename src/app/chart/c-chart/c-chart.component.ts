@@ -99,7 +99,7 @@ export class CChartComponent implements OnInit, OnChanges, ChartComponentBase {
   }
 
   public buildSvg(): void {
-    this.svg = d3.select('svg')
+    this.svg = d3.select('#cChartId').append('svg')
       .attr('viewBox', `0, 0, ${this.width}, ${this.height}`)
       .style('overflow', 'visible');
   }
