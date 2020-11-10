@@ -89,6 +89,21 @@ export class ChartBarOptionsEffects {
   );
 
   @Effect()
+  selectRetrieve$: Observable<Action> = this.actions$.pipe(
+    ofType(chartBarOptionsAction.ActionTypes.SELECT_RETRIEVE),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getChartBarOptionsState)),
+    switchMap(([v, auth]) => {
+        return of(Boolean(v))
+          .pipe(
+            map((retrieve) => new chartBarOptionsAction.SelectRetrieveSuccessAction(retrieve)),
+            catchError(err => of(new chartBarOptionsAction.SelectRetrieveFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
+  @Effect()
   disabledRetrieve$: Observable<Action> = this.actions$.pipe(
     ofType(chartBarOptionsAction.ActionTypes.DISABLED_RETRIEVE),
     map(toPayload),
