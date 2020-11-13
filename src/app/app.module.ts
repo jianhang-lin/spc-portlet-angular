@@ -10,6 +10,7 @@ import { FunctionModule } from './function/function.module';
 import { AppComponent } from './app.component';
 import { MonitorModule } from './monitor/monitor.module';
 import { ChartModule } from './chart/chart.module';
+import { EmailModule } from './email/email.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -30,6 +31,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FunctionModule,
     MonitorModule,
     ChartModule,
+    EmailModule,
     NgxEchartsModule.forRoot({
       echarts: {init: echarts.init }
     }),
