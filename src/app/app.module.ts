@@ -12,6 +12,7 @@ import { MonitorModule } from './monitor/monitor.module';
 import { ChartModule } from './chart/chart.module';
 import { EmailModule } from './email/email.module';
 import { LockModule } from './lock/lock.module';
+import { LocationFamilyModule } from './location-family/location-family.module';
 import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { GoogleChartsModule } from 'angular-google-charts';
@@ -34,6 +35,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ChartModule,
     EmailModule,
     LockModule,
+    LocationFamilyModule,
     NgxEchartsModule.forRoot({
       echarts: {init: echarts.init }
     }),
