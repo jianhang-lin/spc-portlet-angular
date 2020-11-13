@@ -24,6 +24,7 @@ import * as dotLineChartReducer from './dot-line-chart.reducer';
 import * as ocapReducer from './ocap.reducer';
 import * as affctedReducer from './affected.reducer';
 import * as chartBarOptionsReducer from './chart-bar-options.reducer';
+import * as globalSystemParameterReducer from './global-system-parameter.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -43,6 +44,7 @@ export interface State {
   ocaps: ocapReducer.State;
   affecteds: affctedReducer.State;
   chartBarOptions: chartBarOptionsReducer.State;
+  globalSystemParameter: globalSystemParameterReducer.State;
 }
 
 const initialState: State = {
@@ -63,6 +65,7 @@ const initialState: State = {
   ocaps: ocapReducer.initialState,
   affecteds: affctedReducer.initialState,
   chartBarOptions: chartBarOptionsReducer.initialState,
+  globalSystemParameter: globalSystemParameterReducer.initialState,
 };
 
 const reducers = {
@@ -83,6 +86,7 @@ const reducers = {
   ocaps: ocapReducer.reducer,
   affecteds: affctedReducer.reducer,
   chartBarOptions: chartBarOptionsReducer.reducer,
+  globalSystemParameter: globalSystemParameterReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -127,6 +131,8 @@ export const getDotLineDataList = createSelector(getDotLineChartState, dotLineCh
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
 export const getChartBarOptions = createSelector(getChartBarOptionsState, chartBarOptionsReducer.getChartBarOptions);
+
+export const getGlobalSystemParameter = (state: State) => state.globalSystemParameter;
 
 @NgModule({
   imports: [
