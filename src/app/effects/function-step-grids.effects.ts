@@ -46,7 +46,7 @@ export class FunctionStepGridsEffects {
         case 5:
           return new routerActions.Go({path: ['/monitor_groups5']});
         case 6:
-          return new routerActions.Go({path: [`/community_id/${functionStepGrid.communityId}/monitor_groups/${functionStepGrid.monitorGroupKey}/system_parameter_home`]});
+          return new routerActions.Go({path: [`/community_id/${functionStepGrid.communityId}/monitor_groups/${functionStepGrid.monitorGroupKey}/global_system_parameter_home`]});
         default:
           return new functionStepGridsAction.LoadFunctionStepGridsFailAction(JSON.stringify(`loadFunctionStepGrid: index is ${functionStepGrid.id}`));
       }

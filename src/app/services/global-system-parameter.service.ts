@@ -14,6 +14,6 @@ export class GlobalSystemParameterService {
 
   getGlobalSystemParameter(page: string, communityId: string, monitorGroupId: string): Observable<GlobalSystemParameterModel> {
     const uri = `${this.config.uri}/community_id/${communityId}/monitor_group_key/${monitorGroupId}/system_parameter`;
-    return this.http.get<GlobalSystemParameterModel>(uri, {params: {page, communityId, monitorGroupId}});
+    return this.http.get<GlobalSystemParameterModel>(uri);
   }
 }
