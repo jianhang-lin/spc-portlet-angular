@@ -19,7 +19,7 @@ export class GlobalSystemParameterEffects {
     map(toPayload),
     withLatestFrom(this.store$.select(fromReducers.getGlobalSystemParameter)),
     switchMap((params: any) => {
-        return this.service$.getGlobalSystemParameter(params[0].page, params[0].communityId, params[0].monitorGroupId)
+        return this.service$.getGlobalSystemParameter(params[0].communityId, params[0].monitorGroupKey)
           .pipe(
             map(globalSystemParameter => {
               return new globalSystemParameterAction.LoadGlobalSystemParameterSuccessAction(globalSystemParameter);

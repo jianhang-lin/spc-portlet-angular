@@ -113,6 +113,7 @@ export const getDotLineChartState = (state: State) => state.dotLineChart;
 export const getOcapState = (state: State) => state.ocaps;
 export const getAffectedState = (state: State) => state.affecteds;
 export const getChartBarOptionsState = (state: State) => state.chartBarOptions;
+export const getGlobalSystemParameterState = (state: State) => state.globalSystemParameter;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -132,7 +133,8 @@ export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAl
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
 export const getChartBarOptions = createSelector(getChartBarOptionsState, chartBarOptionsReducer.getChartBarOptions);
 
-export const getGlobalSystemParameter = (state: State) => state.globalSystemParameter;
+export const getGlobalSystemParameter =
+  createSelector(getGlobalSystemParameterState, globalSystemParameterReducer.getGlobalSystemParameter);
 
 @NgModule({
   imports: [

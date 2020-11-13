@@ -10,7 +10,7 @@ export const ActionTypes = {
 
 export class LoadGlobalSystemParameterAction implements Action {
   type = ActionTypes.LOAD_GLOBAL_SYSTEM_PARAMETER;
-  constructor(public payload: null) {}
+  constructor(public payload: {communityId: string, monitorGroupKey: string}) {}
 }
 
 export class LoadGlobalSystemParameterSuccessAction implements Action {

@@ -12,7 +12,7 @@ export class GlobalSystemParameterService {
   });
   constructor(private http: HttpClient, @Inject('BASE_CONFIG') private config) {}
 
-  getGlobalSystemParameter(page: string, communityId: string, monitorGroupId: string): Observable<GlobalSystemParameterModel> {
+  getGlobalSystemParameter(communityId: string, monitorGroupId: string): Observable<GlobalSystemParameterModel> {
     const uri = `${this.config.uri}/community_id/${communityId}/monitor_group_key/${monitorGroupId}/system_parameter`;
     return this.http.get<GlobalSystemParameterModel>(uri);
   }
