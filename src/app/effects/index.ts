@@ -18,6 +18,7 @@ import { DotLineChartEffects } from './dot-line-chart.effects';
 import { OcapEffects } from './ocap.effects';
 import { AffectedEffects } from './affected.effects';
 import { ChartBarOptionsEffects } from './chart-bar-options.effects';
+import { GlobalSystemParameterEffects } from './global-system-parameter.effects';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { ChartBarOptionsEffects } from './chart-bar-options.effects';
       OcapEffects,
       AffectedEffects,
       ChartBarOptionsEffects,
+      GlobalSystemParameterEffects,
     ])
   ],
 })
