@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { SharedModule } from '../shared/shared.module';
+import { SystemParameterRoutingModule } from './system-parameter-routing.module';
+import { SystemParameterHomeComponent } from './system-parameter-home/system-parameter-home.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SystemParameterHomeComponent],
   imports: [
-    CommonModule
+    SharedModule,
+    SystemParameterRoutingModule
   ]
 })
 export class SystemParameterModule { }
