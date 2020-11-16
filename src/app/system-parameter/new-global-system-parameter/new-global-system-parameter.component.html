@@ -1,1 +1,45 @@
-<p>new-global-system-parameter works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Interval of collecting data (second):</mat-label>
+    <input matInput type="text" formControlName="intervalOfCollectingData">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Interval of deleting log (hour):</mat-label>
+    <input matInput type="text" formControlName="intervalOfDeletingLog">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Time of log saved (month):</mat-label>
+    <input matInput type="text" formControlName="timeOfLogSaved">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Interval between lock reviews (second):</mat-label>
+    <input matInput type="text" formControlName="intervalBetweenLockReviews">
+  </mat-form-field>
+  <section class="full-width">
+    <mat-checkbox formControlName="displayFamilyIDInChart">Display Family ID in chart</mat-checkbox>
+  </section>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Start time of data collection (month):</mat-label>
+    <input matInput type="text" formControlName="startTimeOfDataCollection">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Hide monitors with no data in chart in the past(hours)</mat-label>
+    <input matInput type="text" formControlName="hideMonitorsWithNoData">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Hide on TV and dashboard if monitor with no data since (hours):</mat-label>
+    <input matInput type="text" formControlName="hideOnTV">
+  </mat-form-field>
+  <section class="full-width">
+    <mat-checkbox formControlName="enablePreviousSpcHold">Enable Previous SPC Hold function: </mat-checkbox>
+  </section>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>Email title</mat-label>
+    <input matInput type="text" formControlName="emailTitle">
+  </mat-form-field>
+  <mat-form-field floatLabel="auto" class="full-width">
+    <mat-label>MESR URL Template</mat-label>
+    <input matInput type="text" formControlName="mesrUrlTemplate">
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="primary" [disabled]="!form.valid">保存</button>
+</form>
