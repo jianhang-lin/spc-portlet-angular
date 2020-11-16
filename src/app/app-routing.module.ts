@@ -30,8 +30,8 @@ const routes: Routes = [
   {path: 'cause', redirectTo: '/cause', pathMatch: 'full'},
   {path: 'affected', redirectTo: '/affected', pathMatch: 'full'},
   {
-    path: 'community_id/:community_id/monitor_groups/:monitor_group_key/global_system_parameter_home',
-    redirectTo: '/community_id/:community_id/monitor_groups/:monitor_group_key/global_system_parameter_home',
+    path: 'community_id/:community_id/monitor_groups/:monitor_group_key/global_system_parameters',
+    redirectTo: '/community_id/:community_id/monitor_groups/:monitor_group_key/global_system_parameters',
     pathMatch: 'full'
   },
 ];
