@@ -29,6 +29,7 @@ import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.com
 import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-selecter.component';
 import { RevisionSelecterComponent } from './revision-selecter/revision-selecter.component';
 import { RetrieveButtonComponent } from './retrieve-button/retrieve-button.component';
+import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { RetrieveButtonComponent } from './retrieve-button/retrieve-button.compo
     ChartTypeSelecterComponent,
     RevisionSelecterComponent,
     RetrieveButtonComponent,
+    CommonDialogComponent,
   ],
   imports: [
     CommonModule,
