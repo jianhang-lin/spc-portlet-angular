@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogConfig } from '../../dialog/dialog-config';
 
 @Component({
   selector: 'app-new-monitor-group',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewMonitorGroupComponent implements OnInit {
 
-  constructor() { }
+  constructor(public config: DialogConfig) { }
 
   ngOnInit(): void {
   }

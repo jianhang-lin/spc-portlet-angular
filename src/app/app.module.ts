@@ -19,6 +19,7 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import * as echarts from 'echarts';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DialogModule } from './dialog/dialog.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     GoogleChartsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -9,12 +11,14 @@ import { Store } from '@ngrx/store';
 import * as fromReducers from '../../reducers';
 import * as monitorGroupAction from '../../actions/monitor-group.action';
 import { MonitorGroupModel } from '../../domain/monitor-group.model';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { NewMonitorGroupComponent } from '../new-monitor-group/new-monitor-group.component';
+import { DialogService } from '../../dialog/dialog.service';
 
 @Component({
   selector: 'app-monitor-group-list',
   templateUrl: './monitor-group-list.component.html',
-  styleUrls: ['./monitor-group-list.component.scss']
+  styleUrls: ['./monitor-group-list.component.scss'],
+  providers: [DialogService]
 })
 export class MonitorGroupListComponent implements OnInit {
 
@@ -28,15 +32,16 @@ export class MonitorGroupListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
   constructor(
+    private dialog: MatDialog,
     private route: ActivatedRoute,
-    private store$: Store<fromReducers.State>) {
+    private store$: Store<fromReducers.State>,
+    private newDialog: DialogService) {
     this.communityId$ = this.route.paramMap.pipe(map(p => p.get('community_id')));
     this.monitorGroups$ = this.store$.select(fromReducers.getMonitorGroups);
   }
 
   ngOnInit(): void {
     this.communityId$.subscribe(value => {
-      console.log('monitorGroupList communityId=>' + JSON.stringify(value));
       this.store$.dispatch(new monitorGroupAction.LoadAction(Number(value)));
     });
     this.monitorGroups$.subscribe(monitorGroups => {
@@ -50,7 +55,7 @@ export class MonitorGroupListComponent implements OnInit {
   }
 
   openNewMonitorGroupDialog() {
-
+    this.newDialog.open(NewMonitorGroupComponent, {data: { message: 'I am a dynamic component inside of a dialog!'}});
   }
 
   /**
@@ -102,64 +107,3 @@ export class MonitorGroupListComponent implements OnInit {
     this.store$.dispatch(new monitorGroupAction.SelectAction(monitorGroup));
   }
 }
-
-const LOADENGINE_DATA: any[] = [
-  {
-    builddate: null,
-    communityId: 10961,
-    serverInfos: [{
-      agileHost: 'Description',
-      agileStatus: '1',
-      agileURL: '8090',
-      agileURLFiles: '',
-      agileURLFolder: '',
-      agileURLLink: '',
-      agileURLObjectType: '',
-      agileURLRevision: '',
-      agileURLVirtualPath: '',
-      communityId: 10961,
-      contextPath: '\/spc-server',
-      contextPathPCB: '\/spc-server',
-      createdate: '2015-08-20 02:36:14.788',
-      customer: '',
-      description: 'Description',
-      directConnection: '',
-      ip: '127.0.0.1',
-      ipPCB: '127.0.0.1',
-      jmdsDescription: null,
-      jmdsDirectConnection: null,
-      jmdsIp: null,
-      jmdsName: null,
-      jmdsPort: null,
-      jmdsPostgresDB: '\/spc-server',
-      jmdsServiceName: null,
-      locationName: null,
-      locationid: 28,
-      mdsUrl: '\/spc-server',
-      mesrDatabase: '\/spc-server',
-      mesrDescription: 'Description',
-      mesrHost: '127.0.0.1',
-      mesrName: 'SPC server 139',
-      name: 'SPC server 139',
-      netUserId: '',
-      offSet: 0,
-      password: '',
-      passwordPCB: '',
-      plant: '28',
-      port: '8090',
-      programid: 2,
-      programname: 'SPC',
-      protocol: 'http',
-      serverId: 12,
-      serverService: '',
-      sfdcIp: 'http',
-      sfdcTimezone: '',
-      sfdcWebService: '',
-      status: '1',
-      userName: 'SPC server 139',
-      userNamePCB: 'SPC server 139'
-    }],
-    userId: 0,
-    version: null
-  }
-];

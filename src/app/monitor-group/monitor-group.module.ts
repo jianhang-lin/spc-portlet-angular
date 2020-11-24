@@ -9,6 +9,9 @@ import { NewMonitorGroupComponent } from './new-monitor-group/new-monitor-group.
   imports: [
     SharedModule,
     MonitorGroupRoutingModule
+  ],
+  entryComponents: [
+    NewMonitorGroupComponent
   ]
 })
 export class MonitorGroupModule { }
