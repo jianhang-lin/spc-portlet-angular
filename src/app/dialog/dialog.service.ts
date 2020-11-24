@@ -3,6 +3,7 @@ import { DialogModule } from './dialog.module';
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogConfig } from './dialog-config';
 import { DialogInjector } from './dialog-injector';
+import { DialogRef } from './dialog-ref';
 
 @Injectable({
   providedIn: DialogModule
@@ -22,6 +23,17 @@ export class DialogService {
     const map = new WeakMap();
     map.set(DialogConfig, config);
 
+    // add the DialogRef to dependency injection
+    const dialogRef = new DialogRef();
+    map.set(DialogRef, dialogRef);
+
+    // we want to know when somebody called the close mehtod
+    const sub = dialogRef.afterClosed.subscribe(() => {
+      // close the dialog
+      this.removeDialogComponentFromBody();
+      sub.unsubscribe();
+    });
+
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DialogComponent);
     // use our new injector
     const componentRef = componentFactory.create(new DialogInjector(this.injector, map));
@@ -31,6 +43,12 @@ export class DialogService {
     document.body.appendChild(domElem);
 
     this.dialogComponentRef = componentRef;
+    this.dialogComponentRef.instance.onClose.subscribe(() => {
+      this.removeDialogComponentFromBody();
+    });
+
+    // return the dialogRef
+    return dialogRef;
   }
 
   private removeDialogComponentFromBody() {
@@ -39,7 +57,8 @@ export class DialogService {
   }
 
   public open(componentType: Type<any>, config: DialogConfig) {
-    this.appendDialogComponentToBody(config);
+    const dialogRef = this.appendDialogComponentToBody(config);
     this.dialogComponentRef.instance.childComponentType = componentType;
+    return dialogRef;
   }
 }

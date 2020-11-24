@@ -3,8 +3,8 @@ import { Injector, Type, InjectionToken, InjectFlags } from '@angular/core';
 export class DialogInjector implements Injector {
 
   constructor(
-    private _parentInjector: Injector,
-    private _additionalTokens: WeakMap<any, any>
+    private parentInjector: Injector,
+    private additionalTokens: WeakMap<any, any>
   ) {}
 
   get<T>(
@@ -16,10 +16,10 @@ export class DialogInjector implements Injector {
   get(token: any, notFoundValue?: any);
 
   get(token: any, notFoundValue?: any, flags?: any) {
-    const value = this._additionalTokens.get(token);
+    const value = this.additionalTokens.get(token);
     if (value) {
       return value;
     }
-    return this._parentInjector.get<any>(token, notFoundValue);
+    return this.parentInjector.get<any>(token, notFoundValue);
   }
 }
