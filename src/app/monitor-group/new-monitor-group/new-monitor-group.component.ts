@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogConfig } from '../../dialog/dialog-config';
+import { DialogRef } from '../../dialog/dialog-ref';
 
 @Component({
   selector: 'app-new-monitor-group',
@@ -8,9 +9,12 @@ import { DialogConfig } from '../../dialog/dialog-config';
 })
 export class NewMonitorGroupComponent implements OnInit {
 
-  constructor(public config: DialogConfig) { }
+  constructor(public config: DialogConfig, public dialogRef: DialogRef) { }
 
   ngOnInit(): void {
   }
 
+  onClose() {
+    this.dialogRef.close('some value');
+  }
 }

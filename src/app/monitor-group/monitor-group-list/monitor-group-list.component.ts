@@ -55,7 +55,10 @@ export class MonitorGroupListComponent implements OnInit {
   }
 
   openNewMonitorGroupDialog() {
-    this.newDialog.open(NewMonitorGroupComponent, {data: { message: 'I am a dynamic component inside of a dialog!'}});
+    const ref = this.newDialog.open(NewMonitorGroupComponent, {data: { message: 'I am a dynamic component inside of a dialog!'}});
+    ref.afterClosed.subscribe(result => {
+      console.log('Dialog closed', result);
+    });
   }
 
   /**
