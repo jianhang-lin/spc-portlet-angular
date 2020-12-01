@@ -19,6 +19,7 @@ import { OcapEffects } from './ocap.effects';
 import { AffectedEffects } from './affected.effects';
 import { ChartBarOptionsEffects } from './chart-bar-options.effects';
 import { GlobalSystemParameterEffects } from './global-system-parameter.effects';
+import { NetUserEffects } from './net-user.effects';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { GlobalSystemParameterEffects } from './global-system-parameter.effects'
       AffectedEffects,
       ChartBarOptionsEffects,
       GlobalSystemParameterEffects,
+      NetUserEffects,
     ])
   ],
 })

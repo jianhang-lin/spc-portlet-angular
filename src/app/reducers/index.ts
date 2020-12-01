@@ -25,6 +25,7 @@ import * as ocapReducer from './ocap.reducer';
 import * as affctedReducer from './affected.reducer';
 import * as chartBarOptionsReducer from './chart-bar-options.reducer';
 import * as globalSystemParameterReducer from './global-system-parameter.reducer';
+import * as netUserReducer from './net-user.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -45,6 +46,7 @@ export interface State {
   affecteds: affctedReducer.State;
   chartBarOptions: chartBarOptionsReducer.State;
   globalSystemParameter: globalSystemParameterReducer.State;
+  netUsers: netUserReducer.State;
 }
 
 const initialState: State = {
@@ -66,6 +68,7 @@ const initialState: State = {
   affecteds: affctedReducer.initialState,
   chartBarOptions: chartBarOptionsReducer.initialState,
   globalSystemParameter: globalSystemParameterReducer.initialState,
+  netUsers: netUserReducer.initialState,
 };
 
 const reducers = {
@@ -87,6 +90,7 @@ const reducers = {
   affecteds: affctedReducer.reducer,
   chartBarOptions: chartBarOptionsReducer.reducer,
   globalSystemParameter: globalSystemParameterReducer.reducer,
+  netUsers: netUserReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -114,6 +118,7 @@ export const getOcapState = (state: State) => state.ocaps;
 export const getAffectedState = (state: State) => state.affecteds;
 export const getChartBarOptionsState = (state: State) => state.chartBarOptions;
 export const getGlobalSystemParameterState = (state: State) => state.globalSystemParameter;
+export const getNetUserState = (state: State) => state.netUsers;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -132,9 +137,9 @@ export const getDotLineDataList = createSelector(getDotLineChartState, dotLineCh
 export const getOcapHistoryList = createSelector(getOcapState, ocapReducer.getAll);
 export const getAffectedList = createSelector(getAffectedState, affctedReducer.getAll);
 export const getChartBarOptions = createSelector(getChartBarOptionsState, chartBarOptionsReducer.getChartBarOptions);
-
 export const getGlobalSystemParameter =
   createSelector(getGlobalSystemParameterState, globalSystemParameterReducer.getGlobalSystemParameter);
+export const getNetUserList = createSelector(getNetUserState, netUserReducer.getAll);
 
 @NgModule({
   imports: [
