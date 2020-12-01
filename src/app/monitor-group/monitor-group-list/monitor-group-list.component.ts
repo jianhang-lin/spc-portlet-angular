@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as fromReducers from '../../reducers';
 import * as monitorGroupAction from '../../actions/monitor-group.action';
@@ -56,7 +56,11 @@ export class MonitorGroupListComponent implements OnInit {
 
   openNewMonitorGroupDialog() {
     const ref = this.newDialog.open(NewMonitorGroupComponent, {data: { message: 'I am a dynamic component inside of a dialog!'}});
-    ref.afterClosed.subscribe(result => {
+    ref.afterClosed.pipe(
+      take(1),
+      filter(n => n),
+      map(val => ({...val}))
+    ).subscribe(result => {
       console.log('Dialog closed', result);
     });
   }
