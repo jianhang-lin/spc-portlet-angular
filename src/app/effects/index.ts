@@ -20,6 +20,7 @@ import { AffectedEffects } from './affected.effects';
 import { ChartBarOptionsEffects } from './chart-bar-options.effects';
 import { GlobalSystemParameterEffects } from './global-system-parameter.effects';
 import { NetUserEffects } from './net-user.effects';
+import { TimeZoneInfoEffects } from './time-zone-info.effects';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { NetUserEffects } from './net-user.effects';
       ChartBarOptionsEffects,
       GlobalSystemParameterEffects,
       NetUserEffects,
+      TimeZoneInfoEffects,
     ])
   ],
 })

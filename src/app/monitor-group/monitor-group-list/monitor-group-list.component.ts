@@ -24,6 +24,7 @@ export class MonitorGroupListComponent implements OnInit {
 
   @Output() visibility = new EventEmitter<void>();
   monitorGroups: MonitorGroupModel[];
+  communityId: string;
   communityId$: Observable<string>;
   monitorGroups$: Observable<MonitorGroupModel[]>;
   displayedColumns: string[];
@@ -42,6 +43,7 @@ export class MonitorGroupListComponent implements OnInit {
 
   ngOnInit(): void {
     this.communityId$.subscribe(value => {
+      this.communityId = value;
       this.store$.dispatch(new monitorGroupAction.LoadAction(Number(value)));
     });
     this.monitorGroups$.subscribe(monitorGroups => {
@@ -55,7 +57,7 @@ export class MonitorGroupListComponent implements OnInit {
   }
 
   openNewMonitorGroupDialog() {
-    const ref = this.newDialog.open(NewMonitorGroupComponent, {data: { message: 'I am a dynamic component inside of a dialog!'}});
+    const ref = this.newDialog.open(NewMonitorGroupComponent, {data: { communityId: this.communityId}});
     ref.afterClosed.pipe(
       take(1),
       filter(n => n),
