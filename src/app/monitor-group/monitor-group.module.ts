@@ -11,7 +11,7 @@ import { NewMonitorGroupComponent } from './new-monitor-group/new-monitor-group.
     MonitorGroupRoutingModule
   ],
   entryComponents: [
-    NewMonitorGroupComponent
+
   ]
 })
 export class MonitorGroupModule { }
