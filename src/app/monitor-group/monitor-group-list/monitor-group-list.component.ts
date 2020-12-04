@@ -56,15 +56,8 @@ export class MonitorGroupListComponent implements OnInit {
     });
   }
 
-  openNewMonitorGroupDialog() {
-    const ref = this.newDialog.open(NewMonitorGroupComponent, {data: { communityId: this.communityId}});
-    ref.afterClosed.pipe(
-      take(1),
-      filter(n => n),
-      map(val => ({...val}))
-    ).subscribe(result => {
-      console.log('Dialog closed', result);
-    });
+  gotoNewMonitorGroupPage() {
+    this.store$.dispatch(new monitorGroupAction.LoadAddAction(Number(this.communityId)));
   }
 
   /**
