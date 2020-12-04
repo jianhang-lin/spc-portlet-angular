@@ -24,21 +24,21 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { GoogleChartsModule } from 'angular-google-charts';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 import { OwlDateTimeModule } from 'ng-pick-datetime';
 import { DateTimeRangerComponent } from './date-time-ranger/date-time-ranger.component';
 import { ChartTypeSelecterComponent } from './chart-type-selecter/chart-type-selecter.component';
 import { RevisionSelecterComponent } from './revision-selecter/revision-selecter.component';
 import { RetrieveButtonComponent } from './retrieve-button/retrieve-button.component';
-import { CommonDialogComponent } from './common-dialog/common-dialog.component';
 
 @NgModule({
   declarations: [
     ConfirmDialogComponent,
+    CommonDialogComponent,
     DateTimeRangerComponent,
     ChartTypeSelecterComponent,
     RevisionSelecterComponent,
     RetrieveButtonComponent,
-    CommonDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -101,7 +101,8 @@ import { CommonDialogComponent } from './common-dialog/common-dialog.component';
     RetrieveButtonComponent,
   ],
   entryComponents: [
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    CommonDialogComponent,
   ]
 })
 export class SharedModule { }
