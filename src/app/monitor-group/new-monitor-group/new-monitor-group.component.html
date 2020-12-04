@@ -29,6 +29,13 @@
     <div *ngIf="showMds">
       <input type="radio" value=true formControlName="mds" [attr.disabled]="this.disableMds? '': null"> MDS
     </div>
+    <div *ngIf="showMdsUrl">
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>MDS URL:</mat-label>
+        <input matInput type="text" formControlName="mdsUrl">
+      </mat-form-field>
+      <button type="button" (click)="onClickTestConnection($event)">Test Connection</button>
+    </div>
     <mat-form-field floatLabel="auto" class="full-width">
       <mat-label>Description:</mat-label>
       <input matInput type="text" formControlName="description">

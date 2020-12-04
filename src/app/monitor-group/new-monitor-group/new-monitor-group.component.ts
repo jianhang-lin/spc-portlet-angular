@@ -1,14 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {Observable, of} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { DialogConfig } from '../../dialog/dialog-config';
-import { DialogRef } from '../../dialog/dialog-ref';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as fromReducers from '../../reducers';
 import * as netUserAction from '../../actions/net-user.action';
 import * as timeZoneInfoAction from '../../actions/time-zone-info.action';
 import { NetUserModel } from '../../domain/net-user.model';
 import { TimeZoneInfoModel } from '../../domain/time-zone-info.model';
+import { DialogService } from '../../dialog/dialog.service';
+import { CommonDialogComponent } from '../../shared/common-dialog/common-dialog.component';
+import {LocationStrategy} from "@angular/common";
 
 @Component({
   selector: 'app-new-monitor-group',
@@ -27,17 +30,19 @@ export class NewMonitorGroupComponent implements OnInit {
   showSendMFG = false;
   showMds = false;
   disableMds = true;
+  showMdsUrl = false;
   constructor(
-    public config: DialogConfig,
-    public dialogRef: DialogRef,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private store$: Store<fromReducers.State>,
+    private dialog: DialogService,
+    private location: LocationStrategy
     ) {
+    this.communityId$ = this.route.paramMap.pipe(map(p => p.get('community_id')));
     this.store$.dispatch(new netUserAction.LoadNetUserAction(null));
     this.netUsers$ = this.store$.select(fromReducers.getNetUserList);
     this.store$.dispatch(new timeZoneInfoAction.LoadTimeZoneInfoAction(null));
     this.timeZones$ = this.store$.select(fromReducers.getTimeZoneInfoList);
-    this.communityId$ = of(this.config.data.communityId);
   }
 
   ngOnInit(): void {
@@ -56,12 +61,13 @@ export class NewMonitorGroupComponent implements OnInit {
       timeZone: ['', Validators.required],
       sendMfgHold: false,
       mds: 'false',
+      mdsUrl: 'corpmdsqry[x].sanmina.com/corpmes[x]/mes_e[x]_[x]',
       description: '',
     });
   }
 
   onClose() {
-    this.dialogRef.close('some value');
+    this.location.back();
   }
 
   onSubmit({value, valid}, ev: Event) {
@@ -69,7 +75,7 @@ export class NewMonitorGroupComponent implements OnInit {
     if (!valid) {
       return;
     }
-    this.dialogRef.close(value);
+    console.log(JSON.stringify(value));
   }
 
   onChangeDataSourceType($event: Event) {
@@ -95,5 +101,30 @@ export class NewMonitorGroupComponent implements OnInit {
     } else {
       this.form.controls.mds.setValue('true');
     }
+    this.showMdsUrl = !this.disableMds;
+  }
+
+  onClickTestConnection($event: MouseEvent) {
+    console.log('onClickTestConnection');
+    const mdsUrl = this.form.get('mdsUrl').value;
+    const reg = RegExp(/\[x\]/);
+    if (mdsUrl.match(reg)) {
+      const msg = mdsUrl + ' should like <br/>' + 'corpmdsqry4.sanmina.com/corpmes4/mes_e81_01 <br/>Are you sure to replace input box value ?';
+      const ref = this.dialog.open(CommonDialogComponent, {
+        data: {
+          title: 'Confirm',
+          message: msg,
+          showCancel: true,
+          cancel: 'No',
+          showOk: true,
+          ok: 'Yes'
+        }
+      });
+      ref.afterClosed.subscribe(result => {
+        console.log('onClickTestConnection afterClosed closed', result);
+      });
+      return;
+    }
+    console.log('pingMDS');
   }
 }
