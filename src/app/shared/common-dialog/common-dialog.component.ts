@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogConfig } from '../../dialog/dialog-config';
+import { DialogRef } from '../../dialog/dialog-ref';
 
 @Component({
   selector: 'app-common-dialog',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommonDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public config: DialogConfig, public dialogRef: DialogRef) { }
 
   ngOnInit(): void {
   }
 
+  onFalse() {
+    this.dialogRef.close(false);
+  }
+
+
+  onTrue() {
+    this.dialogRef.close(true);
+  }
 }

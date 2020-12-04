@@ -1,1 +1,6 @@
-<p>common-dialog works!</p>
+<h3>{{config.data.title}}</h3>
+<div class="text-wrapper"><p>{{config.data.message}}</p></div>
+<div class="actions">
+  <button class="button" (click)="onFalse()" *ngIf="config.data.showCancel">{{config.data.cancel}}</button>
+  <button class="button" (click)="onTrue()" *ngIf="config.data.showOk">{{config.data.ok}}</button>
+</div>
