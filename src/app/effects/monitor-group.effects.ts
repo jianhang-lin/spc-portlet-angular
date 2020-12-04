@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { from, Observable, of } from 'rxjs';
 import { Action, Store } from '@ngrx/store';
 import * as monitorGroupAction from '../actions/monitor-group.action';
-import * as RouterActions from '../actions/router.action';
+import * as routerActions from '../actions/router.action';
 import * as fromReducers from '../reducers';
 import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { MonitorGroupService } from '../services/monitor-group.service';
@@ -30,10 +30,19 @@ export class MonitorGroupEffects {
   );
 
   @Effect()
+  loadAddMonitorGroups$: Observable<Action> = this.actions$.pipe(
+    ofType(monitorGroupAction.ActionTypes.LOAD_ADD),
+    map(toPayload),
+    map((communityId: number) => {
+      return new routerActions.Go({path: [`/community_id/${communityId}/new_monitor_groups`]});
+    })
+  );
+
+  @Effect()
   selectMonitorGroup$: Observable<Action> = this.actions$.pipe(
     ofType(monitorGroupAction.ActionTypes.SELECT_MONITOR_GROUP),
     map(toPayload),
-    map((monitorGroup: MonitorGroupModel) => new RouterActions.Go({path: [`/community_id/${monitorGroup.communitId}/monitor_groups/${monitorGroup.id}/function_list`]}))
+    map((monitorGroup: MonitorGroupModel) => new routerActions.Go({path: [`/community_id/${monitorGroup.communitId}/monitor_groups/${monitorGroup.id}/function_list`]}))
   );
 
   constructor(

@@ -30,10 +30,21 @@ const loadMonitorGroups = (state, action) => {
   };
 };
 
+const loadAddMonitorGroups = (state, action) => {
+  return {
+    ids: [...state.ids],
+    entities: {...state.entities},
+    selectedId: null
+  };
+};
+
 export function reducer(state = initialState, action: monitorGroupActions.Actions ): State {
   switch (action.type) {
     case monitorGroupActions.ActionTypes.LOAD_SUCCESS: {
       return loadMonitorGroups(state, action);
+    }
+    case monitorGroupActions.ActionTypes.LOAD_ADD_SUCCESS: {
+      return loadAddMonitorGroups(state, action);
     }
     case monitorGroupActions.ActionTypes.SELECT_MONITOR_GROUP: {
       return {...state, selectedId: action.payload + ''};
