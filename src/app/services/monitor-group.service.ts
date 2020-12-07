@@ -8,11 +8,17 @@ import { PingModel } from '../domain/ping.model';
 export class MonitorGroupService {
 
   private readonly domain = 'monitor-groups';
+  private readonly domain2 = 'monitor-groups2';
   private readonly pingMdsUrl = '/monitor-groups/pingMDS';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
   constructor(private http: HttpClient, @Inject('BASE_CONFIG') private config) {}
+
+  add(monitorGroup: MonitorGroupModel): Observable<MonitorGroupModel> {
+    const uri = `${this.config.uri}/${this.domain}`;
+    return this.http.post<MonitorGroupModel>(uri, JSON.stringify(monitorGroup), {headers: this.headers});
+  }
 
   get(userId: string): Observable<MonitorGroupModel[]> {
     const uri = `${this.config.uri}/${this.domain}`;

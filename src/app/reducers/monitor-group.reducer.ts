@@ -15,6 +15,14 @@ export const initialState: State = {
   selectedId: null,
 };
 
+const addMonitorGroups = (state, action) => {
+  return {
+    ids: [...state.ids],
+    entities: {...state.entities},
+    selectedId: null
+  };
+};
+
 const loadMonitorGroups = (state, action) => {
   const projects = action.payload;
   const incomingIds = projects.map(p => p.id);
@@ -40,6 +48,9 @@ const loadAddMonitorGroups = (state, action) => {
 
 export function reducer(state = initialState, action: monitorGroupActions.Actions ): State {
   switch (action.type) {
+    case monitorGroupActions.ActionTypes.ADD_SUCCESS: {
+      return addMonitorGroups(state, action);
+    }
     case monitorGroupActions.ActionTypes.LOAD_SUCCESS: {
       return loadMonitorGroups(state, action);
     }

@@ -15,6 +15,21 @@ const toPayload = <T>(action: {payload: T}) => action.payload;
 export class MonitorGroupEffects {
 
   @Effect()
+  addMonitorGroups$: Observable<Action> = this.actions$.pipe(
+    ofType(monitorGroupAction.ActionTypes.ADD),
+    map(toPayload),
+    withLatestFrom(this.store$.select(fromReducers.getMonitorGroupState)),
+    switchMap(([monitorGroup, auth]) => {
+        return this.service$.add(monitorGroup as MonitorGroupModel)
+          .pipe(
+            map(monitorGroups => new monitorGroupAction.AddSuccessAction(monitorGroup as MonitorGroupModel)),
+            catchError(err => of(new monitorGroupAction.LoadFailAction(JSON.stringify(err))))
+          );
+      }
+    )
+  );
+
+  @Effect()
   loadMonitorGroups$: Observable<Action> = this.actions$.pipe(
     ofType(monitorGroupAction.ActionTypes.LOAD),
     map(toPayload),

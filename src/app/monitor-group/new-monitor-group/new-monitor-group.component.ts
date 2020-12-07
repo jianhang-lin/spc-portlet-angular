@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as fromReducers from '../../reducers';
+import * as monitorGroupAction from '../../actions/monitor-group.action';
 import * as netUserAction from '../../actions/net-user.action';
 import * as timeZoneInfoAction from '../../actions/time-zone-info.action';
 import * as pingAction from '../../actions/ping.action';
@@ -14,6 +15,7 @@ import { TimeZoneInfoModel } from '../../domain/time-zone-info.model';
 import { DialogService } from '../../dialog/dialog.service';
 import { CommonDialogComponent } from '../../shared/common-dialog/common-dialog.component';
 import { PingModel } from '../../domain/ping.model';
+import { MonitorGroupBuilder } from '../../domain/monitor-group.model';
 
 @Component({
   selector: 'app-new-monitor-group',
@@ -25,6 +27,7 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
   title = 'Add Monitor Group';
   form: FormGroup;
   communityId$: Observable<string>;
+  communityId: string;
   netUsers: NetUserModel[];
   netUsers$: Observable<NetUserModel[]>;
   timeZones: TimeZoneInfoModel[];
@@ -53,6 +56,7 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.communityId$.subscribe(communityId => {
+      this.communityId = communityId;
     });
     this.netUsers$.subscribe(value => {
       this.netUsers = value;
@@ -66,7 +70,7 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
         return;
       }
       const pingResultMsg = this.pingResult.flag ? 'Connect successfully' : 'Can not connect, please check the IP(or hostname)';
-      const ref = this.dialog.open(CommonDialogComponent, {
+      this.dialog.open(CommonDialogComponent, {
         data: {
           title: 'Information',
           message: pingResultMsg,
@@ -98,18 +102,21 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
     if (!valid) {
       return;
     }
-    console.log(JSON.stringify(value));
+    this.store$.dispatch(new monitorGroupAction.AddAction(
+      new MonitorGroupBuilder().create(value.name, value.dataSourceType, value.floorId,
+        value.timeZone, value.sendMfgHold, value.mds, value.mdsUrl, value.description)
+    ));
   }
 
   onChangeDataSourceType($event: Event) {
     const dataSourceType = this.form.get('dataSourceType').value;
     switch (dataSourceType) {
-      case '1':
+      case 'MDS':
         this.showSendMFG = true;
         this.showMds = true;
         break;
-      case '2':
-      case '3':
+      case 'SPI':
+      case 'DotLine Source':
       default:
         this.showSendMFG = false;
         this.showMds = false;
