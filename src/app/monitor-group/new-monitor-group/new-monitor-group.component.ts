@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { LocationStrategy } from '@angular/common';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -7,18 +8,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as fromReducers from '../../reducers';
 import * as netUserAction from '../../actions/net-user.action';
 import * as timeZoneInfoAction from '../../actions/time-zone-info.action';
+import * as pingAction from '../../actions/ping.action';
 import { NetUserModel } from '../../domain/net-user.model';
 import { TimeZoneInfoModel } from '../../domain/time-zone-info.model';
 import { DialogService } from '../../dialog/dialog.service';
 import { CommonDialogComponent } from '../../shared/common-dialog/common-dialog.component';
-import {LocationStrategy} from "@angular/common";
+import { PingModel } from '../../domain/ping.model';
 
 @Component({
   selector: 'app-new-monitor-group',
   templateUrl: './new-monitor-group.component.html',
   styleUrls: ['./new-monitor-group.component.scss']
 })
-export class NewMonitorGroupComponent implements OnInit {
+export class NewMonitorGroupComponent implements OnInit, OnDestroy {
 
   title = 'Add Monitor Group';
   form: FormGroup;
@@ -31,6 +33,9 @@ export class NewMonitorGroupComponent implements OnInit {
   showMds = false;
   disableMds = true;
   showMdsUrl = false;
+  pingResultSubscription: Subscription;
+  pingResult$: Observable<PingModel>;
+  pingResult: PingModel;
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
@@ -43,6 +48,7 @@ export class NewMonitorGroupComponent implements OnInit {
     this.netUsers$ = this.store$.select(fromReducers.getNetUserList);
     this.store$.dispatch(new timeZoneInfoAction.LoadTimeZoneInfoAction(null));
     this.timeZones$ = this.store$.select(fromReducers.getTimeZoneInfoList);
+    this.pingResult$ = this.store$.select(fromReducers.getPingFlag);
   }
 
   ngOnInit(): void {
@@ -53,6 +59,23 @@ export class NewMonitorGroupComponent implements OnInit {
     });
     this.timeZones$.subscribe(value => {
       this.timeZones = value;
+    });
+    this.pingResultSubscription = this.pingResult$.subscribe(value => {
+      this.pingResult = value;
+      if (this.pingResult.flag === undefined) {
+        return;
+      }
+      const pingResultMsg = this.pingResult.flag ? 'Connect successfully' : 'Can not connect, please check the IP(or hostname)';
+      const ref = this.dialog.open(CommonDialogComponent, {
+        data: {
+          title: 'Information',
+          message: pingResultMsg,
+          showCancel: false,
+          cancel: 'No',
+          showOk: true,
+          ok: 'OK'
+        }
+      });
     });
     this.form = this.fb.group({
       name: ['', Validators.required],
@@ -105,7 +128,6 @@ export class NewMonitorGroupComponent implements OnInit {
   }
 
   onClickTestConnection($event: MouseEvent) {
-    console.log('onClickTestConnection');
     const mdsUrl = this.form.get('mdsUrl').value;
     const reg = RegExp(/\[x\]/);
     if (mdsUrl.match(reg)) {
@@ -120,11 +142,17 @@ export class NewMonitorGroupComponent implements OnInit {
           ok: 'Yes'
         }
       });
-      ref.afterClosed.subscribe(result => {
-        console.log('onClickTestConnection afterClosed closed', result);
+      ref.afterClosed.subscribe(needToReplaceMdsUrl => {
+        if (needToReplaceMdsUrl) {
+          this.form.controls.mdsUrl.setValue('corpmdsqry4.sanmina.com/corpmes4/mes_e81_01');
+        }
       });
       return;
     }
-    console.log('pingMDS');
+    this.store$.dispatch(new pingAction.PingMdsAction(mdsUrl));
+  }
+
+  ngOnDestroy(): void {
+    this.pingResultSubscription.unsubscribe();
   }
 }

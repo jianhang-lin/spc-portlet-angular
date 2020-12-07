@@ -21,6 +21,7 @@ import { ChartBarOptionsEffects } from './chart-bar-options.effects';
 import { GlobalSystemParameterEffects } from './global-system-parameter.effects';
 import { NetUserEffects } from './net-user.effects';
 import { TimeZoneInfoEffects } from './time-zone-info.effects';
+import { PingEffects } from './ping.effects';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { TimeZoneInfoEffects } from './time-zone-info.effects';
       GlobalSystemParameterEffects,
       NetUserEffects,
       TimeZoneInfoEffects,
+      PingEffects,
     ])
   ],
 })

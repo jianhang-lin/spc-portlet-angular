@@ -27,6 +27,7 @@ import * as chartBarOptionsReducer from './chart-bar-options.reducer';
 import * as globalSystemParameterReducer from './global-system-parameter.reducer';
 import * as netUserReducer from './net-user.reducer';
 import * as timeZoneInfoReducer from './time-zone-info.reducer';
+import * as pingReducer from './ping.reducer';
 
 export interface State {
   stepGrid: stepGridReducer.State;
@@ -49,6 +50,7 @@ export interface State {
   globalSystemParameter: globalSystemParameterReducer.State;
   netUsers: netUserReducer.State;
   timeZoneInfos: timeZoneInfoReducer.State;
+  pingFlag: pingReducer.State;
 }
 
 const initialState: State = {
@@ -72,6 +74,7 @@ const initialState: State = {
   globalSystemParameter: globalSystemParameterReducer.initialState,
   netUsers: netUserReducer.initialState,
   timeZoneInfos: timeZoneInfoReducer.initialState,
+  pingFlag: pingReducer.initialState,
 };
 
 const reducers = {
@@ -95,6 +98,7 @@ const reducers = {
   globalSystemParameter: globalSystemParameterReducer.reducer,
   netUsers: netUserReducer.reducer,
   timeZoneInfos: timeZoneInfoReducer.reducer,
+  pingFlag: pingReducer.reducer,
 };
 
 const productionReducers: ActionReducer<State> = combineReducers(reducers);
@@ -124,6 +128,7 @@ export const getChartBarOptionsState = (state: State) => state.chartBarOptions;
 export const getGlobalSystemParameterState = (state: State) => state.globalSystemParameter;
 export const getNetUserState = (state: State) => state.netUsers;
 export const getTimeZoneInfoState = (state: State) => state.timeZoneInfos;
+export const getPingFlagState = (state: State) => state.pingFlag;
 
 export const getStepGrids = createSelector(getStepGridState, stepGridReducer.getStepGrids);
 export const getMonitorGroups = createSelector(getMonitorGroupState, monitorGroupReducer.getAll);
@@ -146,6 +151,7 @@ export const getGlobalSystemParameter =
   createSelector(getGlobalSystemParameterState, globalSystemParameterReducer.getGlobalSystemParameter);
 export const getNetUserList = createSelector(getNetUserState, netUserReducer.getAll);
 export const getTimeZoneInfoList = createSelector(getTimeZoneInfoState, timeZoneInfoReducer.getAll);
+export const getPingFlag = createSelector(getPingFlagState, pingReducer.getPingFlag);
 
 @NgModule({
   imports: [
