@@ -1,5 +1,6 @@
 export interface MonitorGroupModel {
   collectSchema: string;
+  collectionSchema: string;
   collectionDatasource: string;
   communitId: number;
   configDatasource: string;
@@ -12,7 +13,7 @@ export interface MonitorGroupModel {
   mdsUrl: string;
   name: string;
   netUserId: string;
-  offset: number;
+  offSet: number;
   plant: string;
   sendMds: boolean;
   sendMfg: boolean;
@@ -34,6 +35,7 @@ export class MonitorGroupBuilder {
   ): MonitorGroupModel {
     return {
       collectSchema: mds,
+      collectionSchema: '',
       collectionDatasource: '',
       communitId: 0,
       configDatasource: '',
@@ -46,7 +48,7 @@ export class MonitorGroupBuilder {
       mdsUrl,
       name,
       netUserId: floorId,
-      offset: 0,
+      offSet: 0,
       plant: '',
       position: 0,
       sendMds: false,

@@ -15,7 +15,7 @@ import { TimeZoneInfoModel } from '../../domain/time-zone-info.model';
 import { DialogService } from '../../dialog/dialog.service';
 import { CommonDialogComponent } from '../../shared/common-dialog/common-dialog.component';
 import { PingModel } from '../../domain/ping.model';
-import { MonitorGroupBuilder } from '../../domain/monitor-group.model';
+import { MonitorGroupModel } from '../../domain/monitor-group.model';
 
 @Component({
   selector: 'app-new-monitor-group',
@@ -90,6 +90,13 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
       mds: 'false',
       mdsUrl: 'corpmdsqry[x].sanmina.com/corpmes[x]/mes_e[x]_[x]',
       description: '',
+      plant: '',
+      configDatasource: 'config datasource',
+      configSchema: 'config schema',
+      collectionDatasource: 'collect datasource',
+      collectSchema: 'mds',
+      offSet: '-0',
+      engineServerPort: '8090',
     });
   }
 
@@ -102,9 +109,33 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
     if (!valid) {
       return;
     }
+    const addMonitorGroupModel: MonitorGroupModel = {
+      collectSchema: value.collectSchema,
+      collectionSchema: value.collectSchema,
+      collectionDatasource: value.collectionDatasource,
+      communitId: Number(this.communityId),
+      configDatasource: value.configDatasource,
+      configSchema: value.configSchema,
+      datasourceType: value.dataSourceType,
+      description: value.description,
+      engineServer: window.location.hostname,
+      engineServerPort: value.engineServerPort,
+      id: 0,
+      mdsUrl: value.mdsUrl,
+      name: value.name,
+      netUserId: value.floorId,
+      offSet: value.offSet,
+      plant: value.plant,
+      position: 0,
+      sendMds: false,
+      sendMfg: value.sendMfgHold,
+      sendSfdc: false,
+      sfdcIp: '',
+      sfdcTimezone: value.timeZone,
+      sfdcWebService: ''
+    };
     this.store$.dispatch(new monitorGroupAction.AddAction(
-      new MonitorGroupBuilder().create(value.name, value.dataSourceType, value.floorId,
-        value.timeZone, value.sendMfgHold, value.mds, value.mdsUrl, value.description)
+      addMonitorGroupModel
     ));
   }
 

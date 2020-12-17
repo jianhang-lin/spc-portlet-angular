@@ -40,6 +40,33 @@
       <mat-label>Description:</mat-label>
       <input matInput type="text" formControlName="description">
     </mat-form-field>
+
+    <div *ngIf="false">
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>Plant:</mat-label>
+        <input matInput type="text" formControlName="plant">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>Config Datasource:</mat-label>
+        <input matInput type="text" formControlName="configDatasource">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>Config Schema:</mat-label>
+        <input matInput type="text" formControlName="configSchema">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>Collect Datasource:</mat-label>
+        <input matInput type="text" formControlName="collectionDatasource">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>MDS DB Schema:</mat-label>
+        <input matInput type="text" formControlName="collectSchema">
+      </mat-form-field>
+      <mat-form-field floatLabel="auto" class="full-width">
+        <mat-label>SFDC offset:</mat-label>
+        <input matInput type="text" formControlName="offSet">
+      </mat-form-field>
+    </div>
   </div>
   <div >
     <button type="submit" mat-raised-button color="primary">Save</button>
