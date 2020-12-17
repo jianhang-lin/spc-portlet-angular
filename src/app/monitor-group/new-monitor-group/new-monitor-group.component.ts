@@ -137,6 +137,7 @@ export class NewMonitorGroupComponent implements OnInit, OnDestroy {
     this.store$.dispatch(new monitorGroupAction.AddAction(
       addMonitorGroupModel
     ));
+    this.location.back();
   }
 
   onChangeDataSourceType($event: Event) {
